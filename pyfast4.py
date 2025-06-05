@@ -11,6 +11,7 @@ from utils import (
 )
 import pyfstat
 
+
 # Configuration settings
 plt.style.use('default')  # Ensure consistent plotting style
 
@@ -42,7 +43,7 @@ inj = {
     "F2": 0,
     "Alpha": 0.5,
     "Delta": 1,
-    "h0": 0.1 * sqrtSX,
+    "h0": 0.5 * sqrtSX,
     "cosi": 1.0,
 }
 
@@ -75,7 +76,7 @@ writer.make_data()
 
 # Set up square search grid with fixed (F0,F1) mismatch
 # and (optionally) some ad-hoc sky coverage
-m = 0.1
+m = 0.5
 dF0 = np.sqrt(12 * m) / (np.pi * duration) 
 dF1 = np.sqrt(180 * m) / (np.pi * duration**2) 
 DeltaF0 = 500 * dF0
@@ -352,10 +353,10 @@ print(f"Method 1 (F-statistic):     {mismatch_fstat}")
 print(f"Method 2 (Metric):          {total_mismatch_metric:.6f}")
 print(f"Method 3 (Comprehensive):   {loudest['mismatch']:.6f}")
 
-print(f"\nRelative differences:")
-print(f"Method 2 vs Method 1: {(total_mismatch_metric/mismatch_fstat - 1)*100:.2f}%")
-print(f"Method 3 vs Method 1: {(loudest['mismatch']/mismatch_fstat - 1)*100:.2f}%")
-print(f"Method 3 vs Method 2: {(loudest['mismatch']/total_mismatch_metric - 1)*100:.2f}%")
+# print(f"\nRelative differences:")
+# print(f"Method 2 vs Method 1: {(total_mismatch_metric/mismatch_fstat - 1)*100:.2f}%")
+# print(f"Method 3 vs Method 1: {(loudest['mismatch']/mismatch_fstat - 1)*100:.2f}%")
+# print(f"Method 3 vs Method 2: {(loudest['mismatch']/total_mismatch_metric - 1)*100:.2f}%")
 
 # Additional insights
 print(f"\nAdditional Insights:")
@@ -364,11 +365,11 @@ print(f"Grid spacing (dF1): {dF1:.6e} Hz/s")
 print(f"Target mismatch (m): {m:.6f}")
 
 # Check if the loudest point is close to the target mismatch
-if abs(loudest['mismatch'] - m) < 0.5 * m:
-    print(f"✓ Grid search performed well: loudest mismatch ≈ target mismatch")
-else:
-    print(f"⚠ Grid search mismatch differs significantly from target")
+# if abs(loudest['mismatch'] - m) < 0.5 * m:
+#     print(f"✓ Grid search performed well: loudest mismatch ≈ target mismatch")
+# else:
+#     print(f"⚠ Grid search mismatch differs significantly from target")
 
-print(f"\nAnalysis complete! All mismatch calculation methods have been applied.")
-print(f"Check the plots and output files in: {outdir}")
+# print(f"\nAnalysis complete! All mismatch calculation methods have been applied.")
+# print(f"Check the plots and output files in: {outdir}")
 

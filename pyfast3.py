@@ -34,7 +34,7 @@ inj = {
     "F2": 0,
     "Alpha": 0.5,
     "Delta": 1,
-    "h0": 0.01 * sqrtSX,
+    "h0": 0.1 * sqrtSX,
     "cosi": 1.0,
 }
 
@@ -203,7 +203,7 @@ gridcorner_fig, gridcorner_axes = pyfstat.gridcorner(
 )
 gridcorner_fig.savefig(os.path.join(outdir, gridsearch.label + "_corner.pdf"))
 plt.figure(gridcorner_fig.number)  # Make the figure current
-plt.show()
+# plt.show()
 
 # Define zoom parameters
 zoom = {
