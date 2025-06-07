@@ -194,7 +194,7 @@ def calculate_mismatch(i):
 
 if __name__ == "__main__":
     # run the mismatch calculation in parallel
-    with concurrent.futures.ProcessPoolExecutor(10) as executor:
+    with concurrent.futures.ProcessPoolExecutor(config.num_workers) as executor:
         futures = []
         for i in range(config.numbers):
             futures.append(executor.submit(calculate_mismatch, i))
