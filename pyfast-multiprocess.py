@@ -10,14 +10,17 @@ import concurrent.futures
 # instead of just (F0,F1)
 # (still only a few minutes on current laptops)
 sky = False
+plot = False
+# log = 
+
 
 # general setup
 label = "PyFstatExampleSimpleMCMCvsGridComparison"
 outdir = os.path.join("PyFstat_example_data", label)
-logger = pyfstat.set_up_logger(label=label, outdir=outdir)
+logger = pyfstat.set_up_logger(label=label, outdir=outdir, log_level="WARNING")
 if sky:
     outdir += "AlphaDelta"
-
+printout = False
 # parameters for the data set to generate
 tstart = 1000000000
 duration = 30 * 86400
@@ -33,7 +36,7 @@ inj = {
     "F2": 0,
     "Alpha": 0.5,
     "Delta": 1,
-    "h0": 0.5 * sqrtSX,
+    "h0": 0.05 * sqrtSX,
     "cosi": 1.0,
 }
 
@@ -64,15 +67,23 @@ writer.make_data()
 
 # set up square search grid with fixed (F0,F1) mismatch
 # and (optionally) some ad-hoc sky coverage
-m = 0.3
-dF0 = np.sqrt(12 * m) / (np.pi * duration)
-dF1 = np.sqrt(180 * m) / (np.pi * duration**2)
-DeltaF0 = 500 * dF0
-DeltaF1 = 200 * dF1
+mf = 0.15
+mf1 = 0.3
+dF0 = np.sqrt(12 * mf) / (np.pi * duration)
+dF1 = np.sqrt(180 * mf1) / (np.pi * duration**2)
+DeltaF0 = 50 * dF0 # 500 
+DeltaF1 = 40 * dF1 # 200
 if sky:
     # cover less range to keep runtime down
     DeltaF0 /= 10
     DeltaF1 /= 10
+    
+    
+zoom = {
+        "F0": [inj["F0"] - 10 * dF0, inj["F0"] + 10 * dF0],
+        "F1": [inj["F1"] - 5 * dF1, inj["F1"] + 5 * dF1],
+    }
+
 
 # some plotting helper functions
 def plot_grid_vs_samples(grid_res, mcmc_res, xkey, ykey):
@@ -131,7 +142,7 @@ def plot_2F_scatter(res, label, xkey, ykey):
     # plt.show()
 
 
-numbers = 10
+numbers = 500
 mismatches = []
 F0s_random = np.random.uniform(-dF0, dF0, size=numbers)
 F1s_random = np.random.uniform(-dF1, dF1, size=numbers)
@@ -166,7 +177,7 @@ def calculate_mismatch(i):
     # run the grid search
     logger.info("Performing GridSearch...")
     gridsearch = pyfstat.GridSearch(
-        label="GridSearch" + search_keys_label,
+        label=f"GridSearch_iter_{i}" + search_keys_label,
         outdir=outdir,
         sftfilepattern=writer.sftfilepath,
         F0s=F0s,
@@ -184,8 +195,9 @@ def calculate_mismatch(i):
     # do some plots of the GridSearch results
     if not sky:  # this plotter can't currently deal with too large result arrays
         logger.info("Plotting 1D 2F distributions...")
-        for key in search_keys:
-            gridsearch.plot_1D(xkey=key, xlabel=labels[key], ylabel=labels["2F"])
+        if plot:
+            for key in search_keys:
+                gridsearch.plot_1D(xkey=key, xlabel=labels[key], ylabel=labels["2F"])
 
         logger.info("Making GridSearch {:s} corner plot...".format("-".join(search_keys)))
         vals = [np.unique(gridsearch.data[key]) - inj[key] for key in search_keys]
@@ -198,24 +210,22 @@ def calculate_mismatch(i):
             corner_labels.append("$\\alpha - \\alpha_0$")
             corner_labels.append("$\\delta - \\delta_0$")
         corner_labels.append(labels["2F"])
-        
-        gridcorner_fig, gridcorner_axes = pyfstat.gridcorner(
-            twoF, vals, projection="log_mean", labels=corner_labels,
-            whspace=0.1, factor=1.8
-        )
-        gridcorner_fig.savefig(os.path.join(outdir, gridsearch.label + "_corner.png"))
-        # plt.show()
+        if plot:
+            gridcorner_fig, gridcorner_axes = pyfstat.gridcorner(
+                twoF, vals, projection="log_mean", labels=corner_labels,
+                whspace=0.1, factor=1.8
+            )
+            gridcorner_fig.savefig(os.path.join(outdir, gridsearch.label + "_corner.png"))
+            # plt.show()
 
-    zoom = {
-        "F0": [inj["F0"] - 10 * dF0, inj["F0"] + 10 * dF0],
-        "F1": [inj["F1"] - 5 * dF1, inj["F1"] + 5 * dF1],
-    }
+
 
     # we'll use the two local plotting functions defined above
     # to avoid code duplication in the sky case
-    plot_2F_scatter(gridsearch.data, "grid", "F0", "F1")
-    if sky:
-        plot_2F_scatter(gridsearch.data, "grid", "Alpha", "Delta")
+    if plot:
+        plot_2F_scatter(gridsearch.data, "grid", "F0", "F1")
+        if sky:
+            plot_2F_scatter(gridsearch.data, "grid", "Alpha", "Delta")
         
         
         
@@ -253,21 +263,26 @@ def calculate_mismatch(i):
 
     # --- 3) empirical mismatch -------------------------------------
     mu_empirical = (rho2_no - rho2_mis) / rho2_no
-
-    print("\n--------- mismatch check (ρ-based) ---------")
-    print(f"2F(injection)  = {twoF_inj:10.3f}")
-    print(f"2F(loudest)    = {twoF_mis:10.3f}")
-    print(f"ρ²_no-mismatch = {rho2_no:10.3f}")
-    print(f"ρ²_mismatch    = {rho2_mis:10.3f}")
-    print(f"μ  (empirical) = {mu_empirical:10.3e}")
-    print("-------------------------------------------")
+    
+    if printout:
+        print("\n--------- mismatch check (ρ-based) ---------")
+        print(f"2F(injection)  = {twoF_inj:10.3f}")
+        print(f"2F(loudest)    = {twoF_mis:10.3f}")
+        print(f"ρ²_no-mismatch = {rho2_no:10.3f}")
+        print(f"ρ²_mismatch    = {rho2_mis:10.3f}")
+        print(f"μ  (empirical) = {mu_empirical:10.3e}")
+        print("-------------------------------------------")
+        
     # mismatches.append(mu_empirical)
+    del gridsearch            # 1️⃣ free Python references
+    del fs                    # 2️⃣ free ComputeFstat object
+    import gc; gc.collect()   # 3️⃣ force GC inside the worker
 
     return mu_empirical
 
 if __name__ == "__main__":
     # run the mismatch calculation in parallel
-    with concurrent.futures.ProcessPoolExecutor() as executor:
+    with concurrent.futures.ProcessPoolExecutor(10) as executor:
         futures = []
         for i in range(numbers):
             futures.append(executor.submit(calculate_mismatch, i))
@@ -282,11 +297,12 @@ if __name__ == "__main__":
 
 
     plt.figure(figsize=(10, 6))
-    plt.hist(mismatches, bins=20, density=True, alpha=0.7, color='blue')
+    plt.hist(mismatches, bins=10, density=True, alpha=0.7, color='blue')
     plt.xlabel("Empirical Mismatch (μ)")
     plt.ylabel("Density")
     plt.title("Mismatch Distribution from Grid Search")
     plt.grid()
-    plt.savefig(os.path.join(outdir, "mismatch_distribution.pdf"))
+    plt.savefig(os.path.join(outdir, f"mismatch_distribution-max-mismatch:{mf}.pdf"))
     plt.show()
+
 
