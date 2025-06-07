@@ -32,7 +32,7 @@ def plot_grid_vs_samples(grid_res, mcmc_res, xkey, ykey):
     plt.xlabel(config.labels[xkey])
     plt.ylabel(config.labels[ykey])
     plt.legend()
-    plotfilename_base = os.path.join(outdir, "grid_vs_mcmc_{:s}{:s}".format(xkey, ykey))
+    plotfilename_base = os.path.join(config.outdir, "grid_vs_mcmc_{:s}{:s}".format(xkey, ykey))
     plt.savefig(plotfilename_base + ".png")
     if xkey == "F0" and ykey == "F1":
         plt.xlim(zoom[xkey])
@@ -59,7 +59,7 @@ def plot_2F_scatter(res, label, xkey, ykey):
         label=config.labels["max2F"],
     )
     plt.legend(loc='upper right')
-    plotfilename_base = os.path.join(outdir, "{:s}_{:s}{:s}_2F".format(label, xkey, ykey))
+    plotfilename_base = os.path.join(config.outdir, "{:s}_{:s}{:s}_2F".format(label, xkey, ykey))
     plt.xlim([min(res[xkey]), max(res[xkey])])
     plt.ylim([min(res[ykey]), max(res[ykey])])
     plt.savefig(plotfilename_base + ".png")

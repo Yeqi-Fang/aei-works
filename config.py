@@ -1,4 +1,6 @@
 import numpy as np
+import os 
+
 
 sky = False
 plot = False
@@ -10,6 +12,10 @@ nsegs = int(duration / T_coh)  # number of segments for the MCMC
 Tsft = 1800
 detectors = "H1,L1"
 sqrtSX = 1e-22
+
+label = "PyFstatExampleSimpleMCMCvsGridComparisonSemi"
+outdir = os.path.join("PyFstat_example_data", label)
+
 
 inj = {
     "tref": tstart,
