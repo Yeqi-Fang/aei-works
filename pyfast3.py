@@ -72,6 +72,8 @@ dF1 = np.sqrt(180 * m) / (np.pi * duration**2)
 DeltaF0 = 500 * dF0
 DeltaF1 = 200 * dF1
 
+
+
 if sky:
     # Cover less range to keep runtime down
     DeltaF0 /= 10
