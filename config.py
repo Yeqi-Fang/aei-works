@@ -5,6 +5,7 @@ import os
 sky = False
 plot = False
 numbers = 500
+num_workers = 10
 tstart = 1000000000
 duration = 120 * 86400
 T_coh = 15 * 86400  # coherence time for the MCMC
