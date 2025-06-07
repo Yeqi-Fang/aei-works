@@ -17,11 +17,10 @@ import concurrent.futures
 
 
 # general setup
-label = "PyFstatExampleSimpleMCMCvsGridComparisonSemi"
-outdir = os.path.join("PyFstat_example_data", label)
-logger = pyfstat.set_up_logger(label=label, outdir=outdir, log_level="WARNING")
+
+logger = pyfstat.set_up_logger(label=config.label, outdir=config.outdir, log_level="WARNING")
 if config.sky:
-    outdir += "AlphaDelta"
+    config.outdir += "AlphaDelta"
 printout = False
 # parameters for the data set to generate
 
@@ -31,8 +30,8 @@ printout = False
 # create SFT files
 logger.info("Generating SFTs with injected signal...")
 writer = pyfstat.Writer(
-    label=label + "SimulatedSignal",
-    outdir=outdir,
+    label=config.label + "SimulatedSignal",
+    outdir=config.outdir,
     tstart=config.tstart,
     duration=config.duration,
     detectors=config.detectors,
@@ -86,7 +85,7 @@ def calculate_mismatch(i):
     logger.info("Performing GridSearch...")
     gridsearch = pyfstat.GridSearch(
         label=f"GridSearch_iter_{i}" + search_keys_label,
-        outdir=outdir,
+        outdir=config.outdir,
         sftfilepattern=writer.sftfilepath,
         F0s=F0s,
         F1s=F1s,
@@ -124,7 +123,7 @@ def calculate_mismatch(i):
                 twoF, vals, projection="log_mean", labels=corner_labels,
                 whspace=0.1, factor=1.8
             )
-            gridcorner_fig.savefig(os.path.join(outdir, gridsearch.label + "_corner.png"))
+            gridcorner_fig.savefig(os.path.join(config.outdir, gridsearch.label + "_corner.png"))
             # plt.show()
 
 
@@ -151,7 +150,7 @@ def calculate_mismatch(i):
     
     fs = pyfstat.SemiCoherentSearch(
         label="MismatchTest",  # SemiCoherentSearch需要label
-        outdir=outdir,         # 需要outdir
+        outdir=config.outdir,         # 需要outdir
         tref=config.inj["tref"],
         nsegs=config.nsegs,              # 添加分段数
         sftfilepattern=writer.sftfilepath,
@@ -202,7 +201,7 @@ if __name__ == "__main__":
         mismatches = [future.result() for future in concurrent.futures.as_completed(futures)]
 
     # save the mismatch results to a csv file
-    mismatch_file = os.path.join(outdir, "mismatches.csv")
+    mismatch_file = os.path.join(config.outdir, "mismatches.csv")
     np.savetxt(mismatch_file, mismatches, delimiter=",", header="Empirical Mismatch (μ)", comments='')
 
 
@@ -215,7 +214,7 @@ if __name__ == "__main__":
     plt.ylabel("Density")
     plt.title("Mismatch Distribution from Grid Search")
     plt.grid()
-    plt.savefig(os.path.join(outdir, f"mismatch_distribution-max-mismatch:{mf}.pdf"))
+    plt.savefig(os.path.join(config.outdir, f"mismatch_distribution-max-mismatch:{config.mf}.pdf"))
     plt.show()
 
     
