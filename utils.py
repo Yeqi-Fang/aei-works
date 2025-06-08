@@ -87,3 +87,7 @@ class CalculationParams:
     labels: Dict[str, str]
     tstart: int
     duration: int
+
+# The next step : 1. make each run return a list rather than a mismatch value (mf, mfdot)
+# change the mf, mfdot and get different point
+# train the model
