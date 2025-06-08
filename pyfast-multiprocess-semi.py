@@ -75,13 +75,17 @@ mf2 = 0.003
 gamma1 = 8
 gamma2 = 20
 dF0 = np.sqrt(12 * mf) / (np.pi * T_coh)
-dF1 = np.sqrt(180 * mf1) / (np.pi * T_coh**2) / gamma1
-dF2 = np.sqrt(25200 * mf2) / (np.pi * T_coh**3) / gamma2
+dF1 = np.sqrt(180 * mf1) / (np.pi * T_coh**2) 
+dF2 = np.sqrt(25200 * mf2) / (np.pi * T_coh**3)
 
+dF1_refined = dF1 / gamma1
+dF2_refined = dF2 / gamma1
 
 DeltaF0 = 30 * dF0 # 500 
-DeltaF1 = 20 * dF1 # 200
-DeltaF2 = 10 * dF2 # 60
+DeltaF1 = 20 * dF1_refined # 200
+DeltaF2 = 10 * dF2_refined # 60
+
+
 print(DeltaF0, DeltaF1, DeltaF2)
 
 
@@ -89,12 +93,12 @@ if sky:
     # cover less range to keep runtime down
     DeltaF0 /= 10
     DeltaF1 /= 10
-    DeltaF2 /= 10
+    DeltaF2 /= 5
     
     
 zoom = {
         "F0": [inj["F0"] - 10 * dF0, inj["F0"] + 10 * dF0],
-        "F1": [inj["F1"] - 5 * dF1, inj["F1"] + 5 * dF1],
+        "F1": [inj["F1"] - 5 * dF1_refined, inj["F1"] + 5 * dF1_refined],
     }
 
 
@@ -158,8 +162,8 @@ def plot_2F_scatter(res, label, xkey, ykey):
 numbers = 500
 mismatches = []
 F0s_random = np.random.uniform(-dF0, dF0, size=numbers)
-F1s_random = np.random.uniform(-dF1, dF1, size=numbers)
-F2s_random = np.random.uniform(-dF2, dF2, size=numbers)
+F1s_random = np.random.uniform(-dF1_refined, dF1_refined, size=numbers)
+F2s_random = np.random.uniform(-dF2_refined, dF2_refined, size=numbers)
 
 
 def calculate_mismatch(i):
@@ -172,8 +176,8 @@ def calculate_mismatch(i):
 
 
     F0s = [inj["F0"] - DeltaF0 / 2.0 + F0s_random[i], inj["F0"] + DeltaF0 / 2.0 + F0s_random[i], dF0]
-    F1s = [inj["F1"] - DeltaF1 / 2.0 + F1s_random[i], inj["F1"] + DeltaF1 / 2.0 + F1s_random[i], dF1]
-    F2s = [inj["F2"] - DeltaF2 / 2.0 + F2s_random[i], inj["F2"] + DeltaF2 / 2.0 + F2s_random[i], dF2]
+    F1s = [inj["F1"] - DeltaF1 / 2.0 + F1s_random[i], inj["F1"] + DeltaF1 / 2.0 + F1s_random[i], dF1_refined]
+    F2s = [inj["F2"] - DeltaF2 / 2.0 + F2s_random[i], inj["F2"] + DeltaF2 / 2.0 + F2s_random[i], dF2_refined]
     
     
     search_keys = ["F0", "F1", "F2"]  # only the ones that aren't 0-width
@@ -336,7 +340,7 @@ if __name__ == "__main__":
     Nf2 = DeltaF2_fixed / dF2
     
     N_det = 2
-    N_coh = Nf0 * Nf1 * Nf2
+    N_coh = (Nf0 + 1) * (Nf1 +1) * (Nf2 + 1)
     
     N_can = 0
     
