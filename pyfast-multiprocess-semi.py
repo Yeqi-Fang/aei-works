@@ -2,23 +2,39 @@ import os
 import numpy as np
 import pyfstat
 import config
+
 # make sure to put these after the pyfstat import, to not break notebook inline plots
 import matplotlib.pyplot as plt
+
 # %matplotlib inline
 from utils import plot_grid_vs_samples, plot_2F_scatter
+import matplotlib as mpl
 
+# --- one-off style tweaks ---------------------------------------------------
+mpl.rcParams.update(
+    {
+        "font.family": "serif",  # Times/Computer Modern-style text
+        "mathtext.fontset": "cm",
+        "axes.spines.top": False,  # hide unnecessary spines
+        "axes.spines.right": False,
+        "axes.linewidth": 1.2,  # make the remaining spines a little bolder
+    }
+)
 
 import concurrent.futures
+
 # flip this switch for a more expensive 4D (F0,F1,Alpha,Delta) run
 # instead of just (F0,F1)
 # (still only a few minutes on current laptops)
 
-# log = 
+# log =
 
 
 # general setup
 
-logger = pyfstat.set_up_logger(label=config.label, outdir=config.outdir, log_level="WARNING")
+logger = pyfstat.set_up_logger(
+    label=config.label, outdir=config.outdir, log_level="WARNING"
+)
 if config.sky:
     config.outdir += "AlphaDelta"
 printout = False
@@ -46,34 +62,55 @@ writer.make_data()
 # and (optionally) some ad-hoc sky coverage
 
 print(config.DeltaF0, config.DeltaF1, config.DeltaF2)
-    
+
 
 mismatches = []
 F0s_random = np.random.uniform(-config.dF0, config.dF0, size=config.numbers)
-F1s_random = np.random.uniform(-config.dF1_refined, config.dF1_refined, size=config.numbers)
-F2s_random = np.random.uniform(-config.dF2_refined, config.dF2_refined, size=config.numbers)
+F1s_random = np.random.uniform(
+    -config.dF1_refined, config.dF1_refined, size=config.numbers
+)
+F2s_random = np.random.uniform(
+    -config.dF2_refined, config.dF2_refined, size=config.numbers
+)
 
 
 def calculate_mismatch(i):
 
-    
     import pyfstat
     import numpy as np
     import os
-    
 
-    F0s = [config.inj["F0"] - config.DeltaF0 / 2.0 + F0s_random[i], config.inj["F0"] + config.DeltaF0 / 2.0 + F0s_random[i], config.dF0]
-    F1s = [config.inj["F1"] - config.DeltaF1 / 2.0 + F1s_random[i], config.inj["F1"] + config.DeltaF1 / 2.0 + F1s_random[i], config.dF1_refined]
-    F2s = [config.inj["F2"] - config.DeltaF2 / 2.0 + F2s_random[i], config.inj["F2"] + config.DeltaF2 / 2.0 + F2s_random[i], config.dF2_refined]
-    
-    
+    F0s = [
+        config.inj["F0"] - config.DeltaF0 / 2.0 + F0s_random[i],
+        config.inj["F0"] + config.DeltaF0 / 2.0 + F0s_random[i],
+        config.dF0,
+    ]
+    F1s = [
+        config.inj["F1"] - config.DeltaF1 / 2.0 + F1s_random[i],
+        config.inj["F1"] + config.DeltaF1 / 2.0 + F1s_random[i],
+        config.dF1_refined,
+    ]
+    F2s = [
+        config.inj["F2"] - config.DeltaF2 / 2.0 + F2s_random[i],
+        config.inj["F2"] + config.DeltaF2 / 2.0 + F2s_random[i],
+        config.dF2_refined,
+    ]
+
     search_keys = ["F0", "F1", "F2"]  # only the ones that aren't 0-width
 
     if config.sky:
         dSky = 0.01  # rather coarse to keep runtime down
         DeltaSky = 10 * dSky
-        Alphas = [config.inj["Alpha"] - DeltaSky / 2.0, config.inj["Alpha"] + DeltaSky / 2.0, dSky]
-        Deltas = [config.inj["Delta"] - DeltaSky / 2.0, config.inj["Delta"] + DeltaSky / 2.0, dSky]
+        Alphas = [
+            config.inj["Alpha"] - DeltaSky / 2.0,
+            config.inj["Alpha"] + DeltaSky / 2.0,
+            dSky,
+        ]
+        Deltas = [
+            config.inj["Delta"] - DeltaSky / 2.0,
+            config.inj["Delta"] + DeltaSky / 2.0,
+            dSky,
+        ]
         search_keys += ["Alpha", "Delta"]
     else:
         Alphas = [config.inj["Alpha"]]
@@ -99,16 +136,21 @@ def calculate_mismatch(i):
     gridsearch.print_max_twoF()
     gridsearch.generate_loudest()
 
-
     # do some plots of the GridSearch results
     if not config.sky:  # this plotter can't currently deal with too large result arrays
         logger.info("Plotting 1D 2F distributions...")
         if config.plot:
             for key in search_keys:
-                gridsearch.plot_1D(xkey=key, xlabel=config.labels[key], ylabel=config.labels["2F"])
+                gridsearch.plot_1D(
+                    xkey=key, xlabel=config.labels[key], ylabel=config.labels["2F"]
+                )
 
-        logger.info("Making GridSearch {:s} corner plot...".format("-".join(search_keys)))
-        vals = [np.unique(gridsearch.data[key]) - config.inj[key] for key in search_keys]
+        logger.info(
+            "Making GridSearch {:s} corner plot...".format("-".join(search_keys))
+        )
+        vals = [
+            np.unique(gridsearch.data[key]) - config.inj[key] for key in search_keys
+        ]
         twoF = gridsearch.data["twoF"].reshape([len(kval) for kval in vals])
         corner_labels = [
             "$f - f_0$ [Hz]",
@@ -120,13 +162,17 @@ def calculate_mismatch(i):
         corner_labels.append(config.labels["2F"])
         if config.plot:
             gridcorner_fig, gridcorner_axes = pyfstat.gridcorner(
-                twoF, vals, projection="log_mean", labels=corner_labels,
-                whspace=0.1, factor=1.8
+                twoF,
+                vals,
+                projection="log_mean",
+                labels=corner_labels,
+                whspace=0.1,
+                factor=1.8,
             )
-            gridcorner_fig.savefig(os.path.join(config.outdir, gridsearch.label + "_corner.png"))
+            gridcorner_fig.savefig(
+                os.path.join(config.outdir, gridsearch.label + "_corner.png")
+            )
             # plt.show()
-
-
 
     # we'll use the two local plotting functions defined above
     # to avoid code duplication in the sky case
@@ -134,25 +180,22 @@ def calculate_mismatch(i):
         plot_2F_scatter(gridsearch.data, "grid", "F0", "F1")
         if config.sky:
             plot_2F_scatter(gridsearch.data, "grid", "Alpha", "Delta")
-        
-        
-        
+
     # -----------------------------------------------------------
     #  Mismatch diagnosis (API-safe version, PyFstat ≥ 2.x)
     # -----------------------------------------------------------
 
-
     search_ranges = {
-        "F0":    [config.inj["F0"]],         # a single value ⇒ zero width,
+        "F0": [config.inj["F0"]],  # a single value ⇒ zero width,
         "Alpha": [config.inj["Alpha"]],
         "Delta": [config.inj["Delta"]],
     }
-    
+
     fs = pyfstat.SemiCoherentSearch(
         label="MismatchTest",  # SemiCoherentSearch需要label
-        outdir=config.outdir,         # 需要outdir
+        outdir=config.outdir,  # 需要outdir
         tref=config.inj["tref"],
-        nsegs=config.nsegs,              # 添加分段数
+        nsegs=config.nsegs,  # 添加分段数
         sftfilepattern=writer.sftfilepath,
         minStartTime=config.tstart,
         maxStartTime=config.tstart + config.duration,
@@ -166,16 +209,16 @@ def calculate_mismatch(i):
 
     twoF_inj = fs.get_semicoherent_det_stat(params=inj_pars)
 
-    rho2_no  = twoF_inj - 4.0      # ρ²_no-mismatch
+    rho2_no = twoF_inj - 4.0  # ρ²_no-mismatch
 
     # --- 2) loudest point from the grid you already ran ------------
     grid_maxidx = np.argmax(grid_res["twoF"])
-    twoF_mis    = grid_res["twoF"][grid_maxidx]
-    rho2_mis    = twoF_mis - 4.0   # ρ²_mismatch
+    twoF_mis = grid_res["twoF"][grid_maxidx]
+    rho2_mis = twoF_mis - 4.0  # ρ²_mismatch
 
     # --- 3) empirical mismatch -------------------------------------
     mu_empirical = (rho2_no - rho2_mis) / rho2_no
-    
+
     if printout:
         print("\n--------- mismatch check (ρ-based) ---------")
         print(f"2F(injection)  = {twoF_inj:10.3f}")
@@ -184,13 +227,16 @@ def calculate_mismatch(i):
         print(f"ρ²_mismatch    = {rho2_mis:10.3f}")
         print(f"μ  (empirical) = {mu_empirical:10.3e}")
         print("-------------------------------------------")
-        
+
     # mismatches.append(mu_empirical)
-    del gridsearch            # 1️⃣ free Python references
-    del fs                    # 2️⃣ free ComputeFstat object
-    import gc; gc.collect()   # 3️⃣ force GC inside the worker
+    del gridsearch  # 1️⃣ free Python references
+    del fs  # 2️⃣ free ComputeFstat object
+    import gc
+
+    gc.collect()  # 3️⃣ force GC inside the worker
 
     return mu_empirical
+
 
 if __name__ == "__main__":
     # run the mismatch calculation in parallel
@@ -198,27 +244,52 @@ if __name__ == "__main__":
         futures = []
         for i in range(config.numbers):
             futures.append(executor.submit(calculate_mismatch, i))
-        mismatches = [future.result() for future in concurrent.futures.as_completed(futures)]
+        mismatches = [
+            future.result() for future in concurrent.futures.as_completed(futures)
+        ]
 
     # save the mismatch results to a csv file
     mismatch_file = os.path.join(config.outdir, "mismatches.csv")
-    np.savetxt(mismatch_file, mismatches, delimiter=",", header="Empirical Mismatch (μ)", comments='')
-
+    np.savetxt(
+        mismatch_file,
+        mismatches,
+        delimiter=",",
+        header="Empirical Mismatch (μ)",
+        comments="",
+    )
 
     # plot the mismatch distribution
 
+    fig, ax = plt.subplots(figsize=(10, 6))
+    # choose bin edges so the last bar ends at 1.0, like in the photo
+    # bins = np.linspace(0, 1, 11)        # 10 equal-width bins → 11 edges
+    ax.hist(
+        mismatches,
+        bins=10,
+        density=True,
+        color="#5B9BD5",  # pleasant blue
+        alpha=0.85,
+        edgecolor="black",
+        linewidth=1.0,
+    )
 
-    plt.figure(figsize=(10, 6))
-    plt.hist(mismatches, bins=10, density=True, alpha=0.7, color='blue')
-    plt.xlabel("Empirical Mismatch (μ)")
-    plt.ylabel("Density")
-    plt.title("Mismatch Distribution from Grid Search")
-    plt.grid()
-    plt.savefig(os.path.join(config.outdir, f"mismatch_distribution-max-mismatch:{config.mf}.pdf"))
+    # axis labels & limits
+    ax.set_xlabel(r"mismatch $\mu$", fontsize=20)
+    ax.set_ylabel("normalized histogram", fontsize=20)
+    ax.set_xlim(0, 1)
+    # ax.set_ylim(0, 0.25)
+
+    # ticks & grid
+    ax.tick_params(axis="both", which="major", labelsize=14, length=6)
+    ax.grid(axis="y", linewidth=0.6, alpha=0.35)
+
+    fig.tight_layout()
+    fig.savefig(
+        os.path.join(
+            config.outdir, f"mismatch_distribution-max-mismatch:{config.mf}.pdf"
+        )
+    )
     plt.show()
 
-    
-    # rumtime    
+    # rumtime
     print("runtime: ", config.tau_total)
-    
-    

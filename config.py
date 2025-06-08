@@ -18,16 +18,28 @@ label = "PyFstatExampleSimpleMCMCvsGridComparisonSemi"
 outdir = os.path.join("PyFstat_example_data", label)
 
 
+# inj = {
+#     "tref": tstart,
+#     "F0": 30.0,
+#     "F1": -1e-10,
+#     "F2": 0,
+#     "Alpha": 0.5,
+#     "Delta": 1,
+#     "h0": 0.05 * sqrtSX,
+#     "cosi": 1.0,
+# }
+
 inj = {
     "tref": tstart,
-    "F0": 30.0,
+    "F0": 151.5,
     "F1": -1e-10,
-    "F2": 0,
+    "F2": -1e-20,
     "Alpha": 0.5,
     "Delta": 1,
     "h0": 0.05 * sqrtSX,
     "cosi": 1.0,
 }
+
 
 # latex-formatted plotting labels
 labels = {
@@ -49,12 +61,12 @@ dF1 = np.sqrt(180 * mf1) / (np.pi * T_coh**2)
 dF2 = np.sqrt(25200 * mf2) / (np.pi * T_coh**3) 
 
 
-dF1_refined = dF1 / gamma2
+dF1_refined = dF1 / gamma1
 dF2_refined = dF2 / gamma2
 
 
-DeltaF0 = 30 * dF0 # 500 
-DeltaF1 = 20 * dF1_refined # 200
+DeltaF0 = 10 * dF0 # 500 
+DeltaF1 = 10 * dF1_refined # 200
 DeltaF2 = 10 * dF2_refined # 60
 
 if sky:
