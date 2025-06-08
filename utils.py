@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import config
+from typing import Dict, Any
+from dataclasses import dataclass
 
 
 zoom = {
@@ -64,3 +66,24 @@ def plot_2F_scatter(res, label, xkey, ykey):
     plt.ylim([min(res[ykey]), max(res[ykey])])
     plt.savefig(plotfilename_base + ".png")
     # plt.show()
+
+
+@dataclass
+class CalculationParams:
+    """Structure to hold all parameters needed for calculation"""
+    inj_params: Dict[str, Any]
+    DeltaF0: float
+    DeltaF1: float
+    DeltaF2: float
+    dF0: float
+    dF1_refined: float
+    dF2_refined: float
+    sky: bool
+    outdir: str
+    sftfilepath: str
+    tref: int
+    nsegs: int
+    plot: bool
+    labels: Dict[str, str]
+    tstart: int
+    duration: int

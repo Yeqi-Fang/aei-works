@@ -2,12 +2,13 @@ import os
 import numpy as np
 import pyfstat
 import config
+from typing import Dict, Any
 
 # make sure to put these after the pyfstat import, to not break notebook inline plots
 import matplotlib.pyplot as plt
 
 # %matplotlib inline
-from utils import plot_grid_vs_samples, plot_2F_scatter
+from utils import plot_grid_vs_samples, plot_2F_scatter, CalculationParams
 import matplotlib as mpl
 
 # --- one-off style tweaks ---------------------------------------------------
@@ -65,102 +66,95 @@ print(config.DeltaF0, config.DeltaF1, config.DeltaF2)
 
 
 mismatches = []
-F0s_random = np.random.uniform(-config.dF0, config.dF0, size=config.numbers)
-F1s_random = np.random.uniform(
-    -config.dF1_refined, config.dF1_refined, size=config.numbers
-)
-F2s_random = np.random.uniform(
-    -config.dF2_refined, config.dF2_refined, size=config.numbers
-)
 
 
-def calculate_mismatch(i):
+def calculate_mismatch(i: int, params: CalculationParams, random_offsets: Dict[str, float]) -> float:
 
     import pyfstat
     import numpy as np
     import os
 
     F0s = [
-        config.inj["F0"] - config.DeltaF0 / 2.0 + F0s_random[i],
-        config.inj["F0"] + config.DeltaF0 / 2.0 + F0s_random[i],
-        config.dF0,
+        params.inj_params["F0"] - params.DeltaF0 / 2.0 + random_offsets["F0"],
+        params.inj_params["F0"] + params.DeltaF0 / 2.0 + random_offsets["F0"],
+        params.dF0
     ]
     F1s = [
-        config.inj["F1"] - config.DeltaF1 / 2.0 + F1s_random[i],
-        config.inj["F1"] + config.DeltaF1 / 2.0 + F1s_random[i],
-        config.dF1_refined,
+        params.inj_params["F1"] - params.DeltaF1 / 2.0 + random_offsets["F1"],
+        params.inj_params["F1"] + params.DeltaF1 / 2.0 + random_offsets["F1"],
+        params.dF1_refined
     ]
     F2s = [
-        config.inj["F2"] - config.DeltaF2 / 2.0 + F2s_random[i],
-        config.inj["F2"] + config.DeltaF2 / 2.0 + F2s_random[i],
-        config.dF2_refined,
+        params.inj_params["F2"] - params.DeltaF2 / 2.0 + random_offsets["F2"],
+        params.inj_params["F2"] + params.DeltaF2 / 2.0 + random_offsets["F2"],
+        params.dF2_refined
     ]
 
     search_keys = ["F0", "F1", "F2"]  # only the ones that aren't 0-width
 
-    if config.sky:
-        dSky = 0.01  # rather coarse to keep runtime down
+    if params.sky:
+        dSky = 0.01
         DeltaSky = 10 * dSky
         Alphas = [
-            config.inj["Alpha"] - DeltaSky / 2.0,
-            config.inj["Alpha"] + DeltaSky / 2.0,
-            dSky,
+            params.inj_params["Alpha"] - DeltaSky / 2.0,
+            params.inj_params["Alpha"] + DeltaSky / 2.0,
+            dSky
         ]
         Deltas = [
-            config.inj["Delta"] - DeltaSky / 2.0,
-            config.inj["Delta"] + DeltaSky / 2.0,
-            dSky,
+            params.inj_params["Delta"] - DeltaSky / 2.0,
+            params.inj_params["Delta"] + DeltaSky / 2.0,
+            dSky
         ]
         search_keys += ["Alpha", "Delta"]
     else:
-        Alphas = [config.inj["Alpha"]]
-        Deltas = [config.inj["Delta"]]
+        Alphas = [params.inj_params["Alpha"]]
+        Deltas = [params.inj_params["Delta"]]
 
     search_keys_label = "".join(search_keys)
 
     # run the grid search
-    logger.info("Performing GridSearch...")
+    # logger.info("Performing GridSearch...")
     gridsearch = pyfstat.GridSearch(
         label=f"GridSearch_iter_{i}" + search_keys_label,
-        outdir=config.outdir,
-        sftfilepattern=writer.sftfilepath,
+        outdir=params.outdir,
+        sftfilepattern=params.sftfilepath,
         F0s=F0s,
         F1s=F1s,
         F2s=F2s,
         Alphas=Alphas,
         Deltas=Deltas,
-        tref=config.inj["tref"],
-        nsegs=config.nsegs,
+        tref=params.tref,
+        nsegs=params.nsegs,
     )
     gridsearch.run()
     gridsearch.print_max_twoF()
     gridsearch.generate_loudest()
 
     # do some plots of the GridSearch results
-    if not config.sky:  # this plotter can't currently deal with too large result arrays
-        logger.info("Plotting 1D 2F distributions...")
-        if config.plot:
+    if not params.sky:  # this plotter can't currently deal with too large result arrays
+        # logger.info("Plotting 1D 2F distributions...")
+        if params.plot:
             for key in search_keys:
                 gridsearch.plot_1D(
-                    xkey=key, xlabel=config.labels[key], ylabel=config.labels["2F"]
+                    xkey=key, xlabel=params.labels[key], ylabel=params.labels["2F"]
                 )
 
-        logger.info(
-            "Making GridSearch {:s} corner plot...".format("-".join(search_keys))
-        )
+        # logger.info(
+        #     "Making GridSearch {:s} corner plot...".format("-".join(search_keys))
+        # )
         vals = [
-            np.unique(gridsearch.data[key]) - config.inj[key] for key in search_keys
+            np.unique(gridsearch.data[key]) - params.inj_params[key] for key in search_keys
         ]
         twoF = gridsearch.data["twoF"].reshape([len(kval) for kval in vals])
         corner_labels = [
             "$f - f_0$ [Hz]",
             "$\\dot{f} - \\dot{f}_0$ [Hz/s]",
         ]
-        if config.sky:
+        if params.sky:
             corner_labels.append("$\\alpha - \\alpha_0$")
             corner_labels.append("$\\delta - \\delta_0$")
-        corner_labels.append(config.labels["2F"])
-        if config.plot:
+        corner_labels.append(params.labels["2F"])
+        if params.plot:
             gridcorner_fig, gridcorner_axes = pyfstat.gridcorner(
                 twoF,
                 vals,
@@ -170,15 +164,15 @@ def calculate_mismatch(i):
                 factor=1.8,
             )
             gridcorner_fig.savefig(
-                os.path.join(config.outdir, gridsearch.label + "_corner.png")
+                os.path.join(params.outdir, gridsearch.label + "_corner.png")
             )
             # plt.show()
 
     # we'll use the two local plotting functions defined above
     # to avoid code duplication in the sky case
-    if config.plot:
+    if params.plot:
         plot_2F_scatter(gridsearch.data, "grid", "F0", "F1")
-        if config.sky:
+        if params.sky:
             plot_2F_scatter(gridsearch.data, "grid", "Alpha", "Delta")
 
     # -----------------------------------------------------------
@@ -186,26 +180,26 @@ def calculate_mismatch(i):
     # -----------------------------------------------------------
 
     search_ranges = {
-        "F0": [config.inj["F0"]],  # a single value ⇒ zero width,
-        "Alpha": [config.inj["Alpha"]],
-        "Delta": [config.inj["Delta"]],
+        "F0": [params.inj_params["F0"]],  # a single value ⇒ zero width,
+        "Alpha": [params.inj_params["Alpha"]],
+        "Delta": [params.inj_params["Delta"]],
     }
 
     fs = pyfstat.SemiCoherentSearch(
-        label="MismatchTest",  # SemiCoherentSearch需要label
-        outdir=config.outdir,  # 需要outdir
-        tref=config.inj["tref"],
-        nsegs=config.nsegs,  # 添加分段数
-        sftfilepattern=writer.sftfilepath,
-        minStartTime=config.tstart,
-        maxStartTime=config.tstart + config.duration,
+        label=f"MismatchTest_{i}",  # SemiCoherentSearch需要label
+        outdir=params.outdir,  # 需要outdir
+        tref=params.tref,
+        nsegs=params.nsegs,  # 添加分段数
+        sftfilepattern=params.sftfilepath,
+        minStartTime=params.tstart,
+        maxStartTime=params.tstart + params.duration,
         search_ranges=search_ranges,
     )
 
     grid_res = gridsearch.data
 
     # template exactly at the injected parameters
-    inj_pars = {k: config.inj[k] for k in ("F0", "F1", "F2", "Alpha", "Delta")}
+    inj_pars = {k: params.inj_params[k] for k in ("F0", "F1", "F2", "Alpha", "Delta")}
 
     twoF_inj = fs.get_semicoherent_det_stat(params=inj_pars)
 
@@ -239,14 +233,44 @@ def calculate_mismatch(i):
 
 
 if __name__ == "__main__":
+    
+    
+    all_random_offsets = []
+    for i in range(config.numbers):
+        random_offsets = {
+            "F0": np.random.uniform(-config.dF0, config.dF0),
+            "F1": np.random.uniform(-config.dF1_refined, config.dF1_refined),
+            "F2": np.random.uniform(-config.dF2_refined, config.dF2_refined)
+        }
+        all_random_offsets.append(random_offsets)
+
+    
+    params = CalculationParams(
+        inj_params=config.inj,
+        DeltaF0=config.DeltaF0,
+        DeltaF1=config.DeltaF1,
+        DeltaF2=config.DeltaF2,
+        dF0=config.dF0,
+        dF1_refined=config.dF1_refined,
+        dF2_refined=config.dF2_refined,
+        sky=config.sky,
+        outdir=config.outdir,
+        sftfilepath=writer.sftfilepath,  # This needs to be available
+        tref=config.inj["tref"],
+        nsegs=config.nsegs,
+        plot=config.plot,
+        labels=config.labels,
+        tstart=config.tstart,
+        duration=config.duration
+    )
+    
     # run the mismatch calculation in parallel
     with concurrent.futures.ProcessPoolExecutor(config.num_workers) as executor:
         futures = []
         for i in range(config.numbers):
-            futures.append(executor.submit(calculate_mismatch, i))
-        mismatches = [
-            future.result() for future in concurrent.futures.as_completed(futures)
-        ]
+            futures.append(executor.submit(calculate_mismatch, i, params, all_random_offsets[i]))
+            
+        mismatches = [future.result() for future in concurrent.futures.as_completed(futures)]
 
     # save the mismatch results to a csv file
     mismatch_file = os.path.join(config.outdir, "mismatches.csv")
@@ -284,12 +308,10 @@ if __name__ == "__main__":
     ax.grid(axis="y", linewidth=0.6, alpha=0.35)
 
     fig.tight_layout()
-    fig.savefig(
-        os.path.join(
-            config.outdir, f"mismatch_distribution-max-mismatch:{config.mf}.pdf"
-        )
-    )
+    fig.savefig(os.path.join(config.outdir, f"mismatch_distribution-max-mismatch:{config.mf}.pdf"))
     plt.show()
 
     # rumtime
     print("runtime: ", config.tau_total)
+
+    
