@@ -25,7 +25,7 @@ inj = {
     "F2": 0,
     "Alpha": 0.5,
     "Delta": 1,
-    "h0": 1 * sqrtSX,
+    "h0": 0.05 * sqrtSX,
     "cosi": 1.0,
 }
 
@@ -45,19 +45,23 @@ mf2 = 0.003
 gamma1 = 8
 gamma2 = 20
 dF0 = np.sqrt(12 * mf) / (np.pi * T_coh)
-dF1 = np.sqrt(180 * mf1) / (np.pi * T_coh**2) / gamma1
-dF2 = np.sqrt(25200 * mf2) / (np.pi * T_coh**3) / gamma2
+dF1 = np.sqrt(180 * mf1) / (np.pi * T_coh**2) 
+dF2 = np.sqrt(25200 * mf2) / (np.pi * T_coh**3) 
+
+
+dF1_refined = dF1 / gamma2
+dF2_refined = dF2 / gamma2
 
 
 DeltaF0 = 30 * dF0 # 500 
-DeltaF1 = 20 * dF1 # 200
-DeltaF2 = 10 * dF2 # 60
+DeltaF1 = 20 * dF1_refined # 200
+DeltaF2 = 10 * dF2_refined # 60
 
 if sky:
     # cover less range to keep runtime down
     DeltaF0 /= 10
     DeltaF1 /= 10
-    DeltaF2 /= 10
+    DeltaF2 /= 5
 
 
 DeltaF0_fixed = 9.885590880794127e-06

@@ -50,8 +50,8 @@ print(config.DeltaF0, config.DeltaF1, config.DeltaF2)
 
 mismatches = []
 F0s_random = np.random.uniform(-config.dF0, config.dF0, size=config.numbers)
-F1s_random = np.random.uniform(-config.dF1, config.dF1, size=config.numbers)
-F2s_random = np.random.uniform(-config.dF2, config.dF2, size=config.numbers)
+F1s_random = np.random.uniform(-config.dF1_refined, config.dF1_refined, size=config.numbers)
+F2s_random = np.random.uniform(-config.dF2_refined, config.dF2_refined, size=config.numbers)
 
 
 def calculate_mismatch(i):
@@ -63,8 +63,8 @@ def calculate_mismatch(i):
     
 
     F0s = [config.inj["F0"] - config.DeltaF0 / 2.0 + F0s_random[i], config.inj["F0"] + config.DeltaF0 / 2.0 + F0s_random[i], config.dF0]
-    F1s = [config.inj["F1"] - config.DeltaF1 / 2.0 + F1s_random[i], config.inj["F1"] + config.DeltaF1 / 2.0 + F1s_random[i], config.dF1]
-    F2s = [config.inj["F2"] - config.DeltaF2 / 2.0 + F2s_random[i], config.inj["F2"] + config.DeltaF2 / 2.0 + F2s_random[i], config.dF2]
+    F1s = [config.inj["F1"] - config.DeltaF1 / 2.0 + F1s_random[i], config.inj["F1"] + config.DeltaF1 / 2.0 + F1s_random[i], config.dF1_refined]
+    F2s = [config.inj["F2"] - config.DeltaF2 / 2.0 + F2s_random[i], config.inj["F2"] + config.DeltaF2 / 2.0 + F2s_random[i], config.dF2_refined]
     
     
     search_keys = ["F0", "F1", "F2"]  # only the ones that aren't 0-width
