@@ -1,18 +1,18 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-import config
 from typing import Dict, Any
 from dataclasses import dataclass
 
 
-zoom = {
-        "F0": [config.inj["F0"] - 10 * config.dF0, config.inj["F0"] + 10 * config.dF0],
-        "F1": [config.inj["F1"] - 5 * config.dF1, config.inj["F1"] + 5 * config.dF1],
-}
+def get_zoom(cfg):
+    return {
+        "F0": [cfg.inj["F0"] - 10*cfg.dF0, cfg.inj["F0"] + 10*cfg.dF0],
+        "F1": [cfg.inj["F1"] -  5*cfg.dF1_refined, cfg.inj["F1"] +  5*cfg.dF1_refined],
+    }
 
 # some plotting helper functions
-def plot_grid_vs_samples(grid_res, mcmc_res, xkey, ykey):
+def plot_grid_vs_samples(grid_res, mcmc_res, xkey, ykey, config):
     """local plotting function to avoid code duplication in the 4D case"""
     plt.plot(grid_res[xkey], grid_res[ykey], ".", label="grid")
     plt.plot(mcmc_res[xkey], mcmc_res[ykey], ".", label="mcmc")
@@ -36,13 +36,14 @@ def plot_grid_vs_samples(grid_res, mcmc_res, xkey, ykey):
     plt.legend()
     plotfilename_base = os.path.join(config.outdir, "grid_vs_mcmc_{:s}{:s}".format(xkey, ykey))
     plt.savefig(plotfilename_base + ".png")
+    zoom = get_zoom(config)
     if xkey == "F0" and ykey == "F1":
         plt.xlim(zoom[xkey])
         plt.ylim(zoom[ykey])
         plt.savefig(plotfilename_base + "_zoom.png")
     # plt.show()
 
-def plot_2F_scatter(res, label, xkey, ykey):
+def plot_2F_scatter(res, label, xkey, ykey, config):
     """local plotting function to avoid code duplication in the 4D case"""
     markersize = 1 if label == "grid" else 0.5
     plt.figure(figsize=(10, 6))
@@ -64,7 +65,8 @@ def plot_2F_scatter(res, label, xkey, ykey):
     plotfilename_base = os.path.join(config.outdir, "{:s}_{:s}{:s}_2F".format(label, xkey, ykey))
     plt.xlim([min(res[xkey]), max(res[xkey])])
     plt.ylim([min(res[ykey]), max(res[ykey])])
-    plt.savefig(plotfilename_base + ".png")
+    plt.savefig(plotfilename_base + ".pdf")
+    plt.close("all")
     # plt.show()
 
 
@@ -87,7 +89,9 @@ class CalculationParams:
     labels: Dict[str, str]
     tstart: int
     duration: int
-
+    @property
+    def inj(self):
+        return self.inj_params     # <-- makes existing helpers happy
 # The next step : 1. make each run return a list rather than a mismatch value (mf, mfdot)
 # change the mf, mfdot and get different point
 # train the model

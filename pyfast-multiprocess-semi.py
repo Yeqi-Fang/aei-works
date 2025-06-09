@@ -3,7 +3,7 @@ import numpy as np
 import pyfstat
 import config
 from typing import Dict, Any
-
+import pandas as pd
 # make sure to put these after the pyfstat import, to not break notebook inline plots
 import matplotlib.pyplot as plt
 
