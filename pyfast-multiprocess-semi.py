@@ -314,4 +314,5 @@ if __name__ == "__main__":
     # rumtime
     print("runtime: ", config.tau_total)
 
+    print("mean mismatch: ", np.mean(mismatches))
     

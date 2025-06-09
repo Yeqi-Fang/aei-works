@@ -5,7 +5,7 @@ import os
 sky = False
 plot = False
 numbers = 500
-num_workers = 10
+num_workers = 14
 tstart = 1000000000
 duration = 120 * 86400
 T_coh = 15 * 86400  # coherence time for the MCMC
@@ -65,9 +65,9 @@ dF1_refined = dF1 / gamma1
 dF2_refined = dF2 / gamma2
 
 
-DeltaF0 = 10 * dF0 # 500 
-DeltaF1 = 10 * dF1_refined # 200
-DeltaF2 = 10 * dF2_refined # 60
+DeltaF0 = 8 * dF0 # 500 
+DeltaF1 = 8 * dF1_refined # 200
+DeltaF2 = 8 * dF2_refined # 60
 
 if sky:
     # cover less range to keep runtime down

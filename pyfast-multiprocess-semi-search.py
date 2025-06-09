@@ -294,18 +294,18 @@ def single_grid(pool):
 
     # plot the mismatch distribution
 
-    fig, ax = plt.subplots(figsize=(10, 6))
+    # fig, ax = plt.subplots(figsize=(10, 6))
     # choose bin edges so the last bar ends at 1.0, like in the photo
     # bins = np.linspace(0, 1, 11)        # 10 equal-width bins → 11 edges
-    ax.hist(
-        mismatches,
-        bins=10,
-        density=True,
-        color="#5B9BD5",  # pleasant blue
-        alpha=0.85,
-        edgecolor="black",
-        linewidth=1.0,
-    )
+    # ax.hist(
+    #     mismatches,
+    #     bins=10,
+    #     density=True,
+    #     color="#5B9BD5",  # pleasant blue
+    #     alpha=0.85,
+    #     edgecolor="black",
+    #     linewidth=1.0,
+    # )
 
     # # axis labels & limits
     # ax.set_xlabel(r"mismatch $\mu$", fontsize=20)
@@ -360,7 +360,9 @@ if __name__ == "__main__":
     mf_values = np.linspace(0.1, 0.5, 10)  # 10 points from 0.1 to 0.5
     mf1_values = np.linspace(0.1, 0.5, 10)  # 10 points from 0.1 to 0.5  
     mf2_values = np.linspace(0.001, 0.0005, 5)  # 5 points from 0.001 to 0.0005
-    
+    # mf_values = np.linspace(0.15, 0.15, 1)  # 10 points from 0.1 to 0.5
+    # mf1_values = np.linspace(0.3, 0.3, 1)  # 10 points from 0.1 to 0.5  
+    # mf2_values = np.linspace(0.003, 0.003, 1)  # 5 points from 0.001 to 0.0005
     # Create tmp directory for saving individual dataframes
     tmp_dir = os.path.join(config.outdir, "tmp_dataframes")
     os.makedirs(tmp_dir, exist_ok=True)
@@ -391,7 +393,10 @@ if __name__ == "__main__":
             for j, mf1_val in enumerate(mf1_values):
                 for k, mf2_val in enumerate(mf2_values):
                     run_counter += 1
-                    
+                    tmp_filename = f"run_{run_counter:03d}_df.csv"
+                    if os.path.exists(os.path.join(tmp_dir, tmp_filename)):
+                        print(f"Skipping run {run_counter} as {tmp_filename} already exists.")
+                        continue
                     print(f"\n{'='*60}")
                     print(f"Run {run_counter}/{total_runs}")
                     print(f"mf={mf_val:.3f}, mf1={mf1_val:.3f}, mf2={mf2_val:.6f}")
@@ -409,9 +414,9 @@ if __name__ == "__main__":
                     config.dF1_refined = config.dF1 / config.gamma1
                     config.dF2_refined = config.dF2 / config.gamma2
                     
-                    config.DeltaF0 = 10 * config.dF0 
-                    config.DeltaF1 = 10 * config.dF1_refined
-                    config.DeltaF2 = 10 * config.dF2_refined
+                    config.DeltaF0 = 8 * config.dF0 
+                    config.DeltaF1 = 8 * config.dF1_refined
+                    config.DeltaF2 = 8 * config.dF2_refined
                     
                     # Update output directory for this run
                     config.outdir = os.path.join(original_outdir, f"run_{run_counter:03d}_mf{mf_val:.3f}_mf1{mf1_val:.3f}_mf2{mf2_val:.6f}")
@@ -437,7 +442,7 @@ if __name__ == "__main__":
                         df_result['dF2_refined_calculated'] = config.dF2_refined
                         
                         # Save individual dataframe to tmp folder
-                        tmp_filename = f"run_{run_counter:03d}_df.csv"
+                        
                         tmp_filepath = os.path.join(tmp_dir, tmp_filename)
                         df_result.to_csv(tmp_filepath, index=False)
                         
