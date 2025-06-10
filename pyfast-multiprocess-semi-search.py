@@ -359,7 +359,7 @@ if __name__ == "__main__":
     # Create parameter grids
     mf_values = np.linspace(0.1, 0.5, 10)  # 10 points from 0.1 to 0.5
     mf1_values = np.linspace(0.1, 0.5, 10)  # 10 points from 0.1 to 0.5  
-    mf2_values = np.linspace(0.001, 0.0005, 5)  # 5 points from 0.001 to 0.0005
+    mf2_values = np.linspace(0.001, 0.3, 5)  # 5 points from 0.001 to 0.0005
     # 0.001, 0.3
     # mf_values = np.linspace(0.15, 0.15, 1)  # 10 points from 0.1 to 0.5
     # mf1_values = np.linspace(0.3, 0.3, 1)  # 10 points from 0.1 to 0.5  
