@@ -3,3 +3,4 @@ __pychache__
 *.pyc
 test_BNU
 gmm_dataset.pth
+data/*.csv
