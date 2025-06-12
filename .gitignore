@@ -3,4 +3,8 @@ __pychache__
 *.pyc
 test_BNU
 gmm_dataset.pth
+
+LAL_example_data/SFTs_*
+mismatch_output/
+lalpulsar_Makefakedata_v5-help
 data/*.csv
