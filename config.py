@@ -1,6 +1,6 @@
 import numpy as np
-import os 
-
+import os
+from runtime_calculation import cal_cost_overall_700yr_new_timing_model
 
 sky = False
 plot = False
@@ -57,17 +57,17 @@ mf2 = 0.003
 gamma1 = 8
 gamma2 = 20
 dF0 = np.sqrt(12 * mf) / (np.pi * T_coh)
-dF1 = np.sqrt(180 * mf1) / (np.pi * T_coh**2) 
-dF2 = np.sqrt(25200 * mf2) / (np.pi * T_coh**3) 
+dF1 = np.sqrt(180 * mf1) / (np.pi * T_coh**2)
+dF2 = np.sqrt(25200 * mf2) / (np.pi * T_coh**3)
 
 
 dF1_refined = dF1 / gamma1
 dF2_refined = dF2 / gamma2
 
 
-DeltaF0 = 8 * dF0 # 500 
-DeltaF1 = 8 * dF1_refined # 200
-DeltaF2 = 8 * dF2_refined # 60
+DeltaF0 = 8 * dF0  # 500
+DeltaF1 = 8 * dF1_refined  # 200
+DeltaF2 = 8 * dF2_refined  # 60
 
 if sky:
     # cover less range to keep runtime down
@@ -106,5 +106,52 @@ tau_sumF = 7.28e-9 - 3.72e-10 * nsegs
 
 tau_RS = tau_Fbin + ratio * (tau_fft + R * tau_spin)
 
-tau_total = nsegs * N_det * N_coh * tau_RS + nsegs * N_inc * tau_sumF + \
-    N_inc * tau_bayes + N_can * tau_recalc
+# tau_total = nsegs * N_det * N_coh * tau_RS + nsegs * N_inc * tau_sumF + \
+#     N_inc * tau_bayes + N_can * tau_recalc
+
+
+# new: compute with the 700-yr timing model
+CPU_year_per_cell, CPU_year_total, co_cost_rate, co_cost_rate_total = (
+    cal_cost_overall_700yr_new_timing_model(
+        # frequency range (centered on your injection F0 ± ΔF0/2)
+        fmin=20,
+        fmax=150,
+        # spin-down range (injection F1 ± ΔF1/2)
+        fdotmin=inj["F1"] - DeltaF1_fixed / 2,
+        fdotmax=inj["F1"] + DeltaF1_fixed / 2,
+        # “special” points (just the injected values)
+        fsp=inj["F0"],
+        fdotsp=inj["F1"],
+        # grid cell spacings from your config
+        fband_cell=dF0,
+        fdotband_cell=dF1_refined,
+        # mismatch & refinement parameters
+        m0=mf,
+        m1=mf1,
+        m2=mf2,
+        r1=gamma1,
+        r2=gamma2,
+        # coherence time in days
+        Tcoh_day=T_coh / 86400,
+        # these two aren’t used inside the function but it needs them
+        nSFT=numbers,
+        nSeg=nsegs,
+        # age in years (700 yr model)
+        tau=70,
+        # braking index
+        n=5,
+        # band­width normalization (you can tweak as needed)
+        fbandwidth=1,
+    )
+)
+
+# if you still want tau_total in CPU‐seconds rather than CPU‐years:
+tau_total = CPU_year_total * 365.24 * 24 * 3600
+
+if __name__ == "__main__":
+    print(f"CPU_year_per_cell: {CPU_year_per_cell}")
+    print(f"CPU_year_total: {CPU_year_total}")
+    print(f"co_cost_rate: {co_cost_rate}")
+    print(f"co_cost_rate_total: {co_cost_rate_total}")
+    print(f"tau_total (in CPU-seconds): {tau_total}")
+    print(f"tau_total (in CPU-years): {CPU_year_total}")
