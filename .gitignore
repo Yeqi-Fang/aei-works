@@ -9,3 +9,4 @@ mismatch_output/
 lalpulsar_Makefakedata_v5-help
 data/*.csv
 best_flow.pt
+trained_flow.pt
