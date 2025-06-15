@@ -212,59 +212,6 @@ def predict_and_plot_comparison(model, test_condition):
     print(f"\n近似Wasserstein距离: {wasserstein_approx:.4f}")
 
 
-# def predict_and_plot_simple_comparison(model, test_condition):
-#     """
-#     简化版本：推荐的最佳可视化方案
-#     """
-#     model.eval()
-#     n_plot_samples = 5000
-
-#     # 获取样本
-#     with torch.no_grad():
-#         predicted_samples = model.sample(
-#             1, context=test_condition.to(device).repeat(n_plot_samples, 1)
-#         ).squeeze().cpu().numpy()
-
-#     ground_truth_params = get_ground_truth_distribution_params(test_condition)
-#     ground_truth_samples = sample_from_gmm(ground_truth_params, n_plot_samples).squeeze().numpy()
-
-#     # 创建清晰的对比图
-#     fig, axes = plt.subplots(1, 3, figsize=(18, 6))
-    
-#     # 子图1: 真实分布
-#     axes[0].scatter(ground_truth_samples[:, 0], ground_truth_samples[:, 1], 
-#                     alpha=0.6, s=10, c='#2E86AB', edgecolors='none')
-#     axes[0].set_title("真实分布", fontsize=14, fontweight='bold')
-#     axes[0].set_xlabel("参数 1")
-#     axes[0].set_ylabel("参数 2")
-#     axes[0].grid(True, linestyle='--', alpha=0.3)
-#     axes[0].set_aspect('equal', adjustable='box')
-    
-#     # 子图2: 预测分布
-#     axes[1].scatter(predicted_samples[:, 0], predicted_samples[:, 1], 
-#                     alpha=0.6, s=10, c='#A23B72', edgecolors='none')
-#     axes[1].set_title("预测分布", fontsize=14, fontweight='bold')
-#     axes[1].set_xlabel("参数 1")
-#     axes[1].set_ylabel("参数 2")
-#     axes[1].grid(True, linestyle='--', alpha=0.3)
-#     axes[1].set_aspect('equal', adjustable='box')
-    
-#     # 子图3: 等高线叠加对比
-#     sns.kdeplot(x=ground_truth_samples[:, 0], y=ground_truth_samples[:, 1], 
-#                 color="#2E86AB", ax=axes[2], label="真实分布", 
-#                 linewidths=2.5, levels=8)
-#     sns.kdeplot(x=predicted_samples[:, 0], y=predicted_samples[:, 1], 
-#                 color="#A23B72", ax=axes[2], label="预测分布", 
-#                 linewidths=2.5, levels=8, linestyles='--')
-#     axes[2].set_title("等高线对比", fontsize=14, fontweight='bold')
-#     axes[2].set_xlabel("参数 1")
-#     axes[2].set_ylabel("参数 2")
-#     axes[2].legend()
-#     axes[2].grid(True, linestyle='--', alpha=0.3)
-#     axes[2].set_aspect('equal', adjustable='box')
-    
-#     plt.tight_layout()
-#     plt.show()
 
 def main():
     # 1. 加载数据
