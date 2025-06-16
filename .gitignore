@@ -10,3 +10,9 @@ lalpulsar_Makefakedata_v5-help
 data/*.csv
 best_flow.pt
 trained_flow.pt
+logs/run_20250616_101802/checkpoints/fold_1_model.pt
+data/mismatches.pth
+
+logs/run_*/checkpoints/
+# Ignore all checkpoints in logs
+logs/run_*/predictions/
