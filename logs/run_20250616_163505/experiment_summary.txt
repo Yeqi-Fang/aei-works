@@ -1,0 +1,4 @@
+Experiment completed at: 2025-06-16 17:21:22.127577
+Total predictions generated: 1089500
+Final prediction shape: (1089500, 4)
+Log directory: logs/run_20250616_163505

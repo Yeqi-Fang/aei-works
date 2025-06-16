@@ -1,0 +1,7 @@
+Experiment started at: 2025-06-16 14:45:21.900325
+Number of folds: 5
+Epochs per fold: 50
+Total samples: 1089500
+Unique setups: 2099
+Setups with >= 10 samples: 2099
+

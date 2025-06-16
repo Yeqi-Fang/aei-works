@@ -1,0 +1,9 @@
+Experiment started at: 2025-06-16 15:23:58.276021
+Number of folds: 5
+Epochs per fold: 50
+Total samples: 1089500
+Unique setups: 1999
+Setups with >= 10 samples: 1999
+Sampling batch size: 512
+Max viz samples: 1000
+

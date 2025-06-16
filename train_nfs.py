@@ -245,3 +245,9 @@ def main():
 
 if __name__ == '__main__':
     main()
+    
+    
+    # number of parameters in the model
+    # model = build_nfs_model()
+    # num_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    # print(f"模型参数总数: {num_params}")

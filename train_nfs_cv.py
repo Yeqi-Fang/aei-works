@@ -1,4 +1,4 @@
-# train_nfs_5fold_cv.py
+# train_nfs_5fold_cv_final.py
 
 from __future__ import annotations
 
@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Tuple, List, Dict
 import os
 from datetime import datetime
+import time
 
 import numpy as np
 import pandas as pd
@@ -65,65 +66,72 @@ def load_dataset(x_path: Path | str, y_path: Path | str) -> Tuple[torch.Tensor, 
     
     return x_tensor, y_tensor, x_df, y_df
 
-def analyze_setups(x_df: pd.DataFrame) -> Dict[Tuple[float, float, float], List[int]]:
-    """Analyze which setups have multiple repetitions."""
+def analyze_setups(x_df: pd.DataFrame, precision: int = 6) -> Dict[Tuple, List[int]]:
+    """Analyze which setups have multiple repetitions with floating point precision control."""
     setup_indices = defaultdict(list)
     
     for idx, row in x_df.iterrows():
-        setup = tuple(row.values)
+        # Round to avoid floating point precision issues
+        setup = tuple(round(val, precision) for val in row.values)
         setup_indices[setup].append(idx)
     
     return dict(setup_indices)
 
-def select_diverse_setups_for_visualization(test_multi_setups, x_df, n_viz=2):
-    """选择不同特征值的setup进行可视化，而不是仅仅选择样本数最多的"""
+def select_diverse_setups(test_multi_setups, x_df, n_viz=2, max_total_samples=5000):
+    """Select diverse setups for visualization considering both diversity and computational cost."""
     
     if len(test_multi_setups) <= n_viz:
         return test_multi_setups
     
-    # 按样本数排序
+    # Sort by sample count (descending)
     test_multi_setups.sort(key=lambda x: len(x[1]), reverse=True)
     
     selected = []
-    used_feature_combinations = set()
+    used_feature_values = set()
+    total_samples = 0
     
     for setup, indices in test_multi_setups:
-        # 创建特征组合的标识符（可以根据需要调整）
-        # 例如：只考虑第三个特征(mf2)的多样性
-        if x_df.shape[1] >= 3:
-            feature_id = round(setup[2], 4)  # 四舍五入到4位小数
-        else:
-            feature_id = setup
+        n_samples = len(indices)
+        
+        # Skip if this would exceed our computational budget
+        if total_samples + n_samples > max_total_samples:
+            continue
             
-        if feature_id not in used_feature_combinations:
+        # Use diversity criterion (adjust index as needed)
+        if x_df.shape[1] >= 3:
+            feature_val = round(setup[2], 4)  # Third feature for diversity
+        else:
+            feature_val = setup
+            
+        if feature_val not in used_feature_values:
             selected.append((setup, indices))
-            used_feature_combinations.add(feature_id)
+            used_feature_values.add(feature_val)
+            total_samples += n_samples
             
             if len(selected) >= n_viz:
                 break
     
-    # 如果还没有足够的不同setup，用样本数最多的填充
+    # If we still need more and have budget, add by sample count
     if len(selected) < n_viz:
         for setup, indices in test_multi_setups:
-            if (setup, indices) not in selected:
+            if (setup, indices) not in selected and total_samples + len(indices) <= max_total_samples:
                 selected.append((setup, indices))
+                total_samples += len(indices)
                 if len(selected) >= n_viz:
                     break
     
     return selected
 
-
-
 def build_nfs_model(context_features: int, flow_features: int = 1) -> Flow:
     """Factory: a shallow MAF‑style conditional normalising flow."""
     base_dist = StandardNormal([flow_features])
     transforms: List = []
-    for _ in range(3):
+    for _ in range(4):
         transforms += [
             RandomPermutation(features=flow_features),
             MaskedAffineAutoregressiveTransform(
                 features=flow_features,
-                hidden_features=16,
+                hidden_features=24,
                 context_features=context_features,
             ),
         ]
@@ -153,29 +161,38 @@ def train(model: Flow, train_loader: DataLoader, *, epochs: int = 200, lr: float
 
     return losses
 
+def create_fast_setup_mapping(test_indices: List[int], setup_indices: Dict) -> Dict[int, Tuple]:
+    """Create fast O(1) lookup mapping from index to setup"""
+    index_to_setup = {}
+    for setup, indices in setup_indices.items():
+        for idx in indices:
+            if idx in test_indices:  # Only map test indices
+                index_to_setup[idx] = setup
+    return index_to_setup
+
 def generate_predictions_for_setups(
     model: Flow,
     x_test: torch.Tensor,
     y_test: torch.Tensor,
     test_indices: List[int],
-    setup_indices: Dict[Tuple[float, float, float], List[int]]
+    setup_indices: Dict
 ) -> torch.Tensor:
     """Generate predictions matching the number of repetitions for each setup."""
     model.eval()
     predictions = torch.zeros_like(y_test)
     
-    # Group test indices by setup
+    # Fast O(1) lookup instead of nested loops
+    index_to_setup = create_fast_setup_mapping(test_indices, setup_indices)
+    
+    # Group by setup more efficiently
     test_setups = defaultdict(list)
     for test_idx in test_indices:
-        # Find which setup this index belongs to
-        for setup, indices in setup_indices.items():
-            if test_idx in indices:
-                test_setups[setup].append(test_idx)
-                break
+        if test_idx in index_to_setup:
+            setup = index_to_setup[test_idx]
+            test_setups[setup].append(test_idx)
     
     with torch.no_grad():
         for setup, indices in test_setups.items():
-            # Number of samples needed for this setup
             n_samples = len(indices)
             
             # Use the first instance of this setup as context
@@ -193,13 +210,14 @@ def generate_predictions_for_setups(
 
 def visualize_setup_distribution(
     model: Flow,
-    setup: Tuple[float, float, float],
+    setup: Tuple,
     indices: List[int],
     x_data: torch.Tensor,
     y_data: torch.Tensor,
     fold_idx: int,
     log_dir: Path,
-    setup_name: str
+    setup_name: str,
+    max_viz_samples: int = 1000
 ) -> None:
     """Create visualization comparing predicted vs ground truth distribution for a setup."""
     model.eval()
@@ -207,12 +225,15 @@ def visualize_setup_distribution(
     # Get ground truth values for this setup
     y_true = y_data[indices].numpy().flatten()
     
-    # Generate predictions
+    # Generate predictions - limit the number for visualization
     n_samples = len(indices)
     context = x_data[indices[0]:indices[0]+1].to(device)
     
+    # Limit visualization samples to avoid excessive computation
+    viz_samples = min(max_viz_samples, n_samples * 10)
+    
     with torch.no_grad():
-        y_pred = model.sample(n_samples * 10, context=context).cpu().numpy().flatten()  # Generate more samples for smoother distribution
+        y_pred = model.sample(viz_samples, context=context).cpu().numpy().flatten()
     
     # Create visualization
     plt.figure(figsize=(12, 5))
@@ -220,8 +241,11 @@ def visualize_setup_distribution(
     # Subplot 1: Distribution comparison
     plt.subplot(1, 2, 1)
     sns.kdeplot(y_true, label='Ground Truth', fill=True, alpha=0.5, color='blue')
-    sns.kdeplot(y_pred, label='Predicted', fill=True, alpha=0.5, color='orange')
-    plt.title(f'Distribution Comparison\nSetup: mf={setup[0]:.3f}, mf1={setup[1]:.3f}, mf2={setup[2]:.6f}')
+    sns.kdeplot(y_pred, label=f'Predicted ({viz_samples} samples)', fill=True, alpha=0.5, color='orange')
+    
+    # Dynamic title generation (avoid hardcoding feature names)
+    feature_str = ', '.join([f'f{i}={val:.6f}' for i, val in enumerate(setup)])
+    plt.title(f'Distribution Comparison\nSetup: {feature_str}')
     plt.xlabel('Value')
     plt.ylabel('Density')
     plt.legend()
@@ -243,8 +267,9 @@ def visualize_setup_distribution(
     
     plt.tight_layout()
     
-    # Save the plot
-    filename = log_dir / "visualizations" / f"fold_{fold_idx}_{setup_name}_setup_{setup[0]:.3f}_{setup[1]:.3f}_{setup[2]:.6f}.pdf"
+    # Dynamic filename generation
+    setup_suffix = '_'.join([f'{val:.6f}' for val in setup])
+    filename = log_dir / "visualizations" / f"fold_{fold_idx}_{setup_name}_setup_{setup_suffix}.pdf"
     plt.savefig(filename, dpi=300, bbox_inches='tight')
     plt.close()
     
@@ -257,6 +282,9 @@ def main() -> None:
     parser.add_argument("--epochs", type=int, default=50)
     parser.add_argument("--n_folds", type=int, default=5, help="Number of folds for cross-validation")
     parser.add_argument("--min_samples_for_viz", type=int, default=10, help="Minimum samples for visualization")
+    parser.add_argument("--max_viz_samples", type=int, default=1000, help="Max samples for visualization")
+    parser.add_argument("--max_total_viz_samples", type=int, default=5000, help="Max total samples across all visualizations")
+    
     args = parser.parse_args()
 
     # Create log directory
@@ -267,8 +295,8 @@ def main() -> None:
     x, y, x_df, y_df = load_dataset(args.x_csv, args.y_csv)
     print(f"Dataset loaded – {len(x)} rows, {x.shape[1]} features ➜ target dim 1")
     
-    # Analyze setups
-    setup_indices = analyze_setups(x_df)
+    # Analyze setups with precision control
+    setup_indices = analyze_setups(x_df, precision=6)
     print(f"Found {len(setup_indices)} unique setups")
     
     # Find setups with many repetitions for visualization
@@ -288,7 +316,8 @@ def main() -> None:
         f.write(f"Epochs per fold: {args.epochs}\n")
         f.write(f"Total samples: {len(x)}\n")
         f.write(f"Unique setups: {len(setup_indices)}\n")
-        f.write(f"Setups with >= {args.min_samples_for_viz} samples: {len(multi_sample_setups)}\n\n")
+        f.write(f"Setups with >= {args.min_samples_for_viz} samples: {len(multi_sample_setups)}\n")
+        f.write(f"Max viz samples: {args.max_viz_samples}\n\n")
     
     for fold_idx, (train_indices, test_indices) in enumerate(kf.split(x)):
         print(f"\n{'='*60}")
@@ -313,10 +342,16 @@ def main() -> None:
         torch.save(flow.state_dict(), checkpoint_path)
         print(f"✔️  Saved checkpoint to {checkpoint_path}")
         
-        # Generate predictions for test set
+        # Generate predictions
+        print("Generating predictions...")
+        start_time = time.time()
+        
         predictions = generate_predictions_for_setups(
             flow, x, y, test_indices, setup_indices
         )
+        
+        end_time = time.time()
+        print(f"✔️  Prediction generation took {end_time - start_time:.2f}s")
         
         # Save predictions with setup information
         pred_df = pd.DataFrame({
@@ -340,18 +375,25 @@ def main() -> None:
             test_setup_indices = [idx for idx in indices if idx in test_indices]
             if len(test_setup_indices) >= args.min_samples_for_viz:
                 test_multi_setups.append((setup, test_setup_indices))
-            
+
         if len(test_multi_setups) > 0:
-            diverse_setups = select_diverse_setups_for_visualization(test_multi_setups, x_df, n_viz=2)
+            # Select diverse setups for visualization
+            diverse_setups = select_diverse_setups(
+                test_multi_setups, x_df, n_viz=4, 
+                max_total_samples=args.max_total_viz_samples
+            )
             print(f"\nGenerating visualizations for {len(diverse_setups)} diverse setups in test set...")
             
+            viz_start_time = time.time()
             for i, (setup, indices) in enumerate(diverse_setups):
                 visualize_setup_distribution(
                     flow, setup, indices, x, y, 
-                    fold_idx + 1, log_dir, f"diverse{i+1}"
+                    fold_idx + 1, log_dir, f"diverse{i+1}",
+                    max_viz_samples=args.max_viz_samples
                 )
+            viz_end_time = time.time()
+            print(f"✔️  Visualization took {viz_end_time - viz_start_time:.2f}s")
 
-    
     # Merge all predictions
     print(f"\n{'='*60}")
     print("Merging all predictions...")
