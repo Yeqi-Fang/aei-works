@@ -17,3 +17,4 @@ logs/run_*/checkpoints/
 # Ignore all checkpoints in logs
 logs/run_*/predictions/
 logs/run_*/merged_predictions.csv
+
