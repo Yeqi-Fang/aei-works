@@ -18,3 +18,8 @@ logs/run_*/checkpoints/
 logs/run_*/predictions/
 logs/run_*/merged_predictions.csv
 
+logs/profiled_run_*/checkpoints/
+# Ignore all checkpoints in logs
+logs/profiled_run_*/predictions/
+logs/profiled_run_*/merged_predictions.csv
+logs/bottleneck_analysis_20250616_194457/trained_model.pt

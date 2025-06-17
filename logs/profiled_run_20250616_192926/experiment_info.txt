@@ -1,0 +1,7 @@
+Profiled experiment started at: 2025-06-16 19:29:42.574698
+Profile mode: basic
+Device: cuda
+Model: 10 layers, 128 hidden features
+Folds: 5, Epochs: 50
+Total samples: 1089500
+

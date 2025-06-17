@@ -1,0 +1,5056 @@
+{
+  "gpu_metrics": [
+    {
+      "utilization": 2.0,
+      "memory_allocated": 0.0,
+      "memory_reserved": 0.0,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 8.0,
+      "temperature": 50.0,
+      "timestamp": 1750095898.0169618,
+      "phase": "\u6570\u636e\u52a0\u8f7d"
+    },
+    {
+      "utilization": 14.0,
+      "memory_allocated": 0.005054950714111328,
+      "memory_reserved": 0.005859375,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 6.0,
+      "temperature": 50.0,
+      "timestamp": 1750095898.5549512,
+      "phase": null
+    },
+    {
+      "utilization": 1.0,
+      "memory_allocated": 0.005054950714111328,
+      "memory_reserved": 0.005859375,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 0.0,
+      "temperature": 51.0,
+      "timestamp": 1750095899.0834541,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 1.0,
+      "memory_allocated": 0.021718978881835938,
+      "memory_reserved": 0.02734375,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 1.0,
+      "temperature": 51.0,
+      "timestamp": 1750095899.617651,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 59.0,
+      "memory_allocated": 0.13033246994018555,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 45.0,
+      "temperature": 53.0,
+      "timestamp": 1750095900.1465669,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 36.0,
+      "memory_allocated": 0.4588279724121094,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 29.0,
+      "temperature": 56.0,
+      "timestamp": 1750095900.6817114,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 0.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 0.0,
+      "temperature": 56.0,
+      "timestamp": 1750095901.2109036,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 43.0,
+      "memory_allocated": 0.3708043098449707,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 34.0,
+      "temperature": 53.0,
+      "timestamp": 1750095901.7389834,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 37.0,
+      "memory_allocated": 0.3701491355895996,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 29.0,
+      "temperature": 57.0,
+      "timestamp": 1750095902.2751455,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.0,
+      "memory_allocated": 0.3073396682739258,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 15.0,
+      "temperature": 55.0,
+      "timestamp": 1750095902.8084276,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 54.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 42.0,
+      "temperature": 57.0,
+      "timestamp": 1750095903.335645,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 27.0,
+      "memory_allocated": 0.5315442085266113,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 22.0,
+      "temperature": 56.0,
+      "timestamp": 1750095903.8714166,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.0,
+      "memory_allocated": 0.2667713165283203,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 15.0,
+      "temperature": 54.0,
+      "timestamp": 1750095904.416646,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 47.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 37.0,
+      "temperature": 56.0,
+      "timestamp": 1750095904.9582455,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 13.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 8.0,
+      "temperature": 57.0,
+      "timestamp": 1750095905.4863775,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 49.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 38.0,
+      "temperature": 54.0,
+      "timestamp": 1750095906.0289521,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 42.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 33.0,
+      "temperature": 57.0,
+      "timestamp": 1750095906.5615928,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 20.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 14.0,
+      "temperature": 55.0,
+      "timestamp": 1750095907.0993648,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 24.0,
+      "memory_allocated": 0.4107170104980469,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 20.0,
+      "temperature": 58.0,
+      "timestamp": 1750095907.6413496,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 22.0,
+      "memory_allocated": 0.1702861785888672,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 18.0,
+      "temperature": 58.0,
+      "timestamp": 1750095908.1748047,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 0.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 0.0,
+      "temperature": 55.0,
+      "timestamp": 1750095908.7061138,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 53.0,
+      "memory_allocated": 0.32308387756347656,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 42.0,
+      "temperature": 58.0,
+      "timestamp": 1750095909.234862,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 47.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 38.0,
+      "temperature": 57.0,
+      "timestamp": 1750095909.7663007,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 0.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 0.0,
+      "temperature": 56.0,
+      "timestamp": 1750095910.2959368,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 49.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 38.0,
+      "temperature": 58.0,
+      "timestamp": 1750095910.82184,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 54.0,
+      "memory_allocated": 0.15048980712890625,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 42.0,
+      "temperature": 58.0,
+      "timestamp": 1750095911.3584878,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 42.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 33.0,
+      "temperature": 56.0,
+      "timestamp": 1750095911.90811,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 36.0,
+      "memory_allocated": 0.10846376419067383,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 29.0,
+      "temperature": 57.0,
+      "timestamp": 1750095912.4370615,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 59.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 46.0,
+      "temperature": 60.0,
+      "timestamp": 1750095912.9669921,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 53.0,
+      "memory_allocated": 0.2993769645690918,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 42.0,
+      "temperature": 59.0,
+      "timestamp": 1750095913.5032806,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 36.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 28.0,
+      "temperature": 57.0,
+      "timestamp": 1750095914.0343752,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 2.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 1.0,
+      "temperature": 60.0,
+      "timestamp": 1750095914.575871,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 52.0,
+      "memory_allocated": 0.2993769645690918,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 41.0,
+      "temperature": 59.0,
+      "timestamp": 1750095915.1006188,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 57.0,
+      "memory_allocated": 0.4025993347167969,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 45.0,
+      "temperature": 57.0,
+      "timestamp": 1750095915.6339724,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 0.0,
+      "memory_allocated": 0.41122961044311523,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 0.0,
+      "temperature": 60.0,
+      "timestamp": 1750095916.1683047,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 34.0,
+      "memory_allocated": 0.49028682708740234,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 27.0,
+      "temperature": 58.0,
+      "timestamp": 1750095916.696527,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 39.0,
+      "memory_allocated": 0.22034788131713867,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 31.0,
+      "temperature": 61.0,
+      "timestamp": 1750095917.2264519,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 9.0,
+      "memory_allocated": 0.12258195877075195,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 8.0,
+      "temperature": 59.0,
+      "timestamp": 1750095917.7560594,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 32.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 25.0,
+      "temperature": 59.0,
+      "timestamp": 1750095918.2931645,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 68.0,
+      "memory_allocated": 0.02903890609741211,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 54.0,
+      "temperature": 59.0,
+      "timestamp": 1750095918.8202024,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 0.0,
+      "memory_allocated": 0.22629594802856445,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 0.0,
+      "temperature": 57.0,
+      "timestamp": 1750095919.3562548,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 27.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 22.0,
+      "temperature": 57.0,
+      "timestamp": 1750095919.8924298,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 52.0,
+      "memory_allocated": 0.02903890609741211,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 41.0,
+      "temperature": 60.0,
+      "timestamp": 1750095920.426499,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 0.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 0.0,
+      "temperature": 57.0,
+      "timestamp": 1750095920.956629,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 56.0,
+      "memory_allocated": 0.49047136306762695,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 44.0,
+      "temperature": 60.0,
+      "timestamp": 1750095922.4536917,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 52.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 41.0,
+      "temperature": 60.0,
+      "timestamp": 1750095922.9836476,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 67.0,
+      "memory_allocated": 0.1322927474975586,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 53.0,
+      "temperature": 57.0,
+      "timestamp": 1750095923.5143483,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 48.0,
+      "memory_allocated": 0.1782221794128418,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 38.0,
+      "temperature": 59.0,
+      "timestamp": 1750095924.0440445,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 42.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 32.0,
+      "temperature": 57.0,
+      "timestamp": 1750095924.5773594,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 42.0,
+      "memory_allocated": 0.0605311393737793,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 33.0,
+      "temperature": 59.0,
+      "timestamp": 1750095925.1227434,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 36.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 28.0,
+      "temperature": 61.0,
+      "timestamp": 1750095925.6506557,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 59.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 45.0,
+      "temperature": 59.0,
+      "timestamp": 1750095926.183241,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 36.0,
+      "memory_allocated": 0.5139346122741699,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 28.0,
+      "temperature": 60.0,
+      "timestamp": 1750095926.713669,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 27.0,
+      "memory_allocated": 0.031580448150634766,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 22.0,
+      "temperature": 58.0,
+      "timestamp": 1750095927.241999,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 2.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 0.0,
+      "temperature": 61.0,
+      "timestamp": 1750095927.7756805,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 31.0,
+      "memory_allocated": 0.3628416061401367,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 23.0,
+      "temperature": 60.0,
+      "timestamp": 1750095928.3074563,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 47.0,
+      "memory_allocated": 0.21854543685913086,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 36.0,
+      "temperature": 61.0,
+      "timestamp": 1750095928.8428168,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 1.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 1.0,
+      "temperature": 61.0,
+      "timestamp": 1750095929.372256,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 42.0,
+      "memory_allocated": 0.5063648223876953,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 32.0,
+      "temperature": 60.0,
+      "timestamp": 1750095929.8992682,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 38.0,
+      "memory_allocated": 0.11534547805786133,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 29.0,
+      "temperature": 60.0,
+      "timestamp": 1750095930.4347239,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 5.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 4.0,
+      "temperature": 57.0,
+      "timestamp": 1750095930.961085,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 57.0,
+      "memory_allocated": 0.34111928939819336,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 43.0,
+      "temperature": 60.0,
+      "timestamp": 1750095931.4933393,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 24.0,
+      "memory_allocated": 0.2662496566772461,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 17.0,
+      "temperature": 58.0,
+      "timestamp": 1750095932.0278344,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 12.0,
+      "memory_allocated": 0.2198314666748047,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 9.0,
+      "temperature": 57.0,
+      "timestamp": 1750095932.559503,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 52.0,
+      "memory_allocated": 0.19455289840698242,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 40.0,
+      "temperature": 59.0,
+      "timestamp": 1750095933.0914907,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 67.0,
+      "memory_allocated": 0.19038105010986328,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 52.0,
+      "temperature": 59.0,
+      "timestamp": 1750095933.6273758,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 11.0,
+      "memory_allocated": 0.21826791763305664,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 9.0,
+      "temperature": 58.0,
+      "timestamp": 1750095934.1766958,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 28.0,
+      "memory_allocated": 0.15636587142944336,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 21.0,
+      "temperature": 59.0,
+      "timestamp": 1750095934.7193558,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 62.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 46.0,
+      "temperature": 58.0,
+      "timestamp": 1750095935.2458649,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 49.0,
+      "memory_allocated": 0.16235065460205078,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 36.0,
+      "temperature": 59.0,
+      "timestamp": 1750095935.7817562,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 48.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 38.0,
+      "temperature": 61.0,
+      "timestamp": 1750095936.3218033,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 73.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 55.0,
+      "temperature": 61.0,
+      "timestamp": 1750095936.8533645,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 30.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 24.0,
+      "temperature": 60.0,
+      "timestamp": 1750095937.384095,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 42.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 33.0,
+      "temperature": 61.0,
+      "timestamp": 1750095937.9190288,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 47.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 35.0,
+      "temperature": 62.0,
+      "timestamp": 1750095938.453364,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 61.0,
+      "memory_allocated": 0.5139656066894531,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 48.0,
+      "temperature": 59.0,
+      "timestamp": 1750095938.9800637,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 47.0,
+      "memory_allocated": 0.06638717651367188,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 37.0,
+      "temperature": 58.0,
+      "timestamp": 1750095939.5132647,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 0.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 0.0,
+      "temperature": 61.0,
+      "timestamp": 1750095940.0487256,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 28.0,
+      "memory_allocated": 0.27518224716186523,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 22.0,
+      "temperature": 58.0,
+      "timestamp": 1750095940.5782115,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 47.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 36.0,
+      "temperature": 58.0,
+      "timestamp": 1750095941.105103,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 0.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 0.0,
+      "temperature": 57.0,
+      "timestamp": 1750095941.6326587,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 42.0,
+      "memory_allocated": 0.5063652992248535,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 33.0,
+      "temperature": 60.0,
+      "timestamp": 1750095942.1645432,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 28.0,
+      "memory_allocated": 0.49825382232666016,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 22.0,
+      "temperature": 58.0,
+      "timestamp": 1750095942.694885,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 1.0,
+      "memory_allocated": 0.028916358947753906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 1.0,
+      "temperature": 58.0,
+      "timestamp": 1750095943.2278044,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 25.0,
+      "memory_allocated": 0.41837406158447266,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 20.0,
+      "temperature": 61.0,
+      "timestamp": 1750095943.758948,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 32.0,
+      "memory_allocated": 0.128814697265625,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 25.0,
+      "temperature": 60.0,
+      "timestamp": 1750095944.2987092,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 42.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 33.0,
+      "temperature": 58.0,
+      "timestamp": 1750095944.828321,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 58.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 45.0,
+      "temperature": 58.0,
+      "timestamp": 1750095945.368604,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 14.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 9.0,
+      "temperature": 59.0,
+      "timestamp": 1750095945.901157,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 49.0,
+      "memory_allocated": 0.02686309814453125,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 38.0,
+      "temperature": 60.0,
+      "timestamp": 1750095946.4363632,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 55.0,
+      "memory_allocated": 0.41891956329345703,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 44.0,
+      "temperature": 61.0,
+      "timestamp": 1750095946.972973,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 0.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 1.0,
+      "temperature": 58.0,
+      "timestamp": 1750095947.5123708,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 35.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 27.0,
+      "temperature": 60.0,
+      "timestamp": 1750095948.0408282,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 42.0,
+      "memory_allocated": 0.25946903228759766,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 33.0,
+      "temperature": 60.0,
+      "timestamp": 1750095948.5745866,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 0.0,
+      "memory_allocated": 0.026863574981689453,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 0.0,
+      "temperature": 58.0,
+      "timestamp": 1750095949.1034913,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 53.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 42.0,
+      "temperature": 61.0,
+      "timestamp": 1750095949.6286588,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 70.0,
+      "memory_allocated": 0.23030376434326172,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 54.0,
+      "temperature": 59.0,
+      "timestamp": 1750095950.157399,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 14.0,
+      "temperature": 58.0,
+      "timestamp": 1750095950.7027478,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 31.0,
+      "memory_allocated": 0.31591081619262695,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 24.0,
+      "temperature": 61.0,
+      "timestamp": 1750095951.2369626,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 55.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 41.0,
+      "temperature": 59.0,
+      "timestamp": 1750095951.7705252,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 51.0,
+      "memory_allocated": 0.12319231033325195,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 38.0,
+      "temperature": 61.0,
+      "timestamp": 1750095952.2996492,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 30.0,
+      "memory_allocated": 0.06647920608520508,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 22.0,
+      "temperature": 60.0,
+      "timestamp": 1750095952.847584,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 38.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 27.0,
+      "temperature": 59.0,
+      "timestamp": 1750095953.3856244,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 38.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 29.0,
+      "temperature": 59.0,
+      "timestamp": 1750095953.9217482,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 26.0,
+      "memory_allocated": 0.05860567092895508,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 20.0,
+      "temperature": 61.0,
+      "timestamp": 1750095955.3281171,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 40.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 29.0,
+      "temperature": 62.0,
+      "timestamp": 1750095955.884354,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 27.0,
+      "memory_allocated": 0.4661126136779785,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 22.0,
+      "temperature": 60.0,
+      "timestamp": 1750095956.4130752,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 49.0,
+      "memory_allocated": 0.41056203842163086,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 38.0,
+      "temperature": 58.0,
+      "timestamp": 1750095956.9428403,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 2.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 1.0,
+      "temperature": 62.0,
+      "timestamp": 1750095957.473686,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 48.0,
+      "memory_allocated": 0.12282609939575195,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 37.0,
+      "temperature": 60.0,
+      "timestamp": 1750095958.0050898,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 43.0,
+      "memory_allocated": 0.41098546981811523,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 34.0,
+      "temperature": 62.0,
+      "timestamp": 1750095958.5416172,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 10.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 8.0,
+      "temperature": 59.0,
+      "timestamp": 1750095959.0712833,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 51.0,
+      "memory_allocated": 0.47456979751586914,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 40.0,
+      "temperature": 60.0,
+      "timestamp": 1750095959.5999072,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 30.0,
+      "memory_allocated": 0.13033246994018555,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 23.0,
+      "temperature": 59.0,
+      "timestamp": 1750095960.1456282,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 4.0,
+      "memory_allocated": 0.02903890609741211,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 4.0,
+      "temperature": 58.0,
+      "timestamp": 1750095960.6788082,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 53.0,
+      "memory_allocated": 0.20258092880249023,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 42.0,
+      "temperature": 59.0,
+      "timestamp": 1750095961.211238,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 34.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 24.0,
+      "temperature": 61.0,
+      "timestamp": 1750095961.7428908,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 42.0,
+      "memory_allocated": 0.3550601005554199,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 33.0,
+      "temperature": 58.0,
+      "timestamp": 1750095962.2767224,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 38.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 30.0,
+      "temperature": 61.0,
+      "timestamp": 1750095962.8059702,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 55.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 41.0,
+      "temperature": 59.0,
+      "timestamp": 1750095963.3377469,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 42.0,
+      "memory_allocated": 0.3627352714538574,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 33.0,
+      "temperature": 58.0,
+      "timestamp": 1750095963.8733413,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 44.0,
+      "memory_allocated": 0.17244482040405273,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 34.0,
+      "temperature": 61.0,
+      "timestamp": 1750095964.410077,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 0.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 1.0,
+      "temperature": 58.0,
+      "timestamp": 1750095964.9523454,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 62.0,
+      "memory_allocated": 0.2505626678466797,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 49.0,
+      "temperature": 61.0,
+      "timestamp": 1750095965.4815779,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 32.0,
+      "memory_allocated": 0.4585838317871094,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 25.0,
+      "temperature": 59.0,
+      "timestamp": 1750095966.0087667,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 0.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 0.0,
+      "temperature": 58.0,
+      "timestamp": 1750095966.5417328,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 31.0,
+      "memory_allocated": 0.40225934982299805,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 24.0,
+      "temperature": 62.0,
+      "timestamp": 1750095967.0674481,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 80.0,
+      "memory_allocated": 0.02903890609741211,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 63.0,
+      "temperature": 61.0,
+      "timestamp": 1750095967.5988228,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 1.0,
+      "memory_allocated": 0.22022581100463867,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 0.0,
+      "temperature": 59.0,
+      "timestamp": 1750095968.1322143,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 61.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 48.0,
+      "temperature": 59.0,
+      "timestamp": 1750095968.668585,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 52.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 41.0,
+      "temperature": 60.0,
+      "timestamp": 1750095969.1998086,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 53.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 42.0,
+      "temperature": 59.0,
+      "timestamp": 1750095969.7353325,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 50.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 39.0,
+      "temperature": 61.0,
+      "timestamp": 1750095970.272649,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 78.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 61.0,
+      "temperature": 63.0,
+      "timestamp": 1750095970.806342,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 59.0,
+      "memory_allocated": 0.3623685836791992,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 46.0,
+      "temperature": 61.0,
+      "timestamp": 1750095971.3472517,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 64.0,
+      "memory_allocated": 0.5140566825866699,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 50.0,
+      "temperature": 59.0,
+      "timestamp": 1750095971.8854184,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 0.0,
+      "memory_allocated": 0.028843402862548828,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 0.0,
+      "temperature": 62.0,
+      "timestamp": 1750095972.4266403,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 46.0,
+      "memory_allocated": 0.5066094398498535,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 36.0,
+      "temperature": 61.0,
+      "timestamp": 1750095972.958581,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 25.0,
+      "memory_allocated": 0.3635091781616211,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 20.0,
+      "temperature": 62.0,
+      "timestamp": 1750095973.501681,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 0.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 0.0,
+      "temperature": 63.0,
+      "timestamp": 1750095974.0280418,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 35.0,
+      "memory_allocated": 0.029038429260253906,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 27.0,
+      "temperature": 60.0,
+      "timestamp": 1750095974.5535634,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 58.0,
+      "memory_allocated": 0.22034788131713867,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 45.0,
+      "temperature": 59.0,
+      "timestamp": 1750095975.1003547,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 0.0,
+      "memory_allocated": 0.4663352966308594,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 0.0,
+      "temperature": 58.0,
+      "timestamp": 1750095975.6284664,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 26.0,
+      "memory_allocated": 0.40235137939453125,
+      "memory_reserved": 0.666015625,
+      "memory_total": 7.99560546875,
+      "memory_utilization": 20.0,
+      "temperature": 59.0,
+      "timestamp": 1750095976.154093,
+      "phase": "\u8bad\u7ec3"
+    }
+  ],
+  "cpu_metrics": [
+    {
+      "utilization": 0.0,
+      "count": 24,
+      "load_1min": 0.9130859375,
+      "load_5min": 2.158203125,
+      "load_15min": 2.15185546875,
+      "timestamp": 1750095898.0169618,
+      "phase": "\u6570\u636e\u52a0\u8f7d"
+    },
+    {
+      "utilization": 7.2,
+      "count": 24,
+      "load_1min": 0.9130859375,
+      "load_5min": 2.158203125,
+      "load_15min": 2.15185546875,
+      "timestamp": 1750095898.5549512,
+      "phase": null
+    },
+    {
+      "utilization": 7.9,
+      "count": 24,
+      "load_1min": 0.9130859375,
+      "load_5min": 2.158203125,
+      "load_15min": 2.15185546875,
+      "timestamp": 1750095899.0834541,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 14.7,
+      "count": 24,
+      "load_1min": 0.9130859375,
+      "load_5min": 2.158203125,
+      "load_15min": 2.15185546875,
+      "timestamp": 1750095899.617651,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 13.2,
+      "count": 24,
+      "load_1min": 0.9130859375,
+      "load_5min": 2.158203125,
+      "load_15min": 2.15185546875,
+      "timestamp": 1750095900.1465669,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.0,
+      "count": 24,
+      "load_1min": 1.16064453125,
+      "load_5min": 2.18896484375,
+      "load_15min": 2.162109375,
+      "timestamp": 1750095900.6817114,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 13.2,
+      "count": 24,
+      "load_1min": 1.16064453125,
+      "load_5min": 2.18896484375,
+      "load_15min": 2.162109375,
+      "timestamp": 1750095901.2109036,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.0,
+      "count": 24,
+      "load_1min": 1.16064453125,
+      "load_5min": 2.18896484375,
+      "load_15min": 2.162109375,
+      "timestamp": 1750095901.7389834,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 16.7,
+      "count": 24,
+      "load_1min": 1.16064453125,
+      "load_5min": 2.18896484375,
+      "load_15min": 2.162109375,
+      "timestamp": 1750095902.2751455,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 16.5,
+      "count": 24,
+      "load_1min": 1.16064453125,
+      "load_5min": 2.18896484375,
+      "load_15min": 2.162109375,
+      "timestamp": 1750095902.8084276,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.4,
+      "count": 24,
+      "load_1min": 1.16064453125,
+      "load_5min": 2.18896484375,
+      "load_15min": 2.162109375,
+      "timestamp": 1750095903.335645,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 15.1,
+      "count": 24,
+      "load_1min": 1.16064453125,
+      "load_5min": 2.18896484375,
+      "load_15min": 2.162109375,
+      "timestamp": 1750095903.8714166,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.7,
+      "count": 24,
+      "load_1min": 1.16064453125,
+      "load_5min": 2.18896484375,
+      "load_15min": 2.162109375,
+      "timestamp": 1750095904.416646,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 20.4,
+      "count": 24,
+      "load_1min": 1.16064453125,
+      "load_5min": 2.18896484375,
+      "load_15min": 2.162109375,
+      "timestamp": 1750095904.9582455,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 14.2,
+      "count": 24,
+      "load_1min": 1.1474609375,
+      "load_5min": 2.1689453125,
+      "load_15min": 2.15576171875,
+      "timestamp": 1750095905.4863775,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.8,
+      "count": 24,
+      "load_1min": 1.1474609375,
+      "load_5min": 2.1689453125,
+      "load_15min": 2.15576171875,
+      "timestamp": 1750095906.0289521,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 22.0,
+      "count": 24,
+      "load_1min": 1.1474609375,
+      "load_5min": 2.1689453125,
+      "load_15min": 2.15576171875,
+      "timestamp": 1750095906.5615928,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 16.7,
+      "count": 24,
+      "load_1min": 1.1474609375,
+      "load_5min": 2.1689453125,
+      "load_15min": 2.15576171875,
+      "timestamp": 1750095907.0993648,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.4,
+      "count": 24,
+      "load_1min": 1.1474609375,
+      "load_5min": 2.1689453125,
+      "load_15min": 2.15576171875,
+      "timestamp": 1750095907.6413496,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.1,
+      "count": 24,
+      "load_1min": 1.1474609375,
+      "load_5min": 2.1689453125,
+      "load_15min": 2.15576171875,
+      "timestamp": 1750095908.1748047,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 13.3,
+      "count": 24,
+      "load_1min": 1.1474609375,
+      "load_5min": 2.1689453125,
+      "load_15min": 2.15576171875,
+      "timestamp": 1750095908.7061138,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.9,
+      "count": 24,
+      "load_1min": 1.1474609375,
+      "load_5min": 2.1689453125,
+      "load_15min": 2.15576171875,
+      "timestamp": 1750095909.234862,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 16.9,
+      "count": 24,
+      "load_1min": 1.1474609375,
+      "load_5min": 2.1689453125,
+      "load_15min": 2.15576171875,
+      "timestamp": 1750095909.7663007,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 14.4,
+      "count": 24,
+      "load_1min": 1.1474609375,
+      "load_5min": 2.1689453125,
+      "load_15min": 2.15576171875,
+      "timestamp": 1750095910.2959368,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.0,
+      "count": 24,
+      "load_1min": 1.3759765625,
+      "load_5min": 2.19970703125,
+      "load_15min": 2.166015625,
+      "timestamp": 1750095910.82184,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 16.1,
+      "count": 24,
+      "load_1min": 1.3759765625,
+      "load_5min": 2.19970703125,
+      "load_15min": 2.166015625,
+      "timestamp": 1750095911.3584878,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.2,
+      "count": 24,
+      "load_1min": 1.3759765625,
+      "load_5min": 2.19970703125,
+      "load_15min": 2.166015625,
+      "timestamp": 1750095911.90811,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.5,
+      "count": 24,
+      "load_1min": 1.3759765625,
+      "load_5min": 2.19970703125,
+      "load_15min": 2.166015625,
+      "timestamp": 1750095912.4370615,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 14.5,
+      "count": 24,
+      "load_1min": 1.3759765625,
+      "load_5min": 2.19970703125,
+      "load_15min": 2.166015625,
+      "timestamp": 1750095912.9669921,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.6,
+      "count": 24,
+      "load_1min": 1.3759765625,
+      "load_5min": 2.19970703125,
+      "load_15min": 2.166015625,
+      "timestamp": 1750095913.5032806,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 16.3,
+      "count": 24,
+      "load_1min": 1.3759765625,
+      "load_5min": 2.19970703125,
+      "load_15min": 2.166015625,
+      "timestamp": 1750095914.0343752,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 15.2,
+      "count": 24,
+      "load_1min": 1.3759765625,
+      "load_5min": 2.19970703125,
+      "load_15min": 2.166015625,
+      "timestamp": 1750095914.575871,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.2,
+      "count": 24,
+      "load_1min": 1.3759765625,
+      "load_5min": 2.19970703125,
+      "load_15min": 2.166015625,
+      "timestamp": 1750095915.1006188,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.7,
+      "count": 24,
+      "load_1min": 1.58642578125,
+      "load_5min": 2.22998046875,
+      "load_15min": 2.17626953125,
+      "timestamp": 1750095915.6339724,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 14.7,
+      "count": 24,
+      "load_1min": 1.58642578125,
+      "load_5min": 2.22998046875,
+      "load_15min": 2.17626953125,
+      "timestamp": 1750095916.1683047,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.5,
+      "count": 24,
+      "load_1min": 1.58642578125,
+      "load_5min": 2.22998046875,
+      "load_15min": 2.17626953125,
+      "timestamp": 1750095916.696527,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.6,
+      "count": 24,
+      "load_1min": 1.58642578125,
+      "load_5min": 2.22998046875,
+      "load_15min": 2.17626953125,
+      "timestamp": 1750095917.2264519,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 16.8,
+      "count": 24,
+      "load_1min": 1.58642578125,
+      "load_5min": 2.22998046875,
+      "load_15min": 2.17626953125,
+      "timestamp": 1750095917.7560594,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 16.1,
+      "count": 24,
+      "load_1min": 1.58642578125,
+      "load_5min": 2.22998046875,
+      "load_15min": 2.17626953125,
+      "timestamp": 1750095918.2931645,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 14.4,
+      "count": 24,
+      "load_1min": 1.58642578125,
+      "load_5min": 2.22998046875,
+      "load_15min": 2.17626953125,
+      "timestamp": 1750095918.8202024,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 16.4,
+      "count": 24,
+      "load_1min": 1.58642578125,
+      "load_5min": 2.22998046875,
+      "load_15min": 2.17626953125,
+      "timestamp": 1750095919.3562548,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.8,
+      "count": 24,
+      "load_1min": 1.58642578125,
+      "load_5min": 2.22998046875,
+      "load_15min": 2.17626953125,
+      "timestamp": 1750095919.8924298,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 12.0,
+      "count": 24,
+      "load_1min": 1.61962890625,
+      "load_5min": 2.22607421875,
+      "load_15min": 2.17529296875,
+      "timestamp": 1750095920.426499,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.7,
+      "count": 24,
+      "load_1min": 1.61962890625,
+      "load_5min": 2.22607421875,
+      "load_15min": 2.17529296875,
+      "timestamp": 1750095920.956629,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.8,
+      "count": 24,
+      "load_1min": 1.61962890625,
+      "load_5min": 2.22607421875,
+      "load_15min": 2.17529296875,
+      "timestamp": 1750095922.4536917,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 13.5,
+      "count": 24,
+      "load_1min": 1.61962890625,
+      "load_5min": 2.22607421875,
+      "load_15min": 2.17529296875,
+      "timestamp": 1750095922.9836476,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.3,
+      "count": 24,
+      "load_1min": 1.61962890625,
+      "load_5min": 2.22607421875,
+      "load_15min": 2.17529296875,
+      "timestamp": 1750095923.5143483,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.7,
+      "count": 24,
+      "load_1min": 1.61962890625,
+      "load_5min": 2.22607421875,
+      "load_15min": 2.17529296875,
+      "timestamp": 1750095924.0440445,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 15.4,
+      "count": 24,
+      "load_1min": 1.61962890625,
+      "load_5min": 2.22607421875,
+      "load_15min": 2.17529296875,
+      "timestamp": 1750095924.5773594,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.4,
+      "count": 24,
+      "load_1min": 1.61962890625,
+      "load_5min": 2.22607421875,
+      "load_15min": 2.17529296875,
+      "timestamp": 1750095925.1227434,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.1,
+      "count": 24,
+      "load_1min": 1.61962890625,
+      "load_5min": 2.22607421875,
+      "load_15min": 2.17529296875,
+      "timestamp": 1750095925.6506557,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 13.2,
+      "count": 24,
+      "load_1min": 1.61962890625,
+      "load_5min": 2.22607421875,
+      "load_15min": 2.17529296875,
+      "timestamp": 1750095926.183241,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.7,
+      "count": 24,
+      "load_1min": 1.73046875,
+      "load_5min": 2.2392578125,
+      "load_15min": 2.18017578125,
+      "timestamp": 1750095926.713669,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 20.1,
+      "count": 24,
+      "load_1min": 1.73046875,
+      "load_5min": 2.2392578125,
+      "load_15min": 2.18017578125,
+      "timestamp": 1750095927.241999,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 13.0,
+      "count": 24,
+      "load_1min": 1.73046875,
+      "load_5min": 2.2392578125,
+      "load_15min": 2.18017578125,
+      "timestamp": 1750095927.7756805,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.9,
+      "count": 24,
+      "load_1min": 1.73046875,
+      "load_5min": 2.2392578125,
+      "load_15min": 2.18017578125,
+      "timestamp": 1750095928.3074563,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.3,
+      "count": 24,
+      "load_1min": 1.73046875,
+      "load_5min": 2.2392578125,
+      "load_15min": 2.18017578125,
+      "timestamp": 1750095928.8428168,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 13.5,
+      "count": 24,
+      "load_1min": 1.73046875,
+      "load_5min": 2.2392578125,
+      "load_15min": 2.18017578125,
+      "timestamp": 1750095929.372256,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.9,
+      "count": 24,
+      "load_1min": 1.73046875,
+      "load_5min": 2.2392578125,
+      "load_15min": 2.18017578125,
+      "timestamp": 1750095929.8992682,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 16.9,
+      "count": 24,
+      "load_1min": 1.73046875,
+      "load_5min": 2.2392578125,
+      "load_15min": 2.18017578125,
+      "timestamp": 1750095930.4347239,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 16.0,
+      "count": 24,
+      "load_1min": 1.73046875,
+      "load_5min": 2.2392578125,
+      "load_15min": 2.18017578125,
+      "timestamp": 1750095930.961085,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.8,
+      "count": 24,
+      "load_1min": 1.99267578125,
+      "load_5min": 2.28515625,
+      "load_15min": 2.19580078125,
+      "timestamp": 1750095931.4933393,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 16.1,
+      "count": 24,
+      "load_1min": 1.99267578125,
+      "load_5min": 2.28515625,
+      "load_15min": 2.19580078125,
+      "timestamp": 1750095932.0278344,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.8,
+      "count": 24,
+      "load_1min": 1.99267578125,
+      "load_5min": 2.28515625,
+      "load_15min": 2.19580078125,
+      "timestamp": 1750095932.559503,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.1,
+      "count": 24,
+      "load_1min": 1.99267578125,
+      "load_5min": 2.28515625,
+      "load_15min": 2.19580078125,
+      "timestamp": 1750095933.0914907,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 12.4,
+      "count": 24,
+      "load_1min": 1.99267578125,
+      "load_5min": 2.28515625,
+      "load_15min": 2.19580078125,
+      "timestamp": 1750095933.6273758,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.5,
+      "count": 24,
+      "load_1min": 1.99267578125,
+      "load_5min": 2.28515625,
+      "load_15min": 2.19580078125,
+      "timestamp": 1750095934.1766958,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.8,
+      "count": 24,
+      "load_1min": 1.99267578125,
+      "load_5min": 2.28515625,
+      "load_15min": 2.19580078125,
+      "timestamp": 1750095934.7193558,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.1,
+      "count": 24,
+      "load_1min": 1.99267578125,
+      "load_5min": 2.28515625,
+      "load_15min": 2.19580078125,
+      "timestamp": 1750095935.2458649,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 16.5,
+      "count": 24,
+      "load_1min": 1.99267578125,
+      "load_5min": 2.28515625,
+      "load_15min": 2.19580078125,
+      "timestamp": 1750095935.7817562,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.3,
+      "count": 24,
+      "load_1min": 1.99267578125,
+      "load_5min": 2.28515625,
+      "load_15min": 2.19580078125,
+      "timestamp": 1750095936.3218033,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 14.7,
+      "count": 24,
+      "load_1min": 2.07373046875,
+      "load_5min": 2.29736328125,
+      "load_15min": 2.2001953125,
+      "timestamp": 1750095936.8533645,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.5,
+      "count": 24,
+      "load_1min": 2.07373046875,
+      "load_5min": 2.29736328125,
+      "load_15min": 2.2001953125,
+      "timestamp": 1750095937.384095,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 22.4,
+      "count": 24,
+      "load_1min": 2.07373046875,
+      "load_5min": 2.29736328125,
+      "load_15min": 2.2001953125,
+      "timestamp": 1750095937.9190288,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 14.4,
+      "count": 24,
+      "load_1min": 2.07373046875,
+      "load_5min": 2.29736328125,
+      "load_15min": 2.2001953125,
+      "timestamp": 1750095938.453364,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.9,
+      "count": 24,
+      "load_1min": 2.07373046875,
+      "load_5min": 2.29736328125,
+      "load_15min": 2.2001953125,
+      "timestamp": 1750095938.9800637,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.9,
+      "count": 24,
+      "load_1min": 2.07373046875,
+      "load_5min": 2.29736328125,
+      "load_15min": 2.2001953125,
+      "timestamp": 1750095939.5132647,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 13.6,
+      "count": 24,
+      "load_1min": 2.07373046875,
+      "load_5min": 2.29736328125,
+      "load_15min": 2.2001953125,
+      "timestamp": 1750095940.0487256,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.4,
+      "count": 24,
+      "load_1min": 2.07373046875,
+      "load_5min": 2.29736328125,
+      "load_15min": 2.2001953125,
+      "timestamp": 1750095940.5782115,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.5,
+      "count": 24,
+      "load_1min": 2.07373046875,
+      "load_5min": 2.29736328125,
+      "load_15min": 2.2001953125,
+      "timestamp": 1750095941.105103,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 12.3,
+      "count": 24,
+      "load_1min": 1.9072265625,
+      "load_5min": 2.2587890625,
+      "load_15min": 2.18798828125,
+      "timestamp": 1750095941.6326587,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.4,
+      "count": 24,
+      "load_1min": 1.9072265625,
+      "load_5min": 2.2587890625,
+      "load_15min": 2.18798828125,
+      "timestamp": 1750095942.1645432,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.0,
+      "count": 24,
+      "load_1min": 1.9072265625,
+      "load_5min": 2.2587890625,
+      "load_15min": 2.18798828125,
+      "timestamp": 1750095942.694885,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 14.8,
+      "count": 24,
+      "load_1min": 1.9072265625,
+      "load_5min": 2.2587890625,
+      "load_15min": 2.18798828125,
+      "timestamp": 1750095943.2278044,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.7,
+      "count": 24,
+      "load_1min": 1.9072265625,
+      "load_5min": 2.2587890625,
+      "load_15min": 2.18798828125,
+      "timestamp": 1750095943.758948,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 14.9,
+      "count": 24,
+      "load_1min": 1.9072265625,
+      "load_5min": 2.2587890625,
+      "load_15min": 2.18798828125,
+      "timestamp": 1750095944.2987092,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.0,
+      "count": 24,
+      "load_1min": 1.9072265625,
+      "load_5min": 2.2587890625,
+      "load_15min": 2.18798828125,
+      "timestamp": 1750095944.828321,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.6,
+      "count": 24,
+      "load_1min": 1.9072265625,
+      "load_5min": 2.2587890625,
+      "load_15min": 2.18798828125,
+      "timestamp": 1750095945.368604,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 15.7,
+      "count": 24,
+      "load_1min": 1.9072265625,
+      "load_5min": 2.2587890625,
+      "load_15min": 2.18798828125,
+      "timestamp": 1750095945.901157,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.5,
+      "count": 24,
+      "load_1min": 2.0751953125,
+      "load_5min": 2.2880859375,
+      "load_15min": 2.19775390625,
+      "timestamp": 1750095946.4363632,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 21.2,
+      "count": 24,
+      "load_1min": 2.0751953125,
+      "load_5min": 2.2880859375,
+      "load_15min": 2.19775390625,
+      "timestamp": 1750095946.972973,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 14.4,
+      "count": 24,
+      "load_1min": 2.0751953125,
+      "load_5min": 2.2880859375,
+      "load_15min": 2.19775390625,
+      "timestamp": 1750095947.5123708,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.8,
+      "count": 24,
+      "load_1min": 2.0751953125,
+      "load_5min": 2.2880859375,
+      "load_15min": 2.19775390625,
+      "timestamp": 1750095948.0408282,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 16.6,
+      "count": 24,
+      "load_1min": 2.0751953125,
+      "load_5min": 2.2880859375,
+      "load_15min": 2.19775390625,
+      "timestamp": 1750095948.5745866,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.3,
+      "count": 24,
+      "load_1min": 2.0751953125,
+      "load_5min": 2.2880859375,
+      "load_15min": 2.19775390625,
+      "timestamp": 1750095949.1034913,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.6,
+      "count": 24,
+      "load_1min": 2.0751953125,
+      "load_5min": 2.2880859375,
+      "load_15min": 2.19775390625,
+      "timestamp": 1750095949.6286588,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.4,
+      "count": 24,
+      "load_1min": 2.0751953125,
+      "load_5min": 2.2880859375,
+      "load_15min": 2.19775390625,
+      "timestamp": 1750095950.157399,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.0,
+      "count": 24,
+      "load_1min": 2.0751953125,
+      "load_5min": 2.2880859375,
+      "load_15min": 2.19775390625,
+      "timestamp": 1750095950.7027478,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.8,
+      "count": 24,
+      "load_1min": 2.0751953125,
+      "load_5min": 2.2880859375,
+      "load_15min": 2.19775390625,
+      "timestamp": 1750095951.2369626,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 15.5,
+      "count": 24,
+      "load_1min": 2.3095703125,
+      "load_5min": 2.33349609375,
+      "load_15min": 2.212890625,
+      "timestamp": 1750095951.7705252,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.1,
+      "count": 24,
+      "load_1min": 2.3095703125,
+      "load_5min": 2.33349609375,
+      "load_15min": 2.212890625,
+      "timestamp": 1750095952.2996492,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.3,
+      "count": 24,
+      "load_1min": 2.3095703125,
+      "load_5min": 2.33349609375,
+      "load_15min": 2.212890625,
+      "timestamp": 1750095952.847584,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 16.9,
+      "count": 24,
+      "load_1min": 2.3095703125,
+      "load_5min": 2.33349609375,
+      "load_15min": 2.212890625,
+      "timestamp": 1750095953.3856244,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.3,
+      "count": 24,
+      "load_1min": 2.3095703125,
+      "load_5min": 2.33349609375,
+      "load_15min": 2.212890625,
+      "timestamp": 1750095953.9217482,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.5,
+      "count": 24,
+      "load_1min": 2.3095703125,
+      "load_5min": 2.33349609375,
+      "load_15min": 2.212890625,
+      "timestamp": 1750095955.3281171,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 13.1,
+      "count": 24,
+      "load_1min": 2.3095703125,
+      "load_5min": 2.33349609375,
+      "load_15min": 2.212890625,
+      "timestamp": 1750095955.884354,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.6,
+      "count": 24,
+      "load_1min": 2.3095703125,
+      "load_5min": 2.33349609375,
+      "load_15min": 2.212890625,
+      "timestamp": 1750095956.4130752,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 20.4,
+      "count": 24,
+      "load_1min": 2.3095703125,
+      "load_5min": 2.33349609375,
+      "load_15min": 2.212890625,
+      "timestamp": 1750095956.9428403,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 15.1,
+      "count": 24,
+      "load_1min": 2.4453125,
+      "load_5min": 2.361328125,
+      "load_15min": 2.22265625,
+      "timestamp": 1750095957.473686,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.4,
+      "count": 24,
+      "load_1min": 2.4453125,
+      "load_5min": 2.361328125,
+      "load_15min": 2.22265625,
+      "timestamp": 1750095958.0050898,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.0,
+      "count": 24,
+      "load_1min": 2.4453125,
+      "load_5min": 2.361328125,
+      "load_15min": 2.22265625,
+      "timestamp": 1750095958.5416172,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 16.4,
+      "count": 24,
+      "load_1min": 2.4453125,
+      "load_5min": 2.361328125,
+      "load_15min": 2.22265625,
+      "timestamp": 1750095959.0712833,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.2,
+      "count": 24,
+      "load_1min": 2.4453125,
+      "load_5min": 2.361328125,
+      "load_15min": 2.22265625,
+      "timestamp": 1750095959.5999072,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.1,
+      "count": 24,
+      "load_1min": 2.4453125,
+      "load_5min": 2.361328125,
+      "load_15min": 2.22265625,
+      "timestamp": 1750095960.1456282,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.8,
+      "count": 24,
+      "load_1min": 2.4453125,
+      "load_5min": 2.361328125,
+      "load_15min": 2.22265625,
+      "timestamp": 1750095960.6788082,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 20.2,
+      "count": 24,
+      "load_1min": 2.4453125,
+      "load_5min": 2.361328125,
+      "load_15min": 2.22265625,
+      "timestamp": 1750095961.211238,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 15.6,
+      "count": 24,
+      "load_1min": 2.4453125,
+      "load_5min": 2.361328125,
+      "load_15min": 2.22265625,
+      "timestamp": 1750095961.7428908,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.9,
+      "count": 24,
+      "load_1min": 2.56982421875,
+      "load_5min": 2.388671875,
+      "load_15min": 2.232421875,
+      "timestamp": 1750095962.2767224,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.6,
+      "count": 24,
+      "load_1min": 2.56982421875,
+      "load_5min": 2.388671875,
+      "load_15min": 2.232421875,
+      "timestamp": 1750095962.8059702,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 13.4,
+      "count": 24,
+      "load_1min": 2.56982421875,
+      "load_5min": 2.388671875,
+      "load_15min": 2.232421875,
+      "timestamp": 1750095963.3377469,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 20.3,
+      "count": 24,
+      "load_1min": 2.56982421875,
+      "load_5min": 2.388671875,
+      "load_15min": 2.232421875,
+      "timestamp": 1750095963.8733413,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.7,
+      "count": 24,
+      "load_1min": 2.56982421875,
+      "load_5min": 2.388671875,
+      "load_15min": 2.232421875,
+      "timestamp": 1750095964.410077,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 14.7,
+      "count": 24,
+      "load_1min": 2.56982421875,
+      "load_5min": 2.388671875,
+      "load_15min": 2.232421875,
+      "timestamp": 1750095964.9523454,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.1,
+      "count": 24,
+      "load_1min": 2.56982421875,
+      "load_5min": 2.388671875,
+      "load_15min": 2.232421875,
+      "timestamp": 1750095965.4815779,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 21.5,
+      "count": 24,
+      "load_1min": 2.56982421875,
+      "load_5min": 2.388671875,
+      "load_15min": 2.232421875,
+      "timestamp": 1750095966.0087667,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 14.4,
+      "count": 24,
+      "load_1min": 2.56982421875,
+      "load_5min": 2.388671875,
+      "load_15min": 2.232421875,
+      "timestamp": 1750095966.5417328,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.6,
+      "count": 24,
+      "load_1min": 2.56982421875,
+      "load_5min": 2.388671875,
+      "load_15min": 2.232421875,
+      "timestamp": 1750095967.0674481,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 15.9,
+      "count": 24,
+      "load_1min": 2.7646484375,
+      "load_5min": 2.43212890625,
+      "load_15min": 2.24755859375,
+      "timestamp": 1750095967.5988228,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 17.7,
+      "count": 24,
+      "load_1min": 2.7646484375,
+      "load_5min": 2.43212890625,
+      "load_15min": 2.24755859375,
+      "timestamp": 1750095968.1322143,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.3,
+      "count": 24,
+      "load_1min": 2.7646484375,
+      "load_5min": 2.43212890625,
+      "load_15min": 2.24755859375,
+      "timestamp": 1750095968.668585,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 16.1,
+      "count": 24,
+      "load_1min": 2.7646484375,
+      "load_5min": 2.43212890625,
+      "load_15min": 2.24755859375,
+      "timestamp": 1750095969.1998086,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 16.9,
+      "count": 24,
+      "load_1min": 2.7646484375,
+      "load_5min": 2.43212890625,
+      "load_15min": 2.24755859375,
+      "timestamp": 1750095969.7353325,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.8,
+      "count": 24,
+      "load_1min": 2.7646484375,
+      "load_5min": 2.43212890625,
+      "load_15min": 2.24755859375,
+      "timestamp": 1750095970.272649,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 13.9,
+      "count": 24,
+      "load_1min": 2.7646484375,
+      "load_5min": 2.43212890625,
+      "load_15min": 2.24755859375,
+      "timestamp": 1750095970.806342,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.8,
+      "count": 24,
+      "load_1min": 2.7646484375,
+      "load_5min": 2.43212890625,
+      "load_15min": 2.24755859375,
+      "timestamp": 1750095971.3472517,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 20.4,
+      "count": 24,
+      "load_1min": 2.7646484375,
+      "load_5min": 2.43212890625,
+      "load_15min": 2.24755859375,
+      "timestamp": 1750095971.8854184,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 13.6,
+      "count": 24,
+      "load_1min": 2.623046875,
+      "load_5min": 2.408203125,
+      "load_15min": 2.24072265625,
+      "timestamp": 1750095972.4266403,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.6,
+      "count": 24,
+      "load_1min": 2.623046875,
+      "load_5min": 2.408203125,
+      "load_15min": 2.24072265625,
+      "timestamp": 1750095972.958581,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.1,
+      "count": 24,
+      "load_1min": 2.623046875,
+      "load_5min": 2.408203125,
+      "load_15min": 2.24072265625,
+      "timestamp": 1750095973.501681,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 15.3,
+      "count": 24,
+      "load_1min": 2.623046875,
+      "load_5min": 2.408203125,
+      "load_15min": 2.24072265625,
+      "timestamp": 1750095974.0280418,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 18.1,
+      "count": 24,
+      "load_1min": 2.623046875,
+      "load_5min": 2.408203125,
+      "load_15min": 2.24072265625,
+      "timestamp": 1750095974.5535634,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 14.9,
+      "count": 24,
+      "load_1min": 2.623046875,
+      "load_5min": 2.408203125,
+      "load_15min": 2.24072265625,
+      "timestamp": 1750095975.1003547,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 15.1,
+      "count": 24,
+      "load_1min": 2.623046875,
+      "load_5min": 2.408203125,
+      "load_15min": 2.24072265625,
+      "timestamp": 1750095975.6284664,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "utilization": 19.3,
+      "count": 24,
+      "load_1min": 2.623046875,
+      "load_5min": 2.408203125,
+      "load_15min": 2.24072265625,
+      "timestamp": 1750095976.154093,
+      "phase": "\u8bad\u7ec3"
+    }
+  ],
+  "memory_metrics": [
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 3.5195846557617188,
+      "available_gb": 21.522727966308594,
+      "percent": 15.4,
+      "timestamp": 1750095898.0169618,
+      "phase": "\u6570\u636e\u52a0\u8f7d"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 3.577831268310547,
+      "available_gb": 21.392486572265625,
+      "percent": 15.9,
+      "timestamp": 1750095898.5549512,
+      "phase": null
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 3.8792343139648438,
+      "available_gb": 21.090824127197266,
+      "percent": 17.1,
+      "timestamp": 1750095899.0834541,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.469814300537109,
+      "available_gb": 20.492313385009766,
+      "percent": 19.4,
+      "timestamp": 1750095899.617651,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.759071350097656,
+      "available_gb": 20.201080322265625,
+      "percent": 20.6,
+      "timestamp": 1750095900.1465669,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.7435760498046875,
+      "available_gb": 20.21642303466797,
+      "percent": 20.5,
+      "timestamp": 1750095900.6817114,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.772220611572266,
+      "available_gb": 20.187301635742188,
+      "percent": 20.6,
+      "timestamp": 1750095901.2109036,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.77392578125,
+      "available_gb": 20.186290740966797,
+      "percent": 20.6,
+      "timestamp": 1750095901.7389834,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.757480621337891,
+      "available_gb": 20.204830169677734,
+      "percent": 20.6,
+      "timestamp": 1750095902.2751455,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.779705047607422,
+      "available_gb": 20.18079376220703,
+      "percent": 20.7,
+      "timestamp": 1750095902.8084276,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.781383514404297,
+      "available_gb": 20.17910385131836,
+      "percent": 20.7,
+      "timestamp": 1750095903.335645,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.762622833251953,
+      "available_gb": 20.199546813964844,
+      "percent": 20.6,
+      "timestamp": 1750095903.8714166,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.779178619384766,
+      "available_gb": 20.182273864746094,
+      "percent": 20.7,
+      "timestamp": 1750095904.416646,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.780498504638672,
+      "available_gb": 20.179576873779297,
+      "percent": 20.7,
+      "timestamp": 1750095904.9582455,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.782470703125,
+      "available_gb": 20.179004669189453,
+      "percent": 20.7,
+      "timestamp": 1750095905.4863775,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.780803680419922,
+      "available_gb": 20.179218292236328,
+      "percent": 20.7,
+      "timestamp": 1750095906.0289521,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.687343597412109,
+      "available_gb": 20.273849487304688,
+      "percent": 20.3,
+      "timestamp": 1750095906.5615928,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.692752838134766,
+      "available_gb": 20.26760482788086,
+      "percent": 20.3,
+      "timestamp": 1750095907.0993648,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.694408416748047,
+      "available_gb": 20.26531982421875,
+      "percent": 20.3,
+      "timestamp": 1750095907.6413496,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.679901123046875,
+      "available_gb": 20.279685974121094,
+      "percent": 20.3,
+      "timestamp": 1750095908.1748047,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.694244384765625,
+      "available_gb": 20.266807556152344,
+      "percent": 20.3,
+      "timestamp": 1750095908.7061138,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.694969177246094,
+      "available_gb": 20.2667236328125,
+      "percent": 20.3,
+      "timestamp": 1750095909.234862,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.683418273925781,
+      "available_gb": 20.277633666992188,
+      "percent": 20.3,
+      "timestamp": 1750095909.7663007,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.6954803466796875,
+      "available_gb": 20.264671325683594,
+      "percent": 20.3,
+      "timestamp": 1750095910.2959368,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.692943572998047,
+      "available_gb": 20.266868591308594,
+      "percent": 20.3,
+      "timestamp": 1750095910.82184,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.6925506591796875,
+      "available_gb": 20.26961898803711,
+      "percent": 20.3,
+      "timestamp": 1750095911.3584878,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.690635681152344,
+      "available_gb": 20.27021026611328,
+      "percent": 20.3,
+      "timestamp": 1750095911.90811,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.691436767578125,
+      "available_gb": 20.268638610839844,
+      "percent": 20.3,
+      "timestamp": 1750095912.4370615,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.694881439208984,
+      "available_gb": 20.26659393310547,
+      "percent": 20.3,
+      "timestamp": 1750095912.9669921,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.696636199951172,
+      "available_gb": 20.263504028320312,
+      "percent": 20.3,
+      "timestamp": 1750095913.5032806,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.698860168457031,
+      "available_gb": 20.26107406616211,
+      "percent": 20.4,
+      "timestamp": 1750095914.0343752,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.698894500732422,
+      "available_gb": 20.262298583984375,
+      "percent": 20.3,
+      "timestamp": 1750095914.575871,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.7003021240234375,
+      "available_gb": 20.259838104248047,
+      "percent": 20.4,
+      "timestamp": 1750095915.1006188,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.6941680908203125,
+      "available_gb": 20.265766143798828,
+      "percent": 20.3,
+      "timestamp": 1750095915.6339724,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.703792572021484,
+      "available_gb": 20.25621795654297,
+      "percent": 20.4,
+      "timestamp": 1750095916.1683047,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.700679779052734,
+      "available_gb": 20.259384155273438,
+      "percent": 20.4,
+      "timestamp": 1750095916.696527,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.695934295654297,
+      "available_gb": 20.266815185546875,
+      "percent": 20.3,
+      "timestamp": 1750095917.2264519,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.701137542724609,
+      "available_gb": 20.259078979492188,
+      "percent": 20.4,
+      "timestamp": 1750095917.7560594,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.701194763183594,
+      "available_gb": 20.258609771728516,
+      "percent": 20.4,
+      "timestamp": 1750095918.2931645,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.697059631347656,
+      "available_gb": 20.26511001586914,
+      "percent": 20.3,
+      "timestamp": 1750095918.8202024,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.7007904052734375,
+      "available_gb": 20.26102066040039,
+      "percent": 20.4,
+      "timestamp": 1750095919.3562548,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.701519012451172,
+      "available_gb": 20.259273529052734,
+      "percent": 20.4,
+      "timestamp": 1750095919.8924298,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.701267242431641,
+      "available_gb": 20.260902404785156,
+      "percent": 20.4,
+      "timestamp": 1750095920.426499,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.702079772949219,
+      "available_gb": 20.258136749267578,
+      "percent": 20.4,
+      "timestamp": 1750095920.956629,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.703418731689453,
+      "available_gb": 20.256515502929688,
+      "percent": 20.4,
+      "timestamp": 1750095922.4536917,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.703289031982422,
+      "available_gb": 20.259021759033203,
+      "percent": 20.4,
+      "timestamp": 1750095922.9836476,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.703578948974609,
+      "available_gb": 20.258243560791016,
+      "percent": 20.4,
+      "timestamp": 1750095923.5143483,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.703205108642578,
+      "available_gb": 20.25638198852539,
+      "percent": 20.4,
+      "timestamp": 1750095924.0440445,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.7007904052734375,
+      "available_gb": 20.26040267944336,
+      "percent": 20.4,
+      "timestamp": 1750095924.5773594,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.702663421630859,
+      "available_gb": 20.25790023803711,
+      "percent": 20.4,
+      "timestamp": 1750095925.1227434,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.704105377197266,
+      "available_gb": 20.255828857421875,
+      "percent": 20.4,
+      "timestamp": 1750095925.6506557,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.705699920654297,
+      "available_gb": 20.254940032958984,
+      "percent": 20.4,
+      "timestamp": 1750095926.183241,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.703208923339844,
+      "available_gb": 20.256378173828125,
+      "percent": 20.4,
+      "timestamp": 1750095926.713669,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.700801849365234,
+      "available_gb": 20.258438110351562,
+      "percent": 20.4,
+      "timestamp": 1750095927.241999,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.701473236083984,
+      "available_gb": 20.258743286132812,
+      "percent": 20.4,
+      "timestamp": 1750095927.7756805,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.703205108642578,
+      "available_gb": 20.25847625732422,
+      "percent": 20.4,
+      "timestamp": 1750095928.3074563,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.703071594238281,
+      "available_gb": 20.259136199951172,
+      "percent": 20.4,
+      "timestamp": 1750095928.8428168,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.704811096191406,
+      "available_gb": 20.254993438720703,
+      "percent": 20.4,
+      "timestamp": 1750095929.372256,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706737518310547,
+      "available_gb": 20.253467559814453,
+      "percent": 20.4,
+      "timestamp": 1750095929.8992682,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706912994384766,
+      "available_gb": 20.255115509033203,
+      "percent": 20.4,
+      "timestamp": 1750095930.4347239,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.707645416259766,
+      "available_gb": 20.253829956054688,
+      "percent": 20.4,
+      "timestamp": 1750095930.961085,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706199645996094,
+      "available_gb": 20.25394058227539,
+      "percent": 20.4,
+      "timestamp": 1750095931.4933393,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.708477020263672,
+      "available_gb": 20.253692626953125,
+      "percent": 20.4,
+      "timestamp": 1750095932.0278344,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706417083740234,
+      "available_gb": 20.252952575683594,
+      "percent": 20.4,
+      "timestamp": 1750095932.559503,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.70819091796875,
+      "available_gb": 20.251678466796875,
+      "percent": 20.4,
+      "timestamp": 1750095933.0914907,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.7071685791015625,
+      "available_gb": 20.255001068115234,
+      "percent": 20.4,
+      "timestamp": 1750095933.6273758,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706867218017578,
+      "available_gb": 20.25320816040039,
+      "percent": 20.4,
+      "timestamp": 1750095934.1766958,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.707134246826172,
+      "available_gb": 20.25390625,
+      "percent": 20.4,
+      "timestamp": 1750095934.7193558,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706905364990234,
+      "available_gb": 20.25457000732422,
+      "percent": 20.4,
+      "timestamp": 1750095935.2458649,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.7066802978515625,
+      "available_gb": 20.254024505615234,
+      "percent": 20.4,
+      "timestamp": 1750095935.7817562,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.707481384277344,
+      "available_gb": 20.253093719482422,
+      "percent": 20.4,
+      "timestamp": 1750095936.3218033,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.708454132080078,
+      "available_gb": 20.25371551513672,
+      "percent": 20.4,
+      "timestamp": 1750095936.8533645,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.707115173339844,
+      "available_gb": 20.254066467285156,
+      "percent": 20.4,
+      "timestamp": 1750095937.384095,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706459045410156,
+      "available_gb": 20.253822326660156,
+      "percent": 20.4,
+      "timestamp": 1750095937.9190288,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.705066680908203,
+      "available_gb": 20.255290985107422,
+      "percent": 20.4,
+      "timestamp": 1750095938.453364,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.705513000488281,
+      "available_gb": 20.255756378173828,
+      "percent": 20.4,
+      "timestamp": 1750095938.9800637,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.7047882080078125,
+      "available_gb": 20.255287170410156,
+      "percent": 20.4,
+      "timestamp": 1750095939.5132647,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706260681152344,
+      "available_gb": 20.25423812866211,
+      "percent": 20.4,
+      "timestamp": 1750095940.0487256,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706512451171875,
+      "available_gb": 20.254192352294922,
+      "percent": 20.4,
+      "timestamp": 1750095940.5782115,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.705402374267578,
+      "available_gb": 20.25585174560547,
+      "percent": 20.4,
+      "timestamp": 1750095941.105103,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.707408905029297,
+      "available_gb": 20.253089904785156,
+      "percent": 20.4,
+      "timestamp": 1750095941.6326587,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706897735595703,
+      "available_gb": 20.25373077392578,
+      "percent": 20.4,
+      "timestamp": 1750095942.1645432,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.708065032958984,
+      "available_gb": 20.253814697265625,
+      "percent": 20.4,
+      "timestamp": 1750095942.694885,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.707065582275391,
+      "available_gb": 20.25448226928711,
+      "percent": 20.4,
+      "timestamp": 1750095943.2278044,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706851959228516,
+      "available_gb": 20.253772735595703,
+      "percent": 20.4,
+      "timestamp": 1750095943.758948,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.705116271972656,
+      "available_gb": 20.257492065429688,
+      "percent": 20.4,
+      "timestamp": 1750095944.2987092,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.707798004150391,
+      "available_gb": 20.252548217773438,
+      "percent": 20.4,
+      "timestamp": 1750095944.828321,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.707096099853516,
+      "available_gb": 20.253196716308594,
+      "percent": 20.4,
+      "timestamp": 1750095945.368604,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.703346252441406,
+      "available_gb": 20.25687026977539,
+      "percent": 20.4,
+      "timestamp": 1750095945.901157,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.703651428222656,
+      "available_gb": 20.25794219970703,
+      "percent": 20.4,
+      "timestamp": 1750095946.4363632,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706382751464844,
+      "available_gb": 20.25362777709961,
+      "percent": 20.4,
+      "timestamp": 1750095946.972973,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706764221191406,
+      "available_gb": 20.252758026123047,
+      "percent": 20.4,
+      "timestamp": 1750095947.5123708,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.70916748046875,
+      "available_gb": 20.25125503540039,
+      "percent": 20.4,
+      "timestamp": 1750095948.0408282,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.710079193115234,
+      "available_gb": 20.251968383789062,
+      "percent": 20.4,
+      "timestamp": 1750095948.5745866,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.709537506103516,
+      "available_gb": 20.252357482910156,
+      "percent": 20.4,
+      "timestamp": 1750095949.1034913,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.709419250488281,
+      "available_gb": 20.250797271728516,
+      "percent": 20.4,
+      "timestamp": 1750095949.6286588,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.710887908935547,
+      "available_gb": 20.251384735107422,
+      "percent": 20.4,
+      "timestamp": 1750095950.157399,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.7114105224609375,
+      "available_gb": 20.248401641845703,
+      "percent": 20.4,
+      "timestamp": 1750095950.7027478,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.708370208740234,
+      "available_gb": 20.252147674560547,
+      "percent": 20.4,
+      "timestamp": 1750095951.2369626,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.7092437744140625,
+      "available_gb": 20.252925872802734,
+      "percent": 20.4,
+      "timestamp": 1750095951.7705252,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.7075958251953125,
+      "available_gb": 20.252620697021484,
+      "percent": 20.4,
+      "timestamp": 1750095952.2996492,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.709934234619141,
+      "available_gb": 20.252376556396484,
+      "percent": 20.4,
+      "timestamp": 1750095952.847584,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.7097320556640625,
+      "available_gb": 20.251113891601562,
+      "percent": 20.4,
+      "timestamp": 1750095953.3856244,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.707683563232422,
+      "available_gb": 20.25246810913086,
+      "percent": 20.4,
+      "timestamp": 1750095953.9217482,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.705867767333984,
+      "available_gb": 20.25551986694336,
+      "percent": 20.4,
+      "timestamp": 1750095955.3281171,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706398010253906,
+      "available_gb": 20.254100799560547,
+      "percent": 20.4,
+      "timestamp": 1750095955.884354,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706447601318359,
+      "available_gb": 20.254180908203125,
+      "percent": 20.4,
+      "timestamp": 1750095956.4130752,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706485748291016,
+      "available_gb": 20.25484848022461,
+      "percent": 20.4,
+      "timestamp": 1750095956.9428403,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.705226898193359,
+      "available_gb": 20.254013061523438,
+      "percent": 20.4,
+      "timestamp": 1750095957.473686,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.705257415771484,
+      "available_gb": 20.254894256591797,
+      "percent": 20.4,
+      "timestamp": 1750095958.0050898,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706230163574219,
+      "available_gb": 20.255630493164062,
+      "percent": 20.4,
+      "timestamp": 1750095958.5416172,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.705356597900391,
+      "available_gb": 20.256107330322266,
+      "percent": 20.4,
+      "timestamp": 1750095959.0712833,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706230163574219,
+      "available_gb": 20.254127502441406,
+      "percent": 20.4,
+      "timestamp": 1750095959.5999072,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.70526123046875,
+      "available_gb": 20.257144927978516,
+      "percent": 20.4,
+      "timestamp": 1750095960.1456282,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.707725524902344,
+      "available_gb": 20.253643035888672,
+      "percent": 20.4,
+      "timestamp": 1750095960.6788082,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.710567474365234,
+      "available_gb": 20.249507904052734,
+      "percent": 20.4,
+      "timestamp": 1750095961.211238,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.712863922119141,
+      "available_gb": 20.249305725097656,
+      "percent": 20.4,
+      "timestamp": 1750095961.7428908,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.711494445800781,
+      "available_gb": 20.24871063232422,
+      "percent": 20.4,
+      "timestamp": 1750095962.2767224,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.709018707275391,
+      "available_gb": 20.250267028808594,
+      "percent": 20.4,
+      "timestamp": 1750095962.8059702,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.710826873779297,
+      "available_gb": 20.250648498535156,
+      "percent": 20.4,
+      "timestamp": 1750095963.3377469,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.7122802734375,
+      "available_gb": 20.248348236083984,
+      "percent": 20.4,
+      "timestamp": 1750095963.8733413,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.709232330322266,
+      "available_gb": 20.251113891601562,
+      "percent": 20.4,
+      "timestamp": 1750095964.410077,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.708625793457031,
+      "available_gb": 20.251590728759766,
+      "percent": 20.4,
+      "timestamp": 1750095964.9523454,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706630706787109,
+      "available_gb": 20.25539779663086,
+      "percent": 20.4,
+      "timestamp": 1750095965.4815779,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.70721435546875,
+      "available_gb": 20.255069732666016,
+      "percent": 20.4,
+      "timestamp": 1750095966.0087667,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.708667755126953,
+      "available_gb": 20.25161361694336,
+      "percent": 20.4,
+      "timestamp": 1750095966.5417328,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.709888458251953,
+      "available_gb": 20.250469207763672,
+      "percent": 20.4,
+      "timestamp": 1750095967.0674481,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.709266662597656,
+      "available_gb": 20.25290298461914,
+      "percent": 20.4,
+      "timestamp": 1750095967.5988228,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.712421417236328,
+      "available_gb": 20.249683380126953,
+      "percent": 20.4,
+      "timestamp": 1750095968.1322143,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.71087646484375,
+      "available_gb": 20.249340057373047,
+      "percent": 20.4,
+      "timestamp": 1750095968.668585,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.7096099853515625,
+      "available_gb": 20.25265121459961,
+      "percent": 20.4,
+      "timestamp": 1750095969.1998086,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.709163665771484,
+      "available_gb": 20.25133514404297,
+      "percent": 20.4,
+      "timestamp": 1750095969.7353325,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.710662841796875,
+      "available_gb": 20.250335693359375,
+      "percent": 20.4,
+      "timestamp": 1750095970.272649,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.709033966064453,
+      "available_gb": 20.253013610839844,
+      "percent": 20.4,
+      "timestamp": 1750095970.806342,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.708869934082031,
+      "available_gb": 20.251205444335938,
+      "percent": 20.4,
+      "timestamp": 1750095971.3472517,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.70904541015625,
+      "available_gb": 20.252567291259766,
+      "percent": 20.4,
+      "timestamp": 1750095971.8854184,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.707233428955078,
+      "available_gb": 20.25298309326172,
+      "percent": 20.4,
+      "timestamp": 1750095972.4266403,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.706386566162109,
+      "available_gb": 20.25417709350586,
+      "percent": 20.4,
+      "timestamp": 1750095972.958581,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.707832336425781,
+      "available_gb": 20.254016876220703,
+      "percent": 20.4,
+      "timestamp": 1750095973.501681,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.711223602294922,
+      "available_gb": 20.25054168701172,
+      "percent": 20.4,
+      "timestamp": 1750095974.0280418,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.710430145263672,
+      "available_gb": 20.249786376953125,
+      "percent": 20.4,
+      "timestamp": 1750095974.5535634,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.711250305175781,
+      "available_gb": 20.25115203857422,
+      "percent": 20.4,
+      "timestamp": 1750095975.1003547,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.710540771484375,
+      "available_gb": 20.250988006591797,
+      "percent": 20.4,
+      "timestamp": 1750095975.6284664,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "total_gb": 25.43897247314453,
+      "used_gb": 4.710933685302734,
+      "available_gb": 20.249282836914062,
+      "percent": 20.4,
+      "timestamp": 1750095976.154093,
+      "phase": "\u8bad\u7ec3"
+    }
+  ],
+  "io_metrics": [
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174448640,
+      "read_time": 52111,
+      "write_time": 295892,
+      "timestamp": 1750095898.0169618,
+      "phase": "\u6570\u636e\u52a0\u8f7d"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174448640,
+      "read_time": 52111,
+      "write_time": 295892,
+      "timestamp": 1750095898.5549512,
+      "phase": null
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174448640,
+      "read_time": 52111,
+      "write_time": 295892,
+      "timestamp": 1750095899.0834541,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174448640,
+      "read_time": 52111,
+      "write_time": 295892,
+      "timestamp": 1750095899.617651,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174600192,
+      "read_time": 52111,
+      "write_time": 295899,
+      "timestamp": 1750095900.1465669,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174600192,
+      "read_time": 52111,
+      "write_time": 295899,
+      "timestamp": 1750095900.6817114,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174600192,
+      "read_time": 52111,
+      "write_time": 295899,
+      "timestamp": 1750095901.2109036,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174600192,
+      "read_time": 52111,
+      "write_time": 295899,
+      "timestamp": 1750095901.7389834,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174600192,
+      "read_time": 52111,
+      "write_time": 295899,
+      "timestamp": 1750095902.2751455,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174600192,
+      "read_time": 52111,
+      "write_time": 295899,
+      "timestamp": 1750095902.8084276,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174600192,
+      "read_time": 52111,
+      "write_time": 295899,
+      "timestamp": 1750095903.335645,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174600192,
+      "read_time": 52111,
+      "write_time": 295899,
+      "timestamp": 1750095903.8714166,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174600192,
+      "read_time": 52111,
+      "write_time": 295899,
+      "timestamp": 1750095904.416646,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174620672,
+      "read_time": 52111,
+      "write_time": 295905,
+      "timestamp": 1750095904.9582455,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174620672,
+      "read_time": 52111,
+      "write_time": 295905,
+      "timestamp": 1750095905.4863775,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174620672,
+      "read_time": 52111,
+      "write_time": 295905,
+      "timestamp": 1750095906.0289521,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174620672,
+      "read_time": 52111,
+      "write_time": 295905,
+      "timestamp": 1750095906.5615928,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174923776,
+      "read_time": 52111,
+      "write_time": 296182,
+      "timestamp": 1750095907.0993648,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174923776,
+      "read_time": 52111,
+      "write_time": 296182,
+      "timestamp": 1750095907.6413496,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174923776,
+      "read_time": 52111,
+      "write_time": 296182,
+      "timestamp": 1750095908.1748047,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174923776,
+      "read_time": 52111,
+      "write_time": 296182,
+      "timestamp": 1750095908.7061138,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174923776,
+      "read_time": 52111,
+      "write_time": 296182,
+      "timestamp": 1750095909.234862,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174952448,
+      "read_time": 52111,
+      "write_time": 296186,
+      "timestamp": 1750095909.7663007,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174952448,
+      "read_time": 52111,
+      "write_time": 296186,
+      "timestamp": 1750095910.2959368,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174952448,
+      "read_time": 52111,
+      "write_time": 296186,
+      "timestamp": 1750095910.82184,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174952448,
+      "read_time": 52111,
+      "write_time": 296186,
+      "timestamp": 1750095911.3584878,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174956544,
+      "read_time": 52111,
+      "write_time": 296189,
+      "timestamp": 1750095911.90811,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174956544,
+      "read_time": 52111,
+      "write_time": 296189,
+      "timestamp": 1750095912.4370615,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174956544,
+      "read_time": 52111,
+      "write_time": 296189,
+      "timestamp": 1750095912.9669921,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174956544,
+      "read_time": 52111,
+      "write_time": 296189,
+      "timestamp": 1750095913.5032806,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174956544,
+      "read_time": 52111,
+      "write_time": 296189,
+      "timestamp": 1750095914.0343752,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174956544,
+      "read_time": 52111,
+      "write_time": 296189,
+      "timestamp": 1750095914.575871,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174968832,
+      "read_time": 52111,
+      "write_time": 296196,
+      "timestamp": 1750095915.1006188,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174968832,
+      "read_time": 52111,
+      "write_time": 296196,
+      "timestamp": 1750095915.6339724,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174968832,
+      "read_time": 52111,
+      "write_time": 296196,
+      "timestamp": 1750095916.1683047,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174968832,
+      "read_time": 52111,
+      "write_time": 296196,
+      "timestamp": 1750095916.696527,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174972928,
+      "read_time": 52111,
+      "write_time": 296200,
+      "timestamp": 1750095917.2264519,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174972928,
+      "read_time": 52111,
+      "write_time": 296200,
+      "timestamp": 1750095917.7560594,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174972928,
+      "read_time": 52111,
+      "write_time": 296200,
+      "timestamp": 1750095918.2931645,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174972928,
+      "read_time": 52111,
+      "write_time": 296200,
+      "timestamp": 1750095918.8202024,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174972928,
+      "read_time": 52111,
+      "write_time": 296200,
+      "timestamp": 1750095919.3562548,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174985216,
+      "read_time": 52111,
+      "write_time": 296204,
+      "timestamp": 1750095919.8924298,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174985216,
+      "read_time": 52111,
+      "write_time": 296204,
+      "timestamp": 1750095920.426499,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174985216,
+      "read_time": 52111,
+      "write_time": 296204,
+      "timestamp": 1750095920.956629,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 174985216,
+      "read_time": 52111,
+      "write_time": 296204,
+      "timestamp": 1750095922.4536917,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175136768,
+      "read_time": 52111,
+      "write_time": 296273,
+      "timestamp": 1750095922.9836476,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175136768,
+      "read_time": 52111,
+      "write_time": 296273,
+      "timestamp": 1750095923.5143483,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175136768,
+      "read_time": 52111,
+      "write_time": 296273,
+      "timestamp": 1750095924.0440445,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175136768,
+      "read_time": 52111,
+      "write_time": 296273,
+      "timestamp": 1750095924.5773594,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175136768,
+      "read_time": 52111,
+      "write_time": 296273,
+      "timestamp": 1750095925.1227434,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175136768,
+      "read_time": 52111,
+      "write_time": 296273,
+      "timestamp": 1750095925.6506557,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175177728,
+      "read_time": 52111,
+      "write_time": 296281,
+      "timestamp": 1750095926.183241,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175177728,
+      "read_time": 52111,
+      "write_time": 296281,
+      "timestamp": 1750095926.713669,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175177728,
+      "read_time": 52111,
+      "write_time": 296281,
+      "timestamp": 1750095927.241999,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175177728,
+      "read_time": 52111,
+      "write_time": 296281,
+      "timestamp": 1750095927.7756805,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175177728,
+      "read_time": 52111,
+      "write_time": 296281,
+      "timestamp": 1750095928.3074563,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175177728,
+      "read_time": 52111,
+      "write_time": 296281,
+      "timestamp": 1750095928.8428168,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175177728,
+      "read_time": 52111,
+      "write_time": 296281,
+      "timestamp": 1750095929.372256,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175177728,
+      "read_time": 52111,
+      "write_time": 296281,
+      "timestamp": 1750095929.8992682,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175177728,
+      "read_time": 52111,
+      "write_time": 296281,
+      "timestamp": 1750095930.4347239,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175190016,
+      "read_time": 52111,
+      "write_time": 296287,
+      "timestamp": 1750095930.961085,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175190016,
+      "read_time": 52111,
+      "write_time": 296287,
+      "timestamp": 1750095931.4933393,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175190016,
+      "read_time": 52111,
+      "write_time": 296287,
+      "timestamp": 1750095932.0278344,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175190016,
+      "read_time": 52111,
+      "write_time": 296287,
+      "timestamp": 1750095932.559503,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175198208,
+      "read_time": 52111,
+      "write_time": 296287,
+      "timestamp": 1750095933.0914907,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175198208,
+      "read_time": 52111,
+      "write_time": 296287,
+      "timestamp": 1750095933.6273758,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175198208,
+      "read_time": 52111,
+      "write_time": 296287,
+      "timestamp": 1750095934.1766958,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175198208,
+      "read_time": 52111,
+      "write_time": 296287,
+      "timestamp": 1750095934.7193558,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175198208,
+      "read_time": 52111,
+      "write_time": 296287,
+      "timestamp": 1750095935.2458649,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175226880,
+      "read_time": 52111,
+      "write_time": 296291,
+      "timestamp": 1750095935.7817562,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175226880,
+      "read_time": 52111,
+      "write_time": 296291,
+      "timestamp": 1750095936.3218033,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175226880,
+      "read_time": 52111,
+      "write_time": 296291,
+      "timestamp": 1750095936.8533645,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175226880,
+      "read_time": 52111,
+      "write_time": 296291,
+      "timestamp": 1750095937.384095,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175235072,
+      "read_time": 52111,
+      "write_time": 296295,
+      "timestamp": 1750095937.9190288,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175235072,
+      "read_time": 52111,
+      "write_time": 296295,
+      "timestamp": 1750095938.453364,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175235072,
+      "read_time": 52111,
+      "write_time": 296295,
+      "timestamp": 1750095938.9800637,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175235072,
+      "read_time": 52111,
+      "write_time": 296295,
+      "timestamp": 1750095939.5132647,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175235072,
+      "read_time": 52111,
+      "write_time": 296295,
+      "timestamp": 1750095940.0487256,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175235072,
+      "read_time": 52111,
+      "write_time": 296295,
+      "timestamp": 1750095940.5782115,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175263744,
+      "read_time": 52111,
+      "write_time": 296303,
+      "timestamp": 1750095941.105103,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175263744,
+      "read_time": 52111,
+      "write_time": 296303,
+      "timestamp": 1750095941.6326587,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175263744,
+      "read_time": 52111,
+      "write_time": 296303,
+      "timestamp": 1750095942.1645432,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175263744,
+      "read_time": 52111,
+      "write_time": 296303,
+      "timestamp": 1750095942.694885,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175325184,
+      "read_time": 52111,
+      "write_time": 296352,
+      "timestamp": 1750095943.2278044,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175325184,
+      "read_time": 52111,
+      "write_time": 296352,
+      "timestamp": 1750095943.758948,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175325184,
+      "read_time": 52111,
+      "write_time": 296352,
+      "timestamp": 1750095944.2987092,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175325184,
+      "read_time": 52111,
+      "write_time": 296352,
+      "timestamp": 1750095944.828321,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175325184,
+      "read_time": 52111,
+      "write_time": 296352,
+      "timestamp": 1750095945.368604,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175337472,
+      "read_time": 52111,
+      "write_time": 296358,
+      "timestamp": 1750095945.901157,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175337472,
+      "read_time": 52111,
+      "write_time": 296358,
+      "timestamp": 1750095946.4363632,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175337472,
+      "read_time": 52111,
+      "write_time": 296358,
+      "timestamp": 1750095946.972973,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175337472,
+      "read_time": 52111,
+      "write_time": 296358,
+      "timestamp": 1750095947.5123708,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175337472,
+      "read_time": 52111,
+      "write_time": 296358,
+      "timestamp": 1750095948.0408282,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175337472,
+      "read_time": 52111,
+      "write_time": 296358,
+      "timestamp": 1750095948.5745866,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175337472,
+      "read_time": 52111,
+      "write_time": 296358,
+      "timestamp": 1750095949.1034913,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175337472,
+      "read_time": 52111,
+      "write_time": 296358,
+      "timestamp": 1750095949.6286588,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175337472,
+      "read_time": 52111,
+      "write_time": 296358,
+      "timestamp": 1750095950.157399,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175349760,
+      "read_time": 52111,
+      "write_time": 296365,
+      "timestamp": 1750095950.7027478,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175349760,
+      "read_time": 52111,
+      "write_time": 296365,
+      "timestamp": 1750095951.2369626,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175349760,
+      "read_time": 52111,
+      "write_time": 296365,
+      "timestamp": 1750095951.7705252,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175349760,
+      "read_time": 52111,
+      "write_time": 296365,
+      "timestamp": 1750095952.2996492,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175349760,
+      "read_time": 52111,
+      "write_time": 296365,
+      "timestamp": 1750095952.847584,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175349760,
+      "read_time": 52111,
+      "write_time": 296365,
+      "timestamp": 1750095953.3856244,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175349760,
+      "read_time": 52111,
+      "write_time": 296365,
+      "timestamp": 1750095953.9217482,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175349760,
+      "read_time": 52111,
+      "write_time": 296365,
+      "timestamp": 1750095955.3281171,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175349760,
+      "read_time": 52111,
+      "write_time": 296365,
+      "timestamp": 1750095955.884354,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175349760,
+      "read_time": 52111,
+      "write_time": 296365,
+      "timestamp": 1750095956.4130752,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175370240,
+      "read_time": 52111,
+      "write_time": 296368,
+      "timestamp": 1750095956.9428403,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175370240,
+      "read_time": 52111,
+      "write_time": 296368,
+      "timestamp": 1750095957.473686,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175370240,
+      "read_time": 52111,
+      "write_time": 296368,
+      "timestamp": 1750095958.0050898,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175370240,
+      "read_time": 52111,
+      "write_time": 296368,
+      "timestamp": 1750095958.5416172,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175370240,
+      "read_time": 52111,
+      "write_time": 296368,
+      "timestamp": 1750095959.0712833,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175370240,
+      "read_time": 52111,
+      "write_time": 296368,
+      "timestamp": 1750095959.5999072,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175370240,
+      "read_time": 52111,
+      "write_time": 296368,
+      "timestamp": 1750095960.1456282,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175370240,
+      "read_time": 52111,
+      "write_time": 296368,
+      "timestamp": 1750095960.6788082,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175370240,
+      "read_time": 52111,
+      "write_time": 296368,
+      "timestamp": 1750095961.211238,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175382528,
+      "read_time": 52111,
+      "write_time": 296375,
+      "timestamp": 1750095961.7428908,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175382528,
+      "read_time": 52111,
+      "write_time": 296375,
+      "timestamp": 1750095962.2767224,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175382528,
+      "read_time": 52111,
+      "write_time": 296375,
+      "timestamp": 1750095962.8059702,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175382528,
+      "read_time": 52111,
+      "write_time": 296375,
+      "timestamp": 1750095963.3377469,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175382528,
+      "read_time": 52111,
+      "write_time": 296375,
+      "timestamp": 1750095963.8733413,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175382528,
+      "read_time": 52111,
+      "write_time": 296375,
+      "timestamp": 1750095964.410077,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175382528,
+      "read_time": 52111,
+      "write_time": 296375,
+      "timestamp": 1750095964.9523454,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175382528,
+      "read_time": 52111,
+      "write_time": 296375,
+      "timestamp": 1750095965.4815779,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175382528,
+      "read_time": 52111,
+      "write_time": 296375,
+      "timestamp": 1750095966.0087667,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175382528,
+      "read_time": 52111,
+      "write_time": 296375,
+      "timestamp": 1750095966.5417328,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175403008,
+      "read_time": 52111,
+      "write_time": 296382,
+      "timestamp": 1750095967.0674481,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175403008,
+      "read_time": 52111,
+      "write_time": 296382,
+      "timestamp": 1750095967.5988228,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175403008,
+      "read_time": 52111,
+      "write_time": 296382,
+      "timestamp": 1750095968.1322143,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175403008,
+      "read_time": 52111,
+      "write_time": 296382,
+      "timestamp": 1750095968.668585,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175403008,
+      "read_time": 52111,
+      "write_time": 296382,
+      "timestamp": 1750095969.1998086,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175403008,
+      "read_time": 52111,
+      "write_time": 296382,
+      "timestamp": 1750095969.7353325,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175403008,
+      "read_time": 52111,
+      "write_time": 296382,
+      "timestamp": 1750095970.272649,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175403008,
+      "read_time": 52111,
+      "write_time": 296382,
+      "timestamp": 1750095970.806342,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175403008,
+      "read_time": 52111,
+      "write_time": 296382,
+      "timestamp": 1750095971.3472517,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175415296,
+      "read_time": 52111,
+      "write_time": 296388,
+      "timestamp": 1750095971.8854184,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175415296,
+      "read_time": 52111,
+      "write_time": 296388,
+      "timestamp": 1750095972.4266403,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175415296,
+      "read_time": 52111,
+      "write_time": 296388,
+      "timestamp": 1750095972.958581,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175415296,
+      "read_time": 52111,
+      "write_time": 296388,
+      "timestamp": 1750095973.501681,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175415296,
+      "read_time": 52111,
+      "write_time": 296388,
+      "timestamp": 1750095974.0280418,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175415296,
+      "read_time": 52111,
+      "write_time": 296388,
+      "timestamp": 1750095974.5535634,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175415296,
+      "read_time": 52111,
+      "write_time": 296388,
+      "timestamp": 1750095975.1003547,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175415296,
+      "read_time": 52111,
+      "write_time": 296388,
+      "timestamp": 1750095975.6284664,
+      "phase": "\u8bad\u7ec3"
+    },
+    {
+      "read_bytes": 1899755520,
+      "write_bytes": 175415296,
+      "read_time": 52111,
+      "write_time": 296388,
+      "timestamp": 1750095976.154093,
+      "phase": "\u8bad\u7ec3"
+    }
+  ],
+  "timings": {
+    "\u6570\u636e\u52a0\u8f7d": 0.2592012882232666,
+    "\u6570\u636e\u52a0\u8f7d\u5668\u521b\u5efa": 0.0002434253692626953,
+    "\u6a21\u578b\u6784\u5efa": 0.015720844268798828,
+    "\u8bad\u7ec3": 77.6838436126709
+  }
+}

@@ -235,85 +235,92 @@ def calculate_mismatch(i: int, params: CalculationParams, random_offsets: Dict[s
 
 if __name__ == "__main__":
     
-    
-    all_random_offsets = []
-    for i in range(config.numbers):
-        random_offsets = {
-            "F0": np.random.uniform(-config.dF0, config.dF0),
-            "F1": np.random.uniform(-config.dF1_refined, config.dF1_refined),
-            "F2": np.random.uniform(-config.dF2_refined, config.dF2_refined)
-        }
-        all_random_offsets.append(random_offsets)
+    grids = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 
-    
-    params = CalculationParams(
-        inj_params=config.inj,
-        DeltaF0=config.DeltaF0,
-        DeltaF1=config.DeltaF1,
-        DeltaF2=config.DeltaF2,
-        dF0=config.dF0,
-        dF1_refined=config.dF1_refined,
-        dF2_refined=config.dF2_refined,
-        sky=config.sky,
-        outdir=config.outdir,
-        sftfilepath=writer.sftfilepath,  # This needs to be available
-        tref=config.inj["tref"],
-        nsegs=config.nsegs,
-        plot=config.plot,
-        labels=config.labels,
-        tstart=config.tstart,
-        duration=config.duration
-    )
-    
-    # run the mismatch calculation in parallel
-    with concurrent.futures.ProcessPoolExecutor(config.num_workers) as executor:
-        futures = []
+    for grid in grids:
+        config.DeltaF0 = grid * config.dF0  # 500
+        config.DeltaF1 = grid * config.dF1_refined  # 200
+        config.DeltaF2 = grid * config.dF2_refined  # 60
+        
+        
+        all_random_offsets = []
         for i in range(config.numbers):
-            futures.append(executor.submit(calculate_mismatch, i, params, all_random_offsets[i]))
-            
-        mismatches = [future.result() for future in concurrent.futures.as_completed(futures)]
+            random_offsets = {
+                "F0": np.random.uniform(-config.dF0, config.dF0),
+                "F1": np.random.uniform(-config.dF1_refined, config.dF1_refined),
+                "F2": np.random.uniform(-config.dF2_refined, config.dF2_refined)
+            }
+            all_random_offsets.append(random_offsets)
 
-    # save the mismatch results to a csv file
-    mismatch_file = os.path.join(config.outdir, "mismatches.csv")
-    np.savetxt(
-        mismatch_file,
-        mismatches,
-        delimiter=",",
-        header="Empirical Mismatch (μ)",
-        comments="",
-    )
+        
+        params = CalculationParams(
+            inj_params=config.inj,
+            DeltaF0=config.DeltaF0,
+            DeltaF1=config.DeltaF1,
+            DeltaF2=config.DeltaF2,
+            dF0=config.dF0,
+            dF1_refined=config.dF1_refined,
+            dF2_refined=config.dF2_refined,
+            sky=config.sky,
+            outdir=config.outdir,
+            sftfilepath=writer.sftfilepath,  # This needs to be available
+            tref=config.inj["tref"],
+            nsegs=config.nsegs,
+            plot=config.plot,
+            labels=config.labels,
+            tstart=config.tstart,
+            duration=config.duration
+        )
+        
+        # run the mismatch calculation in parallel
+        with concurrent.futures.ProcessPoolExecutor(config.num_workers) as executor:
+            futures = []
+            for i in range(config.numbers):
+                futures.append(executor.submit(calculate_mismatch, i, params, all_random_offsets[i]))
+                
+            mismatches = [future.result() for future in concurrent.futures.as_completed(futures)]
 
-    # plot the mismatch distribution
+        # save the mismatch results to a csv file
+        mismatch_file = os.path.join(config.outdir, f"new-mismatches-5-{grid}.csv")
+        np.savetxt(
+            mismatch_file,
+            mismatches,
+            delimiter=",",
+            header="Empirical Mismatch (μ)",
+            comments="",
+        )
 
-    fig, ax = plt.subplots(figsize=(10, 6))
-    # choose bin edges so the last bar ends at 1.0, like in the photo
-    # bins = np.linspace(0, 1, 11)        # 10 equal-width bins → 11 edges
-    ax.hist(
-        mismatches,
-        bins=10,
-        density=True,
-        color="#5B9BD5",  # pleasant blue
-        alpha=0.85,
-        edgecolor="black",
-        linewidth=1.0,
-    )
+        # plot the mismatch distribution
 
-    # axis labels & limits
-    ax.set_xlabel(r"mismatch $\mu$", fontsize=20)
-    ax.set_ylabel("normalized histogram", fontsize=20)
-    ax.set_xlim(0, 1)
-    # ax.set_ylim(0, 0.25)
+        fig, ax = plt.subplots(figsize=(10, 6))
+        # choose bin edges so the last bar ends at 1.0, like in the photo
+        # bins = np.linspace(0, 1, 11)        # 10 equal-width bins → 11 edges
+        ax.hist(
+            mismatches,
+            bins=10,
+            density=True,
+            color="#5B9BD5",  # pleasant blue
+            alpha=0.85,
+            edgecolor="black",
+            linewidth=1.0,
+        )
 
-    # ticks & grid
-    ax.tick_params(axis="both", which="major", labelsize=14, length=6)
-    ax.grid(axis="y", linewidth=0.6, alpha=0.35)
+        # axis labels & limits
+        ax.set_xlabel(r"mismatch $\mu$", fontsize=20)
+        ax.set_ylabel("normalized histogram", fontsize=20)
+        ax.set_xlim(0, 1)
+        # ax.set_ylim(0, 0.25)
 
-    fig.tight_layout()
-    fig.savefig(os.path.join(config.outdir, f"mismatch_distribution-max-mismatch:{config.mf}.pdf"))
-    plt.show()
+        # ticks & grid
+        ax.tick_params(axis="both", which="major", labelsize=14, length=6)
+        ax.grid(axis="y", linewidth=0.6, alpha=0.35)
 
-    # rumtime
-    # print("runtime: ", config.tau_total)
+        fig.tight_layout()
+        fig.savefig(os.path.join(config.outdir, f"mismatch_distribution-max-mismatch:{config.mf}-grid:{grid}.pdf"))
+        # plt.show()
 
-    print("mean mismatch: ", np.mean(mismatches))
-    
+        # rumtime
+        # print("runtime: ", config.tau_total)
+
+        print("mean mismatch: ", np.mean(mismatches))
+        

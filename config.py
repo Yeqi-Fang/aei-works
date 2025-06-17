@@ -4,7 +4,7 @@ from runtime_calculation import cal_cost_overall_700yr_new_timing_model
 
 sky = False
 plot = False
-numbers = 500
+numbers = 2000
 num_workers = 14
 tstart = 1000000000
 duration = 120 * 86400
@@ -36,7 +36,7 @@ inj = {
     "F2": -1e-20,
     "Alpha": 0.5,
     "Delta": 1,
-    "h0": 0.05 * sqrtSX,
+    "h0": 5 * sqrtSX,
     "cosi": 1.0,
 }
 
@@ -65,9 +65,9 @@ dF1_refined = dF1 / gamma1
 dF2_refined = dF2 / gamma2
 
 
-DeltaF0 = 8 * dF0  # 500
-DeltaF1 = 8 * dF1_refined  # 200
-DeltaF2 = 8 * dF2_refined  # 60
+DeltaF0 = 10 * dF0  # 500
+DeltaF1 = 10 * dF1_refined  # 200
+DeltaF2 = 10 * dF2_refined  # 60
 
 if sky:
     # cover less range to keep runtime down
