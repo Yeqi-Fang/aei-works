@@ -5,12 +5,14 @@ import pyfstat
 import config
 from typing import Dict, Any
 import pandas as pd
+import matplotlib
 # make sure to put these after the pyfstat import, to not break notebook inline plots
 import matplotlib.pyplot as plt
 
 # %matplotlib inline
 from utils import plot_grid_vs_samples, plot_2F_scatter, CalculationParams
 import matplotlib as mpl
+# mpl.use('TkAgg')
 
 # --- one-off style tweaks ---------------------------------------------------
 mpl.rcParams.update(
@@ -246,9 +248,9 @@ if __name__ == "__main__":
         all_random_offsets = []
         for i in range(config.numbers):
             random_offsets = {
-                "F0": np.random.uniform(-config.dF0, config.dF0),
-                "F1": np.random.uniform(-config.dF1_refined, config.dF1_refined),
-                "F2": np.random.uniform(-config.dF2_refined, config.dF2_refined)
+                "F0": np.random.uniform(-config.dF0 / 2, config.dF0 / 2),
+                "F1": np.random.uniform(-config.dF1_refined / 2, config.dF1_refined / 2),
+                "F2": np.random.uniform(-config.dF2_refined / 2, config.dF2_refined / 2)
             }
             all_random_offsets.append(random_offsets)
 
