@@ -7,7 +7,7 @@ import os
 import glob
 from itertools import combinations
 
-def load_all_csv_files(file_pattern='PyFstat_example_data/PyFstatExampleSimpleMCMCvsGridComparisonSemi/new-mismatches-5-*.csv', column_name='Empirical Mismatch (μ)'):
+def load_all_csv_files(file_pattern='PyFstat_example_data/PyFstatExampleSimpleMCMCvsGridComparisonSemi/new-mismatches-0.05-*.csv', column_name='Empirical Mismatch (μ)'):
     """
     Load all CSV files matching the pattern and extract specified column
     

@@ -36,7 +36,7 @@ inj = {
     "F2": -1e-20,
     "Alpha": 0.5,
     "Delta": 1,
-    "h0": 5 * sqrtSX,
+    "h0": 0.05 * sqrtSX,
     "cosi": 1.0,
 }
 

@@ -283,7 +283,7 @@ if __name__ == "__main__":
             mismatches = [future.result() for future in concurrent.futures.as_completed(futures)]
 
         # save the mismatch results to a csv file
-        mismatch_file = os.path.join(config.outdir, f"new-mismatches-5-{grid}.csv")
+        mismatch_file = os.path.join(config.outdir, f"new-mismatches-{config.inj['h0'] / config.sqrtSX}-{grid}.csv")
         np.savetxt(
             mismatch_file,
             mismatches,
