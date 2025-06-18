@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 # %matplotlib inline
 from utils import plot_grid_vs_samples, plot_2F_scatter, CalculationParams
 import matplotlib as mpl
-# mpl.use('TkAgg')
+mpl.use('Agg')
 
 # --- one-off style tweaks ---------------------------------------------------
 mpl.rcParams.update(
