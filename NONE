@@ -1,0 +1,17 @@
+%% cmdline: lalpulsar_ComputeFstatistic_v2 --Alpha=1 --Delta=1.5 --Freq=30 --f1dot=-1e-10 --f2dot=0 --DataFiles="LAL_example_data/LALSemiCoherentF0F1F2_corrected/sfts/*.sft" --refTime=1000432000 --outputFstat="NONE" --outputLoudest="LAL_example_data/LALSemiCoherentF0F1F2_corrected/perfectly_matched_loudest.dat"
+%% LAL: 7.7.0 (CLEAN ef36dfdf49181b9b376a867b55a14463783de545)
+%% LALFrame: 3.0.7 (CLEAN 14ee07ca1c0fecbd5cb24a58b3e1a6d1bb004650)
+%% LALSimulation: 6.2.0 (CLEAN 1338470a6165fb4b4c98bccdd0efe961f05bc8e0)
+%% LALInference: 4.1.9 (CLEAN cdc4b6db616afcc7f066b979f5a240fb1bc22fc5)
+%% LALPulsar: 7.1.1 (CLEAN 061622860b912eeeb35d88b05ef3b1d667d08e02)
+%% FstatMethod used: 'DemodSSE'
+%% Started search: 2025-06-19 16:52:42.0229
+%% Loaded SFTs: [ H1:480 ]
+%% GPS starttime         = 1000000000 (Wed Sep 14 01:46:25 2011 GMT)
+%% Total time spanned    = 864000 s (240.00 hours)
+%% Pulsar-params refTime = 1000432000
+%% Spin-range at refTime: fkdot = [ 30:30, -1e-10:-1e-10, 0:0, 0:0, 0:0, 0:0, 0:0 ]
+%% columns:
+%% freq alpha delta f1dot f2dot f3dot 2F
+30 1 1.5 -1e-10 0 0 209432.344
+%DONE

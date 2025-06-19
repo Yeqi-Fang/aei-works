@@ -1,0 +1,31 @@
+#!/bin/bash
+lalpulsar_HierarchSearchGCT \
+    --DataFiles1=LAL_example_data/LALSemiCoherentF0F1F2_corrected/sfts/*.sft \
+    --gridType1=3 \
+    --skyGridFile=LAL_example_data/LALSemiCoherentF0F1F2_corrected/skygrid.dat \
+    --skyRegion=allsky \
+    --refTime=1000432000 \
+    --Freq=29.9999869465104 \
+    --FreqBand=2.8537242780625e-05 \
+    --dFreq=2.853724278062499e-06 \
+    --f1dot=-6.842261054886062e-10 \
+    --f1dotBand=1.279216042083778e-09 \
+    --df1dot=1.279216042083778e-10 \
+    --f2dot=-9.202989082807412e-14 \
+    --f2dotBand=1.751838927034386e-13 \
+    --df2dot=1.751838927034386e-14 \
+    --tStack=86400 \
+    --nStacksMax=10 \
+    --mismatch1=0.2 \
+    --fnameout=LAL_example_data/LALSemiCoherentF0F1F2_corrected/semicoh_results.dat \
+    --nCand1=1000 \
+    --printCand1 \
+    --semiCohToplist \
+    --minStartTime1=1000000000 \
+    --maxStartTime1=1000864000 \
+    --FstatMethod=ResampBest \
+    --computeBSGL=FALSE \
+    --Dterms=8 \
+    --blocksRngMed=101 \
+    --gammaRefine=8 \
+    --gamma2Refine=20

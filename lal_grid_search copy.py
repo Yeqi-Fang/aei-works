@@ -1,9 +1,11 @@
+
 import os
 import subprocess
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib import gridspec
+
 
 # Create output directory
 label = "LALGridSearchF0F1F2"  # Changed: removed underscores
@@ -67,6 +69,8 @@ if result.returncode != 0:
 
 print("SFTs generated successfully!")
 
+
+
 # Check if SFTs were actually created
 import glob
 sft_files = glob.glob(os.path.join(sft_dir, "*.sft"))
@@ -124,15 +128,22 @@ if result.returncode != 0:
 
 print("F-statistic search completed!")
 
+
+
 # Step 4: Parse results and find maximum
 print("\nParsing results...")
 
 # Read the F-statistic results
 output_fstat_full = os.path.join(outdir, output_fstat)
+print(output_fstat_full)
 # The output format of ComputeFstatistic_v2 is:
 # columns: freq | alpha | delta | f1dot | f2dot | twoF
 data = pd.read_csv(output_fstat_full, sep=r'\s+', comment='%', 
-                   names=['freq', 'alpha', 'delta', 'f1dot', 'f2dot', 'twoF'])
+                   names=['freq', 'alpha', 'delta', 'f1dot', 'f2dot', 'f3dot', 'twoF'])
+data = data[['freq', 'f1dot', 'f2dot', 'twoF']]
+# data
+
+
 
 # Extract values
 F0_vals = data['freq'].values
@@ -156,6 +167,8 @@ print(f"Offsets from injection:")
 print(f"  F0: {max_F0 - F0_inj:.4e} Hz")
 print(f"  F1: {max_F1 - F1_inj:.4e} Hz/s")
 print(f"  F2: {max_F2 - F2_inj:.4e} Hz/s^2")
+
+
 
 # Step 5: Create plots
 print("\nCreating plots...")
@@ -298,3 +311,5 @@ plt.savefig(os.path.join(outdir, "grid_corner_plot.png"))
 plt.close()
 
 print(f"\nAll results saved to {outdir}")
+
+
