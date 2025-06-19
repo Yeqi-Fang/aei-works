@@ -18,7 +18,7 @@ tref = 0.5 * (tstart + tend)
 IFO = "H1, L1"  # Interferometers to use
 
 # Parameters for injected signals
-depth = 0.02
+depth = 0.2
 h0 = sqrtSX / depth
 F0_inj = 151.5
 F1_inj = -1e-10
@@ -91,7 +91,7 @@ df2 = np.sqrt(25200 * mf2) / (np.pi * tStack**3)
 # Search bands
 N1 = 10
 N2 = 10
-N3 = 10
+N3 = 2
 gamma1 = 8
 gamma2 = 20
 
@@ -278,7 +278,7 @@ if data:
         
         plt.tight_layout()
         plt.savefig(os.path.join(outdir, "semicoh_results.png"))
-        plt.close()
+        # plt.close()
 else:
     print("No candidates found in output file")
 
