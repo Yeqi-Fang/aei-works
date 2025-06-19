@@ -10,27 +10,27 @@ outdir = os.path.join("LAL_example_data", label)
 os.makedirs(outdir, exist_ok=True)
 
 # Properties of the GW data
-sqrtSX = 1e-23
+sqrtSX = 1e-22
 tstart = 1000000000
-duration = 10 * 86400
+duration = 120 * 86400
 tend = tstart + duration
 tref = 0.5 * (tstart + tend)
-IFO = "H1"
+IFO = "H1, L1"  # Interferometers to use
 
 # Parameters for injected signals
-depth = 0.45
+depth = 0.02
 h0 = sqrtSX / depth
-F0_inj = 30.0
+F0_inj = 151.5
 F1_inj = -1e-10
-F2_inj = 0
-Alpha_inj = 1.0
-Delta_inj = 1.5
-cosi_inj = 0.0
+F2_inj = -1e-20
+Alpha_inj = 0.5
+Delta_inj = 1
+cosi_inj = 1
 psi_inj = 0.0
 phi0_inj = 0.0
 
 # Semi-coherent search parameters
-tStack = 86400  # 1 day coherent segments
+tStack = 15 * 86400  # 15 day coherent segments
 nStacks = int(duration / tStack)  # Number of segments
 
 # Step 1: Generate SFT data
@@ -59,7 +59,7 @@ makefakedata_cmd = [
     f"--outSFTdir={sft_dir}",
     f"--outLabel={sft_label}",
     f"--injectionSources={injection_params}",
-    "--randSeed=42"
+    "--randSeed=12"
 ]
 
 result = subprocess.run(makefakedata_cmd, capture_output=True, text=True)
@@ -81,10 +81,12 @@ with open(segFile, 'w') as f:
 print(f"Created segment file with {nStacks} segments")
 
 # Step 3: Set up grid search parameters
-m_coh = 0.05
-dF0 = np.sqrt(12 * m_coh) / (np.pi * tStack)
-dF1 = np.sqrt(180 * m_coh) / (np.pi * tStack**2)
-df2 = np.sqrt(25200 * m_coh) / (np.pi * tStack**3)
+mf = 0.15
+mf1 = 0.3
+mf2 = 0.003
+dF0 = np.sqrt(12 * mf) / (np.pi * tStack)
+dF1 = np.sqrt(180 * mf1) / (np.pi * tStack**2)
+df2 = np.sqrt(25200 * mf2) / (np.pi * tStack**3)
 
 # Search bands
 N1 = 10
@@ -145,7 +147,7 @@ hierarchsearch_cmd = [
     f"--df2dot={df2:.15e}",
     f"--tStack={tStack:.15g}",
     f"--nStacksMax={nStacks}",
-    "--mismatch1=0.2",
+    f"--mismatch1={mf:.15g}",
     f"--fnameout={output_file}",
     "--nCand1=1000",
     "--printCand1",
@@ -289,122 +291,107 @@ print(f"\nAll results saved to {outdir}")
 print("\nStep 7: Computing 2F at perfectly matched (injected) point...")
 
 # 准备ComputeFstatistic_v2命令
-computeF_cmd = [
-    "lalpulsar_ComputeFstatistic_v2",
-    f"--DataFiles={sft_pattern}",
+# computeF_cmd = [
+#     "lalpulsar_ComputeFstatistic_v2",
+#     f"--DataFiles={sft_pattern}",
+#     f"--refTime={tref:.15g}",
+#     f"--Alpha={Alpha_inj:.15g}",
+#     f"--Delta={Delta_inj:.15g}",
+#     f"--Freq={F0_inj:.15g}",
+#     f"--f1dot={F1_inj:.15e}",
+#     f"--f2dot={F2_inj:.15e}",
+#     "--outputLoudest=loudest2.dat",
+#     f"--minStartTime={tstart}",
+#     f"--maxStartTime={tend}"
+# ]
+perfect_output_file = os.path.join(outdir, "perfectly_matched_results.dat")
+
+F0_min = F0_inj - DeltaF0 / 2.0
+F0_max = F0_inj + DeltaF0 / 2.0
+F1_min = F1_inj - DeltaF1 / 2.0
+F1_max = F1_inj + DeltaF1 / 2.0
+F2_min = F2_inj - DeltaF2 / 2.0
+F2_max = F2_inj + DeltaF2 / 2.0
+
+
+perfect_search_cmd = [
+    "lalpulsar_HierarchSearchGCT",
+    f"--DataFiles1={sft_pattern}",
+    "--gridType1=3",  # IMPORTANT: 3=file mode for sky grid
+    f"--skyGridFile={skygrid_file}",
+    "--skyRegion=allsky",  # IMPORTANT: needed even with sky grid file
     f"--refTime={tref:.15g}",
-    f"--Alpha={Alpha_inj:.15g}",
-    f"--Delta={Delta_inj:.15g}",
-    f"--Freq={F0_inj:.15g}",
-    f"--f1dot={F1_inj:.15e}",
-    f"--f2dot={F2_inj:.15e}",
-    "--outputLoudest=loudest2.dat",
-    f"--minStartTime={tstart}",
-    f"--maxStartTime={tend}"
+    f"--Freq={F0_min:.15g}",
+    f"--FreqBand={DeltaF0:.15g}",
+    f"--dFreq={dF0:.15e}",
+    f"--f1dot={F1_min:.15e}",
+    f"--f1dotBand={DeltaF1:.15e}",
+    f"--df1dot={dF1:.15e}",
+    f"--f2dot={F2_min:.15e}",
+    f"--f2dotBand={DeltaF2:.15e}",
+    f"--df2dot={df2:.15e}",
+    f"--tStack={tStack:.15g}",
+    f"--nStacksMax={nStacks}",
+    "--mismatch1=0.2",
+    f"--fnameout={perfect_output_file}",
+    "--nCand1=1000",
+    "--printCand1",
+    "--semiCohToplist",
+    f"--minStartTime1={int(tstart)}",
+    f"--maxStartTime1={int(tend)}",
+    "--FstatMethod=ResampBest",
+    "--computeBSGL=FALSE",
+    "--Dterms=8",
+    "--blocksRngMed=101",  # Running median window
+    f"--gammaRefine={gamma1:.15g}",
+    f"--gamma2Refine={gamma2:.15g}",
 ]
 
+
 # 运行命令并捕获输出
-result = subprocess.run(computeF_cmd, capture_output=True, text=True)
+result = subprocess.run(perfect_search_cmd, capture_output=True, text=True)
 
 if result.returncode != 0:
-    print(f"Error running ComputeFstatistic_v2: {result.stderr}")
-else:
-    # 从输出中提取2F值
-    output_lines = result.stdout.strip().split('\n')
-    print(result.stdout)  # 打印输出以便调试
-    perfect_2F = None
-    
-    for line in output_lines:
-        if "twoF" in line or "2F" in line:
-            # 尝试从输出中提取2F值
-            parts = line.split()
-            for i, part in enumerate(parts):
-                if "2F" in part and i+1 < len(parts):
-                    try:
-                        perfect_2F = float(parts[i+1])
-                        break
-                    except:
-                        continue
-            if perfect_2F is not None:
-                break
-    
-    # 如果没有找到，尝试另一种方法：使用outputLoudest文件
-    # if perfect_2F is None:
-    #     loudest_file = os.path.join(outdir, "perfectly_matched_loudest.dat")
-    #     computeF_cmd_with_output = computeF_cmd.copy()
-    #     computeF_cmd_with_output[computeF_cmd_with_output.index("--outputLoudest=NONE")] = f"--outputLoudest={loudest_file}"
-        
-    #     result = subprocess.run(computeF_cmd_with_output, capture_output=True, text=True)
-        
-    #     if result.returncode == 0 and os.path.exists(loudest_file):
-    #         with open(loudest_file, 'r') as f:
-    #             lines = f.readlines()
-    #             for line in lines:
-    #                 if not line.startswith('%') and line.strip():
-    #                     parts = line.split()
-    #                     if len(parts) >= 7:
-    #                         perfect_2F = float(parts[6])  # 2F通常在第7列
-    #                         break
-    
-    # if perfect_2F is not None:
-    #     print(f"\nPerfectly matched 2F = {perfect_2F:.4f}")
-        
-    #     # 与grid search结果比较
-    #     if 'max_twoF' in locals():
-    #         print(f"\nComparison:")
-    #         print(f"  Perfectly matched 2F: {perfect_2F:.4f}")
-    #         print(f"  Grid search max 2F:   {max_twoF:.4f}")
-    #         print(f"  Difference:          {perfect_2F - max_twoF:.4f}")
-    #         print(f"  Relative difference: {(perfect_2F - max_twoF)/perfect_2F * 100:.2f}%")
-            
-    #         # 检查grid search是否找到了注入信号
-    #         if max_twoF < perfect_2F * 0.9:  # 如果grid search的2F小于完美匹配的90%
-    #             print("\nWARNING: Grid search may have missed the injection!")
-    #         else:
-    #             print("\nGrid search successfully recovered the injection!")
-                
-        # 创建比较图
-        if len(F0_vals) > 10 and perfect_2F is not None:
-            fig, ax = plt.subplots(figsize=(10, 6))
-            
-            # 绘制2F vs 频率
-            ax.scatter(F0_vals, twoF_vals, alpha=0.6, label='Grid search')
-            ax.axvline(F0_inj, color='r', linestyle='--', label='Injection frequency')
-            ax.axhline(perfect_2F, color='g', linestyle='--', label=f'Perfect match 2F = {perfect_2F:.2f}')
-            ax.scatter([max_F0], [max_twoF], color='orange', s=100, marker='*', 
-                      label=f'Grid max 2F = {max_twoF:.2f}')
-            
-            ax.set_xlabel('Frequency [Hz]')
-            ax.set_ylabel('$2\\mathcal{F}$')
-            ax.set_title('Comparison: Perfect Match vs Grid Search')
-            ax.legend()
-            ax.grid(True, alpha=0.3)
-            
-            plt.tight_layout()
-            plt.savefig(os.path.join(outdir, "perfect_match_comparison.png"))
-            plt.close()
-            
-            print(f"\nComparison plot saved to {os.path.join(outdir, 'perfect_match_comparison.png')}")
-    else:
-        print("Could not extract 2F value from ComputeFstatistic_v2 output")
+    print(f"Error running lalpulsar_HierarchSearchGCT: {result.stderr}")
+    raise RuntimeError("Failed to compute perfectly matched 2F value")
 
-# 额外分析：计算注入点周围的网格密度
-if len(F0_vals) > 0:
-    # 找到最接近注入频率的网格点
-    closest_idx = np.argmin(np.abs(F0_vals - F0_inj))
-    closest_F0 = F0_vals[closest_idx]
-    closest_F1 = F1_vals[closest_idx]
-    closest_F2 = F2_vals[closest_idx]
-    closest_2F = twoF_vals[closest_idx]
-    
-    print(f"\nClosest grid point to injection:")
-    print(f"  F0: {closest_F0:.6f} Hz (offset: {closest_F0 - F0_inj:.4e} Hz)")
-    print(f"  F1: {closest_F1:.4e} Hz/s (offset: {closest_F1 - F1_inj:.4e} Hz/s)")
-    print(f"  F2: {closest_F2:.4e} Hz/s^2 (offset: {closest_F2 - F2_inj:.4e} Hz/s^2)")
-    print(f"  2F: {closest_2F:.4f}")
-    
-    if 'perfect_2F' in locals() and perfect_2F is not None:
-        mismatch = 1 - closest_2F / perfect_2F
-        print(f"  Mismatch: {mismatch:.4f}")
+with open(perfect_output_file, 'r') as f:
+    lines = f.readlines()
 
-print(f"\nAll analysis results saved to {outdir}")
+# Look for the data section
+data = []
+in_data = False
+for line in lines:
+    if line.strip() and not line.startswith('%'):
+        parts = line.split()
+        if len(parts) >= 7:
+            try:
+                freq = float(parts[0])
+                alpha = float(parts[1])
+                delta = float(parts[2])
+                f1dot = float(parts[3])
+                f2dot = float(parts[4])
+                f3dot = float(parts[5])
+                twoF = float(parts[6])
+                data.append([freq, f1dot, f2dot, twoF])
+            except ValueError:
+                continue
+
+if data:
+    data = np.array(data)
+    F0_vals = data[:, 0]
+    F1_vals = data[:, 1]
+    F2_vals = data[:, 2]
+    twoF_vals = data[:, 3]
+    
+    # Find maximum
+    max_idx = np.argmax(twoF_vals)
+    perfect_2F = twoF_vals[max_idx]
+    
+
+
+print("perfectly match: 2F = ", perfect_2F)
+print("found maximum: 2F = ", max_twoF)
+mismatch = (perfect_2F - max_twoF) / (perfect_2F - 4)
+
+print(f"\nMismatch between perfectly matched point and found maximum: {mismatch:.6f}")
