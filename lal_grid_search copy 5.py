@@ -95,7 +95,7 @@ df2 = np.sqrt(25200 * mf2) / (np.pi * tStack**3)
 # Search bands
 N1 = 10
 N2 = 10
-N3 = 2
+N3 = 10
 gamma1 = 8
 gamma2 = 20
 
@@ -132,8 +132,7 @@ def single_run(i):
         "lalpulsar_HierarchSearchGCT",
         f"--DataFiles1={sft_pattern}",
         "--gridType1=3",  # IMPORTANT: 3=file mode for sky grid
-        f"--skyGridFile={skygrid_file}",
-        "--skyRegion=allsky",  # IMPORTANT: needed even with sky grid file
+        f"--skyGridFile={{{Alpha_inj} {Delta_inj}}}",
         f"--refTime={tref:.15g}",
         f"--Freq={F0_min:.15g}",
         f"--FreqBand={DeltaF0:.15g}",
@@ -153,12 +152,16 @@ def single_run(i):
         "--semiCohToplist",
         f"--minStartTime1={int(tstart)}",
         f"--maxStartTime1={int(tend)}",
-        "--FstatMethod=ResampBest",
-        "--computeBSGL=FALSE",
-        "--Dterms=8",
-        "--blocksRngMed=101",  # Running median window
         f"--gammaRefine={gamma1:.15g}",
         f"--gamma2Refine={gamma2:.15g}",
+        "--recalcToplistStats=TRUE",
+        "--FstatMethod=ResampBest",
+        "--FstatMethodRecalc=DemodBest",
+        # "--peakThrF=2.6",
+        # "--SortToplist=0",
+        # "--computeBSGL",
+        # "--oLGX=0.5,0.5",
+        # "--BSGLlogcorr=0",  
     ]
 
     # Save command for debugging
@@ -225,9 +228,10 @@ for i in range(N):
                         delta = float(parts[2])
                         f1dot = float(parts[3])
                         f2dot = float(parts[4])
-                        f3dot = float(parts[5])
+                        nc = float(parts[5])
                         twoF = float(parts[6])
-                        data.append([freq, f1dot, f2dot, twoF])
+                        twoFr = float(parts[7])
+                        data.append([freq, f1dot, f2dot, twoFr])
                     except ValueError:
                         continue
 
@@ -261,8 +265,7 @@ perfect_search_cmd = [
     "lalpulsar_HierarchSearchGCT",
     f"--DataFiles1={sft_pattern}",
     "--gridType1=3",  # IMPORTANT: 3=file mode for sky grid
-    f"--skyGridFile={skygrid_file}",
-    "--skyRegion=allsky",  # IMPORTANT: needed even with sky grid file
+    f"--skyGridFile={{{Alpha_inj} {Delta_inj}}}",
     f"--refTime={tref:.15g}",
     f"--Freq={F0_min:.15g}",
     f"--FreqBand={DeltaF0:.15g}",
@@ -275,19 +278,23 @@ perfect_search_cmd = [
     f"--df2dot={df2:.15e}",
     f"--tStack={tStack:.15g}",
     f"--nStacksMax={nStacks}",
-    "--mismatch1=0.2",
+    f"--mismatch1={mf:.15g}",
     f"--fnameout={perfect_output_file}",
     "--nCand1=1000",
     "--printCand1",
     "--semiCohToplist",
     f"--minStartTime1={int(tstart)}",
     f"--maxStartTime1={int(tend)}",
-    "--FstatMethod=ResampBest",
-    "--computeBSGL=FALSE",
-    "--Dterms=8",
-    "--blocksRngMed=101",  # Running median window
     f"--gammaRefine={gamma1:.15g}",
     f"--gamma2Refine={gamma2:.15g}",
+    "--recalcToplistStats=TRUE",
+    "--FstatMethod=ResampBest",
+    "--FstatMethodRecalc=DemodBest",
+    # "--peakThrF=2.6",
+    # "--SortToplist=0",
+    # "--computeBSGL",
+    # "--oLGX=0.5,0.5",
+    # "--BSGLlogcorr=0",  # Disable BSG log correction    
 ]
 
 
@@ -316,7 +323,8 @@ for line in lines:
                 f2dot = float(parts[4])
                 f3dot = float(parts[5])
                 twoF = float(parts[6])
-                data.append([freq, f1dot, f2dot, twoF])
+                twoFr = float(parts[7])
+                data.append([freq, f1dot, f2dot, twoFr])
             except ValueError:
                 continue
 

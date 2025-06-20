@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Create output directory
-label = "LALSemiCoherentF0F1F2_corrected0"
+label = "LALSemiCoherentF0F1F2_corrected0v4"
 outdir = os.path.join("LAL_example_data", label)
 os.makedirs(outdir, exist_ok=True)
 
@@ -18,7 +18,7 @@ tref = 0.5 * (tstart + tend)
 IFO = "H1, L1"  # Interferometers to use
 
 # Parameters for injected signals
-depth = 0.2
+depth = 0.6
 h0 = sqrtSX / depth
 F0_inj = 151.5
 F1_inj = -1e-10
@@ -47,26 +47,46 @@ injection_params = (
 
 sft_label = "SemiCoh"
 
-makefakedata_cmd = [
-    "lalpulsar_Makefakedata_v5",
-    f"--IFOs={IFO}",
-    f"--sqrtSX={sqrtSX:.15e}",
-    f"--startTime={int(tstart)}",
-    f"--duration={int(duration)}",
-    f"--fmin={F0_inj - 1.0:.15g}",
-    f"--Band=2.0",
-    "--Tsft=1800",
-    f"--outSFTdir={sft_dir}",
-    f"--outLabel={sft_label}",
-    f"--injectionSources={injection_params}",
-]
+# Note: v4 only supports one IFO at a time, so we need to handle multiple IFOs differently
+IFO_list = IFO.replace(" ", "").split(",")  # Convert "H1, L1" to ["H1", "L1"]
 
-result = subprocess.run(makefakedata_cmd, capture_output=True, text=True)
-if result.returncode != 0:
-    print(f"Error generating SFTs: {result.stderr}")
-    raise RuntimeError("Failed to generate SFTs")
+# Note: v4 only supports one IFO at a time, so we need to handle multiple IFOs differently
+IFO_list = IFO.replace(" ", "").split(",")  # Convert "H1, L1" to ["H1", "L1"]
 
-print("SFTs generated successfully!")
+# Generate SFTs for each IFO separately
+for ifo in IFO_list:
+    makefakedata_cmd = [
+        "lalpulsar_Makefakedata_v4",
+        f"--IFO={ifo}",  # Note: singular --IFO, not --IFOs
+        f"--noiseSqrtSh={sqrtSX:.15e}",  # Note: different parameter name
+        f"--startTime={int(tstart)}",
+        f"--duration={int(duration)}",
+        f"--fmin={F0_inj - 1.0:.15g}",
+        f"--Band=2.0",
+        "--Tsft=1800",
+        f"--outSFTbname={sft_dir}",  # Just the directory, not a full path
+        "--outSingleSFT=false",  # Generate multiple SFTs
+        # Injection parameters must be specified individually in v4
+        f"--Alpha={Alpha_inj:.15g}",
+        f"--Delta={Delta_inj:.15g}",
+        f"--Freq={F0_inj:.15g}",
+        f"--f1dot={F1_inj:.15e}",
+        f"--f2dot={F2_inj:.15e}",
+        f"--refTime={tref:.15g}",
+        f"--h0={h0:.15e}",
+        f"--cosi={cosi_inj:.15g}",
+        f"--psi={psi_inj:.15g}",
+        f"--phi0={phi0_inj:.15g}",
+        "--ephemEarth=earth00-40-DE405.dat.gz",
+        "--ephemSun=sun00-40-DE405.dat.gz"
+    ]
+    
+    result = subprocess.run(makefakedata_cmd, capture_output=True, text=True)
+    if result.returncode != 0:
+        print(f"Error generating SFTs for {ifo}: {result.stderr}")
+        raise RuntimeError(f"Failed to generate SFTs for {ifo}")
+    
+    print(f"SFTs generated successfully for {ifo}!")
 
 # Step 2: Create segment list file (CRITICAL!)
 segFile = os.path.join(outdir, "segments.dat")
@@ -90,7 +110,7 @@ df2 = np.sqrt(25200 * mf2) / (np.pi * tStack**3)
 # Search bands
 N1 = 10
 N2 = 10
-N3 = 20
+N3 = 2
 gamma1 = 8
 gamma2 = 20
 
@@ -132,7 +152,8 @@ hierarchsearch_cmd = [
     "lalpulsar_HierarchSearchGCT",
     f"--DataFiles1={sft_pattern}",
     "--gridType1=3",  # IMPORTANT: 3=file mode for sky grid
-    f"--skyGridFile={{{Alpha_inj} {Delta_inj}}}",
+    f"--skyGridFile={skygrid_file}",
+    "--skyRegion=allsky",  # IMPORTANT: needed even with sky grid file
     f"--refTime={tref:.15g}",
     f"--Freq={F0_min:.15g}",
     f"--FreqBand={DeltaF0:.15g}",
@@ -147,21 +168,17 @@ hierarchsearch_cmd = [
     f"--nStacksMax={nStacks}",
     f"--mismatch1={mf:.15g}",
     f"--fnameout={output_file}",
-    "--nCand1=1000",
+    "--nCand1=100000",
     "--printCand1",
     "--semiCohToplist",
     f"--minStartTime1={int(tstart)}",
     f"--maxStartTime1={int(tend)}",
+    "--FstatMethod=ResampBest",
+    "--computeBSGL=FALSE",
+    "--Dterms=8",
+    "--blocksRngMed=101",  # Running median window
     f"--gammaRefine={gamma1:.15g}",
     f"--gamma2Refine={gamma2:.15g}",
-    "--recalcToplistStats=TRUE",
-    "--FstatMethod=ResampBest",
-    "--FstatMethodRecalc=DemodBest",
-    # "--peakThrF=2.6",
-    # "--SortToplist=0",
-    # "--computeBSGL",
-    # "--oLGX=0.5,0.5",
-    # "--BSGLlogcorr=0",  
 ]
 
 # Save command for debugging
@@ -203,10 +220,9 @@ for line in lines:
                 delta = float(parts[2])
                 f1dot = float(parts[3])
                 f2dot = float(parts[4])
-                nc = float(parts[5])
+                f3dot = float(parts[5])
                 twoF = float(parts[6])
-                twoFr = float(parts[7])
-                data.append([freq, f1dot, f2dot, twoFr])
+                data.append([freq, f1dot, f2dot, twoF])
             except ValueError:
                 continue
 
@@ -331,7 +347,8 @@ perfect_search_cmd = [
     "lalpulsar_HierarchSearchGCT",
     f"--DataFiles1={sft_pattern}",
     "--gridType1=3",  # IMPORTANT: 3=file mode for sky grid
-    f"--skyGridFile={{{Alpha_inj} {Delta_inj}}}",
+    f"--skyGridFile={skygrid_file}",
+    "--skyRegion=allsky",  # IMPORTANT: needed even with sky grid file
     f"--refTime={tref:.15g}",
     f"--Freq={F0_min:.15g}",
     f"--FreqBand={DeltaF0:.15g}",
@@ -351,18 +368,12 @@ perfect_search_cmd = [
     "--semiCohToplist",
     f"--minStartTime1={int(tstart)}",
     f"--maxStartTime1={int(tend)}",
+    "--FstatMethod=ResampBest",
+    "--computeBSGL=FALSE",
     "--Dterms=8",
     "--blocksRngMed=101",  # Running median window
     f"--gammaRefine={gamma1:.15g}",
     f"--gamma2Refine={gamma2:.15g}",
-    "--recalcToplistStats=TRUE",
-    "--FstatMethod=ResampBest",
-    "--FstatMethodRecalc=DemodBest",
-    # "--peakThrF=2.6",
-    # "--SortToplist=0",
-    # "--computeBSGL",
-    # "--oLGX=0.5,0.5",
-    # "--BSGLlogcorr=0",  # Disable BSG log correction    
 ]
 
 
@@ -389,10 +400,9 @@ for line in lines:
                 delta = float(parts[2])
                 f1dot = float(parts[3])
                 f2dot = float(parts[4])
-                nc = float(parts[5])
+                f3dot = float(parts[5])
                 twoF = float(parts[6])
-                twoFr = float(parts[7])
-                data.append([freq, f1dot, f2dot, twoFr])
+                data.append([freq, f1dot, f2dot, twoF])
             except ValueError:
                 continue
 
