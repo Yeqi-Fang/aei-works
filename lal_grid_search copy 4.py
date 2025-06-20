@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Create output directory
-label = "LALSemiCoherentF0F1F2_corrected"
+label = "LALSemiCoherentF0F1F2_corrected0"
 outdir = os.path.join("LAL_example_data", label)
 os.makedirs(outdir, exist_ok=True)
 
@@ -86,7 +86,7 @@ mf1 = 0.3
 mf2 = 0.003
 dF0 = np.sqrt(12 * mf) / (np.pi * tStack)
 dF1 = np.sqrt(180 * mf1) / (np.pi * tStack**2)
-df2 = np.sqrt(25200 * mf2) / (np.pi * tStack**3)
+df2 = np.sqrt(4 * 2520 * mf2) / (np.pi * tStack**3)
 
 # Search bands
 N1 = 10

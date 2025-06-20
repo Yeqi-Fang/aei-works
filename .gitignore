@@ -27,3 +27,9 @@ logs/bottleneck_analysis_20250616_194457/trained_model.pt
 default.profraw
 *.sft
 *.dat
+
+LAL_example_data/LALSemiCoherentF0F1F2_corrected/*.sh
+LAL_example_data/LALSemiCoherentF0F1F2_corrected/*.dat
+
+LAL_example_data/LALSemiCoherentF0F1F2_corrected0/*.sh
+LAL_example_data/LALSemiCoherentF0F1F2_corrected0/*.dat

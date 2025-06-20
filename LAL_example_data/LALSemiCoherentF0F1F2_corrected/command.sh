@@ -5,13 +5,13 @@ lalpulsar_HierarchSearchGCT \
     --skyGridFile=LAL_example_data/LALSemiCoherentF0F1F2_corrected/skygrid.dat \
     --skyRegion=allsky \
     --refTime=1005184000 \
-    --Freq=151.49999850427 \
+    --Freq=151.499998363895 \
     --FreqBand=3.29519696026471e-06 \
     --dFreq=3.295196960264709e-07 \
-    --f1dot=-1.070187183880247e-10 \
+    --f1dot=-1.070410701604431e-10 \
     --f1dotBand=1.392634032839071e-11 \
     --df1dot=1.392634032839071e-12 \
-    --f2dot=-1.344161782493323e-18 \
+    --f2dot=-1.036044440331379e-18 \
     --f2dotBand=2.542880878683862e-18 \
     --df2dot=1.271440439341931e-18 \
     --tStack=1296000 \
