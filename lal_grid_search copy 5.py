@@ -95,7 +95,7 @@ df2 = np.sqrt(25200 * mf2) / (np.pi * tStack**3)
 # Search bands
 N1 = 10
 N2 = 10
-N3 = 10
+N3 = 8
 gamma1 = 8
 gamma2 = 20
 
@@ -145,7 +145,6 @@ def single_run(i):
         f"--df2dot={df2:.15e}",
         f"--tStack={tStack:.15g}",
         f"--nStacksMax={nStacks}",
-        f"--mismatch1={mf:.15g}",
         f"--fnameout={output_file}",
         "--nCand1=1000",
         "--printCand1",
@@ -278,7 +277,6 @@ perfect_search_cmd = [
     f"--df2dot={df2:.15e}",
     f"--tStack={tStack:.15g}",
     f"--nStacksMax={nStacks}",
-    f"--mismatch1={mf:.15g}",
     f"--fnameout={perfect_output_file}",
     "--nCand1=1000",
     "--printCand1",
