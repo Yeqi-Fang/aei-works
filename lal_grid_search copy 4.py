@@ -86,7 +86,7 @@ mf1 = 0.3
 mf2 = 0.003
 dF0 = np.sqrt(12 * mf) / (np.pi * tStack)
 dF1 = np.sqrt(180 * mf1) / (np.pi * tStack**2)
-df2 = np.sqrt(4 * 2520 * mf2) / (np.pi * tStack**3)
+df2 = np.sqrt(25200 * mf2) / (np.pi * tStack**3)
 
 # Search bands
 N1 = 10
@@ -149,7 +149,7 @@ hierarchsearch_cmd = [
     f"--nStacksMax={nStacks}",
     f"--mismatch1={mf:.15g}",
     f"--fnameout={output_file}",
-    "--nCand1=1000",
+    "--nCand1=100000",
     "--printCand1",
     "--semiCohToplist",
     f"--minStartTime1={int(tstart)}",
@@ -207,8 +207,18 @@ for line in lines:
             except ValueError:
                 continue
 
+
+
 if data:
     data = np.array(data)
+    
+    
+    # save to CSV file
+    results_csv = os.path.join(outdir, "semicoh_results.csv")
+    df = pd.DataFrame(data, columns=['F0', 'F1', 'F2', '2F'])
+    df.to_csv(results_csv, index=False)
+    print(f"Results saved to {results_csv}")
+    
     F0_vals = data[:, 0]
     F1_vals = data[:, 1]
     F2_vals = data[:, 2]
