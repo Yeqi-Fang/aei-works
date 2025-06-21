@@ -20,7 +20,7 @@ tstart = 1000000000
 duration = 120 * 86400
 tend = tstart + duration
 tref = 0.5 * (tstart + tend)
-IFO = "H1, L1"  # Interferometers to use
+IFO = "H1,L1"  # Interferometers to use
 
 # Parameters for injected signals
 depth = 0.6
