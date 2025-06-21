@@ -20,7 +20,7 @@ tstart = 1000000000
 duration = 120 * 86400
 tend = tstart + duration
 tref = 0.5 * (tstart + tend)
-IFO = "H1, L1"  # Interferometers to use
+IFO = "H1,L1"  # Interferometers to use
 
 # Parameters for injected signals
 depth = 0.6
@@ -56,7 +56,7 @@ sft_label = "SemiCoh"
 makefakedata_cmd = [
     "lalpulsar_Makefakedata_v5",
     f"--IFOs={IFO}",
-    f"--sqrtSX={sqrtSX:.15e}",
+    f"--sqrtSX={{{sqrtSX:.15e}, {sqrtSX:.15e}}}",
     f"--startTime={int(tstart)}",
     f"--duration={int(duration)}",
     f"--fmin={F0_inj - 1.0:.15g}",
