@@ -8,7 +8,7 @@ from rich.progress import Progress, TimeElapsedColumn, TimeRemainingColumn
 
 
 # Create output directory
-N = 500
+N = 2000
 print_output = False  # Set to False to suppress output
 label = "LALSemiCoherentF0F1F2_corrected"
 outdir = os.path.join("LAL_example_data", label)
@@ -109,10 +109,30 @@ F1_randoms = np.random.uniform(- dF1 / 2.0, dF1 / 2.0, size=N)
 F2_randoms = np.random.uniform(- df2 / 2.0, df2 / 2.0, size=N)
 
 
-# Step 4: Create sky grid file
-skygrid_file = os.path.join(outdir, f"skygrid.dat")
-with open(skygrid_file, 'w') as f:
-    f.write(f"{Alpha_inj:.15g} {Delta_inj:.15g}\n")
+
+shared_cmd = [
+    f"--DataFiles1={sft_pattern}",
+    "--gridType1=3",  # IMPORTANT: 3=file mode for sky grid
+    f"--skyGridFile={{{Alpha_inj} {Delta_inj}}}",
+    f"--refTime={tref:.15g}",
+    f"--tStack={tStack:.15g}",
+    f"--nStacksMax={nStacks}",
+    "--nCand1=1000",
+    "--printCand1",
+    "--semiCohToplist",
+    f"--minStartTime1={int(tstart)}",
+    f"--maxStartTime1={int(tend)}",
+    f"--gammaRefine={gamma1:.15g}",
+    f"--gamma2Refine={gamma2:.15g}",
+    "--recalcToplistStats=TRUE",
+    "--FstatMethod=ResampBest",
+    "--FstatMethodRecalc=DemodBest",
+    # "--peakThrF=2.6",
+    # "--computeBSGL",
+    # "--oLGX=0.5,0.5",
+    # "--BSGLlogcorr=0",  # Disable BSG log correction    
+    # "--Fstar0=24",
+]
 
 def single_run(i):
 
@@ -124,16 +144,13 @@ def single_run(i):
     F2_min = F2_inj - DeltaF2 / 2.0 + F2_randoms[i]
     F2_max = F2_inj + DeltaF2 / 2.0 + F2_randoms[i]
 
-    output_file = os.path.join(outdir, f"semicoh_results_{i}.dat")
+    output_file = os.path.join(outdir, f"dats/semicoh_results_{i}.dat")
     
 
     # Build command with proper formatting
     hierarchsearch_cmd = [
         "lalpulsar_HierarchSearchGCT",
-        f"--DataFiles1={sft_pattern}",
-        "--gridType1=3",  # IMPORTANT: 3=file mode for sky grid
-        f"--skyGridFile={{{Alpha_inj} {Delta_inj}}}",
-        f"--refTime={tref:.15g}",
+        f"--fnameout={output_file}",
         f"--Freq={F0_min:.15g}",
         f"--FreqBand={DeltaF0:.15g}",
         f"--dFreq={dF0:.15e}",
@@ -143,28 +160,10 @@ def single_run(i):
         f"--f2dot={F2_min:.15e}",
         f"--f2dotBand={DeltaF2:.15e}",
         f"--df2dot={df2:.15e}",
-        f"--tStack={tStack:.15g}",
-        f"--nStacksMax={nStacks}",
-        f"--fnameout={output_file}",
-        "--nCand1=1000",
-        "--printCand1",
-        "--semiCohToplist",
-        f"--minStartTime1={int(tstart)}",
-        f"--maxStartTime1={int(tend)}",
-        f"--gammaRefine={gamma1:.15g}",
-        f"--gamma2Refine={gamma2:.15g}",
-        "--recalcToplistStats=TRUE",
-        "--FstatMethod=ResampBest",
-        "--FstatMethodRecalc=DemodBest",
-        # "--peakThrF=2.6",
-        # "--SortToplist=0",
-        # "--computeBSGL",
-        # "--oLGX=0.5,0.5",
-        # "--BSGLlogcorr=0",  
-    ]
+    ] + shared_cmd
 
     # Save command for debugging
-    cmd_file = os.path.join(outdir, f"command{i}.sh")
+    cmd_file = os.path.join(outdir, f"commands/command{i}.sh")
     with open(cmd_file, 'w') as f:
         f.write("#!/bin/bash\n")
         f.write(" \\\n    ".join(hierarchsearch_cmd))
@@ -208,7 +207,7 @@ results = []
 max_twoFs = []
 
 for i in range(N):
-    output_file = os.path.join(outdir, f"semicoh_results_{i}.dat")
+    output_file = os.path.join(outdir, f"dats/semicoh_results_{i}.dat")
     if not os.path.exists(output_file):
         print(f"Output file {output_file} does not exist, skipping.")
         continue
@@ -262,10 +261,6 @@ F2_max = F2_inj + DeltaF2 / 2.0
 
 perfect_search_cmd = [
     "lalpulsar_HierarchSearchGCT",
-    f"--DataFiles1={sft_pattern}",
-    "--gridType1=3",  # IMPORTANT: 3=file mode for sky grid
-    f"--skyGridFile={{{Alpha_inj} {Delta_inj}}}",
-    f"--refTime={tref:.15g}",
     f"--Freq={F0_inj:.15g}",
     "--FreqBand=0",
     f"--dFreq={dF0:.15e}",
@@ -275,25 +270,10 @@ perfect_search_cmd = [
     f"--f2dot={F2_inj:.15e}",
     "--f2dotBand=0",
     f"--df2dot={df2:.15e}",
-    f"--tStack={tStack:.15g}",
-    f"--nStacksMax={nStacks}",
     f"--fnameout={perfect_output_file}",
-    "--nCand1=1000",
-    "--printCand1",
-    "--semiCohToplist",
-    f"--minStartTime1={int(tstart)}",
-    f"--maxStartTime1={int(tend)}",
-    f"--gammaRefine={gamma1:.15g}",
-    f"--gamma2Refine={gamma2:.15g}",
-    "--recalcToplistStats=TRUE",
-    "--FstatMethod=ResampBest",
-    "--FstatMethodRecalc=DemodBest",
-    # "--peakThrF=2.6",
-    # "--SortToplist=0",
-    # "--computeBSGL",
-    # "--oLGX=0.5,0.5",
-    # "--BSGLlogcorr=0",  # Disable BSG log correction    
-]
+    
+] + shared_cmd 
+
 
 
 # 运行命令并捕获输出
