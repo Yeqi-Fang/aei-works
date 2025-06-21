@@ -56,7 +56,7 @@ sft_label = "SemiCoh"
 makefakedata_cmd = [
     "lalpulsar_Makefakedata_v5",
     f"--IFOs={IFO}",
-    f"--sqrtSX={sqrtSX:.15e}",
+    f"--sqrtSX={{{sqrtSX:.15e}, {sqrtSX:.15e}}}",
     f"--startTime={int(tstart)}",
     f"--duration={int(duration)}",
     f"--fmin={F0_inj - 1.0:.15g}",
