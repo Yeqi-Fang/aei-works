@@ -7,7 +7,7 @@ import os
 import glob
 from itertools import combinations
 
-def load_all_csv_files(file_pattern='LAL_example_data/LALSemiCoherentF0F1F2_corrected/data/mismatches_*-8-8.csv', column_name='Empirical Mismatch (μ)'):
+def load_all_csv_files(file_pattern='LAL_example_data/LALSemiCoherentF0F1F2_corrected/data/mismatches_8-8-*.csv', column_name='mismatch'):
     """
     Load all CSV files matching the pattern and extract specified column
     
