@@ -8,22 +8,22 @@ from rich.progress import Progress, TimeElapsedColumn, TimeRemainingColumn
 
 
 # Create output directory
-N = 2000
+N = 200
 print_output = False  # Set to False to suppress output
 label = "LALSemiCoherentF0F1F2_corrected"
 outdir = os.path.join("LAL_example_data", label)
 os.makedirs(outdir, exist_ok=True)
 
 # Properties of the GW data
-sqrtSX = 1e-22
+sqrtSX = 1
 tstart = 1000000000
 duration = 120 * 86400
 tend = tstart + duration
 tref = 0.5 * (tstart + tend)
-IFO = "H1,L1"  # Interferometers to use
+IFO = "H1, L1"  # Interferometers to use
 
 # Parameters for injected signals
-depth = 0.6
+depth = 20
 h0 = sqrtSX / depth
 F0_inj = 151.5
 F1_inj = -1e-10
@@ -43,6 +43,8 @@ nStacks = int(duration / tStack)  # Number of segments
 
 sft_dir = os.path.join(outdir, "sfts")
 os.makedirs(sft_dir, exist_ok=True)
+os.makedirs(os.path.join(outdir, "dats"), exist_ok=True)
+os.makedirs(os.path.join(outdir, "commands"), exist_ok=True)
 sft_pattern = os.path.join(sft_dir, "*.sft")
 
 injection_params = (
@@ -56,16 +58,16 @@ sft_label = "SemiCoh"
 makefakedata_cmd = [
     "lalpulsar_Makefakedata_v5",
     f"--IFOs={IFO}",
-    f"--sqrtSX={{{sqrtSX:.15e}, {sqrtSX:.15e}}}",
+    f"--sqrtSX={sqrtSX:.15e}, {sqrtSX:.15e}",
     f"--startTime={int(tstart)}",
     f"--duration={int(duration)}",
-    f"--fmin={F0_inj - 1.0:.15g}",
-    f"--Band=2.0",
+    f"--fmin={F0_inj - 0.5:.15g}",
+    f"--Band=1.0",
     "--Tsft=1800",
     f"--outSFTdir={sft_dir}",
     f"--outLabel={sft_label}",
     f"--injectionSources={injection_params}",
-    "--randSeed=12"
+    "--randSeed=1234"
 ]
 
 result = subprocess.run(makefakedata_cmd, capture_output=True, text=True)
@@ -93,9 +95,9 @@ dF1 = np.sqrt(180 * mf1) / (np.pi * tStack**2)
 df2 = np.sqrt(25200 * mf2) / (np.pi * tStack**3)
 
 # Search bands
-N1 = 10
-N2 = 10
-N3 = 8
+N1 = 20
+N2 = 20
+N3 = 20
 gamma1 = 8
 gamma2 = 20
 
@@ -114,7 +116,7 @@ shared_cmd = [
     f"--DataFiles1={sft_pattern}",
     "--gridType1=3",  # IMPORTANT: 3=file mode for sky grid
     f"--skyGridFile={{{Alpha_inj} {Delta_inj}}}",
-    f"--refTime={tref:.15g}",
+    f"--refTime={tref:.15f}",
     f"--tStack={tStack:.15g}",
     f"--nStacksMax={nStacks}",
     "--nCand1=1000",
@@ -122,8 +124,6 @@ shared_cmd = [
     "--semiCohToplist",
     f"--minStartTime1={int(tstart)}",
     f"--maxStartTime1={int(tend)}",
-    f"--gammaRefine={gamma1:.15g}",
-    f"--gamma2Refine={gamma2:.15g}",
     "--recalcToplistStats=TRUE",
     "--FstatMethod=ResampBest",
     "--FstatMethodRecalc=DemodBest",
@@ -160,6 +160,8 @@ def single_run(i):
         f"--f2dot={F2_min:.15e}",
         f"--f2dotBand={DeltaF2:.15e}",
         f"--df2dot={df2:.15e}",
+        f"--gammaRefine={gamma1:.15g}",
+        f"--gamma2Refine={gamma2:.15g}",
     ] + shared_cmd
 
     # Save command for debugging
@@ -271,6 +273,8 @@ perfect_search_cmd = [
     "--f2dotBand=0",
     f"--df2dot={df2:.15e}",
     f"--fnameout={perfect_output_file}",
+    f"--gammaRefine=1",
+    f"--gamma2Refine=1",
     
 ] + shared_cmd 
 
