@@ -95,9 +95,9 @@ dF1 = np.sqrt(180 * mf1) / (np.pi * tStack**2)
 df2 = np.sqrt(25200 * mf2) / (np.pi * tStack**3)
 
 # Search bands
-N1 = 20
-N2 = 20
-N3 = 20
+N1 = 2
+N2 = 3
+N3 = 3
 gamma1 = 8
 gamma2 = 20
 

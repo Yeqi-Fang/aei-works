@@ -328,7 +328,7 @@ for param_idx in range(n_param_trials):
         
         task = progress.add_task(f"Processing trials for param set {param_idx + 1}", total=N)
         
-        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+        with concurrent.futures.ProcessPoolExecutor(max_workers=14) as executor:
             futures = []
             for trial_idx in range(N):
                 future = executor.submit(

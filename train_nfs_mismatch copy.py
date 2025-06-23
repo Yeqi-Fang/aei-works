@@ -14,7 +14,7 @@ from torch.utils.data import DataLoader, TensorDataset, random_split
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from nflows.distributions.normal import StandardNormal
+from nflows.distributions.normal import StandardNormal, TruncatedNormal
 from nflows.flows.base import Flow
 from nflows.transforms.base import CompositeTransform
 from nflows.transforms.autoregressive import (
@@ -48,18 +48,25 @@ def load_dataset(x_path: Path | str, y_path: Path | str) -> Tuple[torch.Tensor, 
 
 def build_nfs_model(context_features: int, flow_features: int = 1) -> Flow:
     """Factory: a shallow MAF‑style conditional normalising flow."""
-    base_dist = StandardNormal([flow_features])
+    # base_dist = StandardNormal([flow_features])
     transforms: List = []
-    for _ in range(6):
-        transforms += [
-            RandomPermutation(features=flow_features),
-            MaskedAffineAutoregressiveTransform(
-                features=flow_features,
-                hidden_features=32,
+    for _ in range(3):
+        transforms.append(
+            MaskedPiecewiseRationalQuadraticAutoregressiveTransform(
+                features=1,
+                hidden_features=32,  # 减少隐藏单元
                 context_features=context_features,
-            ),
-        ]
-    return Flow(CompositeTransform(transforms), base_dist)
+                num_bins=4,  # 减少样条段数
+                tail_bound=1.0,  # 设置为[0,1]边界
+                min_bin_width=1e-3,
+                min_bin_height=1e-3,
+                min_derivative=1e-3,
+            )
+        )
+    return Flow(
+            CompositeTransform(transforms), 
+            TruncatedNormal(0.5, 0.2, low=0.0, high=1.0)  # 有界基础分布
+        )
 
 
 def train(model: Flow, train_loader: DataLoader, *, epochs: int = 200, lr: float = 1e-3) -> None:
@@ -172,12 +179,30 @@ def main() -> None:
     x, y = load_dataset(args.x_csv, args.y_csv)
     print(f"Dataset loaded – {len(x)} rows, {x.shape[1]} features ➜ target dim 1")
 
-    data = TensorDataset(x, y)
-    test_sz = int(args.test_ratio * len(data))
-    train_sz = len(data) - test_sz
-    train_ds, test_ds = random_split(data, [train_sz, test_sz], generator=torch.Generator().manual_seed(42))
-    print(f"Split → train: {train_sz} | test: {test_sz}")
+    # 按setup分组划分（假设前3列是mf, mf1, mf2）
+    setup_cols = x[:, :3]  # 提取setup列
+    unique_setups, indices = torch.unique(setup_cols, dim=0, return_inverse=True)
+    n_setups = len(unique_setups)
 
+    # 按setup划分训练测试集
+    torch.manual_seed(42)
+    setup_perm = torch.randperm(n_setups)
+    n_test_setups = int(args.test_ratio * n_setups)
+    test_setup_indices = setup_perm[:n_test_setups]
+    train_setup_indices = setup_perm[n_test_setups:]
+
+    # 创建训练测试mask
+    test_mask = torch.isin(indices, test_setup_indices)
+    train_mask = ~test_mask
+
+    # 分割数据
+    x_train, y_train = x[train_mask], y[train_mask]
+    x_test, y_test = x[test_mask], y[test_mask]
+
+    train_ds = TensorDataset(x_train, y_train)
+    test_ds = TensorDataset(x_test, y_test)
+
+    print(f"Split by setup → train: {len(train_ds)} samples ({len(train_setup_indices)} setups) | test: {len(test_ds)} samples ({len(test_setup_indices)} setups)")
     # ——— DataLoaders ———
     batch_size = min(256, train_sz)
     train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True)
