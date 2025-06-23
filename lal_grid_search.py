@@ -5,6 +5,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import concurrent.futures
 from rich.progress import Progress, TimeElapsedColumn, TimeRemainingColumn
+import matplotlib
+matplotlib.use("Agg")
+# import multiprocessing as mp
+# mp.set_start_method("spawn", force=True)
 
 
 # Create output directory
