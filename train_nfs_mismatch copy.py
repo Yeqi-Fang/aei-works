@@ -14,7 +14,7 @@ from torch.utils.data import DataLoader, TensorDataset, random_split
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from nflows.distributions.normal import StandardNormal, TruncatedNormal
+from nflows.distributions.normal import StandardNormal
 from nflows.flows.base import Flow
 from nflows.transforms.base import CompositeTransform
 from nflows.transforms.autoregressive import (
@@ -27,7 +27,14 @@ from nflows.transforms.permutations import RandomPermutation
 # Configuration helpers
 # -----------------------------------------------------------------------------
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# Support for Apple Silicon MPS
+# if torch.backends.mps.is_available():
+#     device = torch.device("mps")
+# elif torch.cuda.is_available():
+#     device = torch.device("cuda")
+# else:
+device = torch.device("cpu")
+
 print(f"Using device: {device}")
 
 def load_dataset(x_path: Path | str, y_path: Path | str) -> Tuple[torch.Tensor, torch.Tensor]:
@@ -50,23 +57,26 @@ def build_nfs_model(context_features: int, flow_features: int = 1) -> Flow:
     """Factory: a shallow MAF‑style conditional normalising flow."""
     # base_dist = StandardNormal([flow_features])
     transforms: List = []
+    base_dist = StandardNormal([flow_features])
+
     for _ in range(3):
         transforms.append(
             MaskedPiecewiseRationalQuadraticAutoregressiveTransform(
                 features=1,
-                hidden_features=32,  # 减少隐藏单元
+                hidden_features=8,  # 减少隐藏单元
                 context_features=context_features,
-                num_bins=4,  # 减少样条段数
+                num_bins=6,  # 减少样条段数
                 tail_bound=1.0,  # 设置为[0,1]边界
                 min_bin_width=1e-3,
                 min_bin_height=1e-3,
                 min_derivative=1e-3,
             )
         )
-    return Flow(
+    flow =  Flow(
             CompositeTransform(transforms), 
-            TruncatedNormal(0.5, 0.2, low=0.0, high=1.0)  # 有界基础分布
+            base_dist
         )
+    return flow.float()
 
 
 def train(model: Flow, train_loader: DataLoader, *, epochs: int = 200, lr: float = 1e-3) -> None:
@@ -177,6 +187,8 @@ def main() -> None:
 
     # ——— Load + split ———
     x, y = load_dataset(args.x_csv, args.y_csv)
+    # set y all positive and set all elements < 0 to 0
+    y = torch.clamp(y, min=0.0)
     print(f"Dataset loaded – {len(x)} rows, {x.shape[1]} features ➜ target dim 1")
 
     # 按setup分组划分（假设前3列是mf, mf1, mf2）
@@ -204,7 +216,8 @@ def main() -> None:
 
     print(f"Split by setup → train: {len(train_ds)} samples ({len(train_setup_indices)} setups) | test: {len(test_ds)} samples ({len(test_setup_indices)} setups)")
     # ——— DataLoaders ———
-    batch_size = min(256, train_sz)
+    batch_size = min(256, len(train_ds))
+
     train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True)
 
     # ——— Model + training ———
@@ -215,8 +228,6 @@ def main() -> None:
     flow.load_state_dict(torch.load("trained_flow.pt", map_location=device))
 
     # Drop dataset wrappers to get raw tensors for evaluation
-    x_test = torch.stack([sample[0] for sample in test_ds])
-    y_test = torch.stack([sample[1] for sample in test_ds])
 
     evaluate(
         flow,
