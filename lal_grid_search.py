@@ -5,6 +5,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import concurrent.futures
 from rich.progress import Progress, TimeElapsedColumn, TimeRemainingColumn
+import matplotlib
+matplotlib.use("Agg")
+# import multiprocessing as mp
+# mp.set_start_method("spawn", force=True)
 
 
 # Create output directory
@@ -328,7 +332,7 @@ for param_idx in range(n_param_trials):
         
         task = progress.add_task(f"Processing trials for param set {param_idx + 1}", total=N)
         
-        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+        with concurrent.futures.ProcessPoolExecutor(max_workers=14) as executor:
             futures = []
             for trial_idx in range(N):
                 future = executor.submit(
