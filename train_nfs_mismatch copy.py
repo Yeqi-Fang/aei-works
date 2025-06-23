@@ -112,17 +112,9 @@ def evaluate(
     eval_subset: int | None = None,
     batch_size: int = 512,
 ) -> None:
-    """Memory‑safe posterior sampling + diagnostic plots on the test set.
-
-    Args
-    ----
-    samples_per_cond:  how many draws to take **per test row**
-    eval_subset      : if set, randomly down‑sample the test set to this many rows
-    batch_size       : context batch size to keep GPU memory in check
-    """
+    """Enhanced evaluation with more metrics."""
     model.eval()
 
-    # ——— optionally pare down the test set (useful when rows ≫ 10k) ———
     if eval_subset is not None and eval_subset < len(x_test):
         idx = torch.randperm(len(x_test))[:eval_subset]
         x_test = x_test[idx]
@@ -130,43 +122,78 @@ def evaluate(
 
     empirical: List[torch.Tensor] = []
     generated: List[torch.Tensor] = []
+    log_probs: List[torch.Tensor] = []
 
     with torch.no_grad():
         for start in range(0, len(x_test), batch_size):
             cx = x_test[start : start + batch_size].to(device)
             y = y_test[start : start + batch_size]
 
-            # Draw [samples_per_cond] for each condition in the mini‑batch
-            batch_samples = model.sample(samples_per_cond, context=cx).cpu()
+            try:
+                # 生成样本
+                batch_samples = model.sample(samples_per_cond, context=cx).cpu()
+                
+                # 计算对数概率
+                batch_log_probs = model.log_prob(inputs=y.to(device), context=cx).cpu()
+                
+                generated.append(batch_samples)
+                empirical.append(y.repeat(samples_per_cond, 1))
+                log_probs.append(batch_log_probs)
+                
+            except Exception as e:
+                print(f"⚠️ Error in evaluation batch: {e}")
+                continue
 
-            # Align shapes for later flattening
-            generated.append(batch_samples)
-            empirical.append(y.repeat(samples_per_cond, 1))
+    if not generated:
+        print("❌ No valid samples generated!")
+        return
 
     y_emp = torch.cat(empirical).numpy().flatten()
     y_gen = torch.cat(generated).numpy().flatten()
+    all_log_probs = torch.cat(log_probs).numpy()
 
-    # ——— Quick‑and‑dirty density check + Q‑Q plot ———
-    plt.figure(figsize=(10, 4))
+    # ✅ 计算评估指标
+    print(f"\n📊 Evaluation Metrics:")
+    print(f"Average log-likelihood: {all_log_probs.mean():.4f} ± {all_log_probs.std():.4f}")
+    print(f"Generated samples range: [{y_gen.min():.4f}, {y_gen.max():.4f}]")
+    print(f"Empirical samples range: [{y_emp.min():.4f}, {y_emp.max():.4f}]")
+    
+    # Wasserstein距离 (简化版)
+    from scipy import stats
+    try:
+        ks_stat, ks_p = stats.ks_2samp(y_emp, y_gen)
+        print(f"KS test statistic: {ks_stat:.4f} (p-value: {ks_p:.4f})")
+    except:
+        print("KS test failed")
 
-    plt.subplot(1, 2, 1)
-    sns.kdeplot(y_emp, label="empirical", fill=True, alpha=0.5)
-    sns.kdeplot(y_gen, label="flow", fill=True, alpha=0.5)
-    plt.title("Test‑set distribution overlap")
+    # ✅ 改进的可视化
+    plt.figure(figsize=(15, 5))
+
+    plt.subplot(1, 3, 1)
+    sns.kdeplot(y_emp, label="Empirical", fill=True, alpha=0.5)
+    sns.kdeplot(y_gen, label="Generated", fill=True, alpha=0.5)
+    plt.title("Distribution Overlap")
     plt.legend()
 
-    plt.subplot(1, 2, 2)
+    plt.subplot(1, 3, 2)
     percs = np.linspace(1, 99, 99)
     plt.scatter(
         np.percentile(y_emp, percs),
         np.percentile(y_gen, percs),
-        s=8,
+        s=8, alpha=0.7
     )
     lims = [y_emp.min(), y_emp.max()]
-    plt.plot(lims, lims, "--")
-    plt.title("Q–Q plot (test set)")
-    plt.xlabel("empirical quantiles")
-    plt.ylabel("flow quantiles")
+    plt.plot(lims, lims, "r--", alpha=0.8)
+    plt.title("Q–Q Plot")
+    plt.xlabel("Empirical Quantiles")
+    plt.ylabel("Generated Quantiles")
+
+    plt.subplot(1, 3, 3)
+    plt.hist(all_log_probs, bins=50, alpha=0.7, density=True)
+    plt.title("Log-Likelihood Distribution")
+    plt.xlabel("Log Probability")
+    plt.ylabel("Density")
+
     plt.tight_layout()
     plt.show()
 
