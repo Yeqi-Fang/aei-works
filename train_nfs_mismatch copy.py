@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 from typing import Tuple, List
-
+import os
 import numpy as np
 import pandas as pd
 import torch
@@ -22,6 +22,10 @@ from nflows.transforms.autoregressive import (
     MaskedPiecewiseRationalQuadraticAutoregressiveTransform
 )
 from nflows.transforms.permutations import RandomPermutation
+from datetime import datetime
+timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+log_dir = f"logs/{timestamp}"
+os.makedirs(log_dir, exist_ok=True)
 
 # -----------------------------------------------------------------------------
 # Configuration helpers
@@ -30,10 +34,10 @@ from nflows.transforms.permutations import RandomPermutation
 # Support for Apple Silicon MPS
 # if torch.backends.mps.is_available():
 #     device = torch.device("mps")
-# elif torch.cuda.is_available():
-#     device = torch.device("cuda")
+if torch.cuda.is_available():
+    device = torch.device("cuda")
 # else:
-device = torch.device("cpu")
+# device = torch.device("cpu")
 
 print(f"Using device: {device}")
 
@@ -78,8 +82,23 @@ def build_nfs_model(context_features: int, flow_features: int = 1) -> Flow:
         )
     return flow.float()
 
+# def build_nfs_model(context_features: int, flow_features: int = 1) -> Flow:
+#     """Factory: a shallow MAF‑style conditional normalising flow."""
+#     base_dist = StandardNormal([flow_features])
+#     transforms: List = []
+#     for _ in range(6):
+#         transforms += [
+#             RandomPermutation(features=flow_features),
+#             MaskedAffineAutoregressiveTransform(
+#                 features=flow_features,
+#                 hidden_features=32,
+#                 context_features=context_features,
+#             ),
+#         ]
+#     return Flow(CompositeTransform(transforms), base_dist)
 
-def train(model: Flow, train_loader: DataLoader, *, epochs: int = 200, lr: float = 1e-3) -> None:
+
+def train(model: Flow, train_loader: DataLoader, *, epochs: int = 200, lr: float = 2e-3) -> None:
     """Single‑loop optimiser; we checkpoint the final model only."""
     model.to(device)
     opt = optim.Adam(model.parameters(), lr=lr)
@@ -111,92 +130,151 @@ def evaluate(
     samples_per_cond: int = 100,
     eval_subset: int | None = None,
     batch_size: int = 512,
-) -> None:
+    save_path: str = "images/evaluation.pdf",
+    error_csv_path: str = "errors/setup_errors.csv"
+) -> torch.Tensor:
     """Enhanced evaluation with more metrics."""
     model.eval()
 
-    if eval_subset is not None and eval_subset < len(x_test):
-        idx = torch.randperm(len(x_test))[:eval_subset]
-        x_test = x_test[idx]
-        y_test = y_test[idx]
-
-    empirical: List[torch.Tensor] = []
-    generated: List[torch.Tensor] = []
-    log_probs: List[torch.Tensor] = []
-
-    with torch.no_grad():
-        for start in range(0, len(x_test), batch_size):
-            cx = x_test[start : start + batch_size].to(device)
-            y = y_test[start : start + batch_size]
-
-            try:
-                # 生成样本
-                batch_samples = model.sample(samples_per_cond, context=cx).cpu()
-                
-                # 计算对数概率
-                batch_log_probs = model.log_prob(inputs=y.to(device), context=cx).cpu()
-                
-                generated.append(batch_samples)
-                empirical.append(y.repeat(samples_per_cond, 1))
-                log_probs.append(batch_log_probs)
-                
-            except Exception as e:
-                print(f"⚠️ Error in evaluation batch: {e}")
-                continue
-
-    if not generated:
-        print("❌ No valid samples generated!")
-        return
-
-    y_emp = torch.cat(empirical).numpy().flatten()
-    y_gen = torch.cat(generated).numpy().flatten()
-    all_log_probs = torch.cat(log_probs).numpy()
-
-    # ✅ 计算评估指标
-    print(f"\n📊 Evaluation Metrics:")
-    print(f"Average log-likelihood: {all_log_probs.mean():.4f} ± {all_log_probs.std():.4f}")
-    print(f"Generated samples range: [{y_gen.min():.4f}, {y_gen.max():.4f}]")
-    print(f"Empirical samples range: [{y_emp.min():.4f}, {y_emp.max():.4f}]")
+    # 从测试集中选择4个不同的setup进行可视化
+    test_setup_cols = x_test[:, :3]  # 前3列是setup特征
+    test_unique_setups, test_indices = torch.unique(test_setup_cols, dim=0, return_inverse=True)
     
-    # Wasserstein距离 (简化版)
-    from scipy import stats
-    try:
-        ks_stat, ks_p = stats.ks_2samp(y_emp, y_gen)
-        print(f"KS test statistic: {ks_stat:.4f} (p-value: {ks_p:.4f})")
-    except:
-        print("KS test failed")
+    # 选择4个setup用于画图
+    n_viz_setups = min(4, len(test_unique_setups))
+    selected_setups = torch.randperm(len(test_unique_setups))[:n_viz_setups]
+    
+    # 对选中的4个setup画图
+    for i, setup_idx in enumerate(selected_setups):
+        setup_mask = test_indices == setup_idx
+        x_setup = x_test[setup_mask]
+        y_setup = y_test[setup_mask]
+        
+        if len(x_setup) == 0:
+            continue
+            
+        print(f"\n🎨 Visualizing Setup {i+1}/4 (Setup ID: {setup_idx}) - {len(x_setup)} samples")
+        print(f"Setup parameters: {test_unique_setups[setup_idx].tolist()}")
+        
+        # 为该setup生成可视化数据
+        empirical = []
+        generated = []
+        log_probs = []
+        
+        with torch.no_grad():
+            for start in range(0, len(x_setup), batch_size):
+                cx = x_setup[start : start + batch_size].to(device)
+                y = y_setup[start : start + batch_size]
+                
+                try:
+                    batch_samples = model.sample(samples_per_cond, context=cx).cpu()
+                    batch_log_probs = model.log_prob(inputs=y.to(device), context=cx).cpu()
+                    
+                    generated.append(batch_samples)
+                    empirical.append(y.repeat(samples_per_cond, 1))
+                    log_probs.append(batch_log_probs)
+                except Exception as e:
+                    print(f"⚠️ Error in visualization batch: {e}")
+                    continue
+        
+        if generated:
+            y_emp = torch.cat(empirical).numpy().flatten()
+            y_gen = torch.cat(generated).numpy().flatten()
+            all_log_probs = torch.cat(log_probs).numpy()
+            
+            # 为每个setup创建单独的图
+            plt.figure(figsize=(15, 5))
+            
+            plt.subplot(1, 3, 1)
+            sns.kdeplot(y_emp, label="Empirical", fill=True, alpha=0.5)
+            sns.kdeplot(y_gen, label="Generated", fill=True, alpha=0.5)
+            plt.title(f"Setup {i+1} Distribution Overlap")
+            plt.legend()
+            
+            plt.subplot(1, 3, 2)
+            percs = np.linspace(1, 99, 99)
+            plt.scatter(
+                np.percentile(y_emp, percs),
+                np.percentile(y_gen, percs),
+                s=8, alpha=0.7
+            )
+            lims = [y_emp.min(), y_emp.max()]
+            plt.plot(lims, lims, "r--", alpha=0.8)
+            plt.title(f"Setup {i+1} Q–Q Plot")
+            plt.xlabel("Empirical Quantiles")
+            plt.ylabel("Generated Quantiles")
+            
+            plt.subplot(1, 3, 3)
+            plt.hist(all_log_probs, bins=50, alpha=0.7, density=True)
+            plt.title(f"Setup {i+1} Log-Likelihood")
+            plt.xlabel("Log Probability")
+            plt.ylabel("Density")
+            
+            plt.tight_layout()
+            plt.savefig(f"{log_dir}/evaluation_setup_{i+1}.pdf", bbox_inches='tight')
+            plt.show()
 
-    # ✅ 改进的可视化
-    plt.figure(figsize=(15, 5))
-
-    plt.subplot(1, 3, 1)
-    sns.kdeplot(y_emp, label="Empirical", fill=True, alpha=0.5)
-    sns.kdeplot(y_gen, label="Generated", fill=True, alpha=0.5)
-    plt.title("Distribution Overlap")
-    plt.legend()
-
-    plt.subplot(1, 3, 2)
-    percs = np.linspace(1, 99, 99)
-    plt.scatter(
-        np.percentile(y_emp, percs),
-        np.percentile(y_gen, percs),
-        s=8, alpha=0.7
-    )
-    lims = [y_emp.min(), y_emp.max()]
-    plt.plot(lims, lims, "r--", alpha=0.8)
-    plt.title("Q–Q Plot")
-    plt.xlabel("Empirical Quantiles")
-    plt.ylabel("Generated Quantiles")
-
-    plt.subplot(1, 3, 3)
-    plt.hist(all_log_probs, bins=50, alpha=0.7, density=True)
-    plt.title("Log-Likelihood Distribution")
-    plt.xlabel("Log Probability")
-    plt.ylabel("Density")
-
-    plt.tight_layout()
-    plt.show()
-
+    # ✅ 计算所有测试集setup的平均误差
+    print(f"\n📊 Computing errors for all {len(test_unique_setups)} test setups...")
+    
+    all_setup_errors = []
+    setup_error_details = []
+    
+    for setup_idx in range(len(test_unique_setups)):
+        setup_mask = test_indices == setup_idx
+        x_setup = x_test[setup_mask]
+        y_setup = y_test[setup_mask]
+        
+        if len(x_setup) == 0:
+            continue
+            
+        # 计算该setup的真实均值
+        true_setup_mean = y_setup.mean().item()
+        
+        # 生成预测样本并计算均值
+        generated_samples = []
+        with torch.no_grad():
+            for start in range(0, len(x_setup), batch_size):
+                cx = x_setup[start : start + batch_size].to(device)
+                batch_samples = model.sample(samples_per_cond, context=cx).cpu()
+                generated_samples.append(batch_samples)
+        
+        if generated_samples:
+            all_generated = torch.cat(generated_samples)
+            pred_setup_mean = all_generated.mean().item()
+            
+            # 计算相对误差
+            setup_relative_error = abs(pred_setup_mean - true_setup_mean) / (true_setup_mean + 1e-8)
+            
+            all_setup_errors.append(setup_relative_error)
+            setup_error_details.append({
+                'setup_id': setup_idx,
+                'setup_params': test_unique_setups[setup_idx].tolist(),
+                'true_mean': true_setup_mean,
+                'pred_mean': pred_setup_mean,
+                'relative_error': setup_relative_error,
+                'n_samples': len(x_setup)
+            })
+    
+    # 计算平均误差
+    if all_setup_errors:
+        mean_error = np.mean(all_setup_errors)
+        std_error = np.std(all_setup_errors)
+        
+        print(f"\n🎯 Overall Results:")
+        print(f"Number of test setups: {len(all_setup_errors)}")
+        print(f"Average relative error across all setups: {mean_error:.4f} ± {std_error:.4f}")
+        
+        # 保存详细误差数据
+        error_df = pd.DataFrame(setup_error_details)
+        error_df.to_csv(error_csv_path, index=False)
+        
+        print(f"Detailed error data saved to: {error_csv_path}")
+        
+        return torch.tensor(all_setup_errors)
+    else:
+        print("❌ No valid setup errors computed!")
+        return torch.tensor([])
 
 # -----------------------------------------------------------------------------
 # CLI entry point
@@ -206,7 +284,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--x_csv", type=str, default="data/x_data.csv", help="Path to x CSV file")
     parser.add_argument("--y_csv", type=str, default="data/y_data.csv", help="Path to y CSV file")
-    parser.add_argument("--epochs", type=int, default=50)
+    parser.add_argument("--epochs", type=int, default=10)
     parser.add_argument("--test_ratio", type=float, default=0.2, help="Fraction of data held out for testing")
     parser.add_argument("--samples_per_cond", type=int, default=100, help="Samples per test condition during evaluation")
     parser.add_argument("--eval_subset", type=int, default=10000, help="Random subset of test rows to evaluate (None = all)")
@@ -251,18 +329,29 @@ def main() -> None:
     flow = build_nfs_model(context_features=x.shape[1])
     train(flow, train_loader, epochs=args.epochs)
 
-    # ——— Reload best weights & evaluate on the held‑out test set ———
+    # ——— Reload best weights & evaluate on all test setups ———
     flow.load_state_dict(torch.load("trained_flow.pt", map_location=device))
 
-    # Drop dataset wrappers to get raw tensors for evaluation
-
-    evaluate(
+    # 直接对整个测试集进行评估
+    print(f"\n🔍 Evaluating all test setups...")
+    
+    all_errors = evaluate(
         flow,
         x_test,
         y_test,
         samples_per_cond=args.samples_per_cond,
         eval_subset=None if args.eval_subset <= 0 else args.eval_subset,
+        save_path=f"{log_dir}/evaluation_overview.pdf",
+        error_csv_path=f"{log_dir}/all_setup_errors.csv"
     )
+    
+    # 保存最终统计
+    if len(all_errors) > 0:
+        overall_df = pd.DataFrame({
+            'setup_relative_errors': all_errors.numpy()
+        })
+        overall_df.to_csv(f"{log_dir}/overall_error_summary.csv", index=False)
+        print(f"Final summary saved to: {log_dir}/overall_error_summary.csv")
 
 
 if __name__ == "__main__":

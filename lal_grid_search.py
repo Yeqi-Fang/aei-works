@@ -289,12 +289,56 @@ def compute_perfect_2F(param_idx, mf, mf1, mf2):
     else:
         raise RuntimeError("No valid data found in perfect match file")
 
-# Main loop over parameter trials
+
+# Check for existing .dat files and load results
 all_results = []
+completed_trials = {}  # {param_idx: set of completed trial_idx}
+perfect_2F_cache = {}  # {param_idx: perfect_2F_value}
+
+# Define CSV filename for saving results
+csv_filename = f"data/lal_parameter_search_results_{n_param_trials}params_{N}trials.csv"
+
+print(f"Starting parameter search with {n_param_trials} parameter combinations, {N} trials each")
+
+print("Scanning for existing .dat files...")
+for param_idx in range(n_param_trials):
+    completed_trials[param_idx] = set()
+    
+    # Check for perfect 2F file
+    perfect_file = os.path.join(outdir, f"perfectly_matched_results_p{param_idx}.dat")
+    if os.path.exists(perfect_file):
+        # Read perfect 2F value
+        try:
+            with open(perfect_file, 'r') as f:
+                lines = f.readlines()
+            for line in lines:
+                if line.strip() and not line.startswith('%'):
+                    parts = line.split()
+                    if len(parts) >= 8:
+                        perfect_2F_cache[param_idx] = float(parts[7])
+                        break
+        except:
+            pass
+    
+    # Check for trial files
+    for trial_idx in range(N):
+        trial_file = os.path.join(outdir, f"dats/semicoh_results_p{param_idx}_t{trial_idx}.dat")
+        if os.path.exists(trial_file):
+            completed_trials[param_idx].add(trial_idx)
+
+total_completed = sum(len(trials) for trials in completed_trials.values())
+print(f"Found {total_completed} completed trials across {len([p for p in completed_trials if completed_trials[p]])} parameter sets")
+
 
 print(f"Starting parameter search with {n_param_trials} parameter combinations, {N} trials each")
 
 for param_idx in range(n_param_trials):
+    
+    # Skip if this parameter set is already completed
+    if len(completed_trials[param_idx]) == N:
+        print(f"Skipping parameter trial {param_idx + 1}/{n_param_trials} (already completed)")
+        continue
+    
     # Generate random parameters for this trial
     mf, mf1, mf2 = generate_random_parameters()
     
@@ -311,10 +355,15 @@ for param_idx in range(n_param_trials):
     F1_randoms = np.random.uniform(-dF1 / 2.0, dF1 / 2.0, size=N)
     F2_randoms = np.random.uniform(-df2 / 2.0, df2 / 2.0, size=N)
     
-    # Compute perfect 2F for this parameter set
-    print(f"  Computing perfect 2F...")
-    perfect_2F = compute_perfect_2F(param_idx, mf, mf1, mf2)
-    print(f"  Perfect 2F = {perfect_2F:.2f}")
+    # Compute perfect 2F for this parameter set (if not cached)
+    if param_idx in perfect_2F_cache:
+        perfect_2F = perfect_2F_cache[param_idx]
+        print(f"  Using cached perfect 2F = {perfect_2F:.2f}")
+    else:
+        print(f"  Computing perfect 2F...")
+        perfect_2F = compute_perfect_2F(param_idx, mf, mf1, mf2)
+        perfect_2F_cache[param_idx] = perfect_2F
+        print(f"  Perfect 2F = {perfect_2F:.2f}")
     
     # Run N trials with this parameter set
     max_twoFs = []
@@ -329,24 +378,52 @@ for param_idx in range(n_param_trials):
         "•",
         TimeRemainingColumn(),
     ) as progress:
-        
-        task = progress.add_task(f"Processing trials for param set {param_idx + 1}", total=N)
+        completed_count = len(completed_trials[param_idx])
+        task = progress.add_task(f"Processing trials for param set {param_idx + 1}", total=N, completed=completed_count)
         
         with concurrent.futures.ProcessPoolExecutor(max_workers=14) as executor:
             futures = []
             for trial_idx in range(N):
-                future = executor.submit(
-                    single_run, 
-                    param_idx, 
-                    trial_idx, 
-                    mf, 
-                    mf1, 
-                    mf2,
-                    F0_randoms[trial_idx],
-                    F1_randoms[trial_idx],
-                    F2_randoms[trial_idx]
-                )
-                futures.append((trial_idx, future))
+                if trial_idx in completed_trials[param_idx]:
+                    # Load existing result
+                    trial_file = os.path.join(outdir, f"dats/semicoh_results_p{param_idx}_t{trial_idx}.dat")
+                    try:
+                        with open(trial_file, 'r') as f:
+                            lines = f.readlines()
+                        for line in lines:
+                            if line.strip() and not line.startswith('%'):
+                                parts = line.split()
+                                if len(parts) >= 8:
+                                    max_twoF = float(parts[7])
+                                    max_twoFs.append(max_twoF)
+                                    mismatch = (perfect_2F - max_twoF) / (perfect_2F - 4)
+                                    all_results.append({
+                                        'param_idx': param_idx,
+                                        'trial_idx': trial_idx,
+                                        'mf': mf,
+                                        'mf1': mf1,
+                                        'mf2': mf2,
+                                        'perfect_2F': perfect_2F,
+                                        'max_2F': max_twoF,
+                                        'mismatch': mismatch
+                                    })
+                                    break
+                    except Exception as e:
+                        print(f"Error reading existing trial {trial_idx}: {e}")
+                else:
+                    # Submit new job
+                    future = executor.submit(
+                        single_run, 
+                        param_idx, 
+                        trial_idx, 
+                        mf, 
+                        mf1, 
+                        mf2,
+                        F0_randoms[trial_idx],
+                        F1_randoms[trial_idx],
+                        F2_randoms[trial_idx]
+                    )
+                    futures.append((trial_idx, future))
             
             for trial_idx, future in futures:
                 try:
@@ -380,6 +457,11 @@ for param_idx in range(n_param_trials):
     
     print(f"  Mean mismatch: {mean_mismatch:.4f} ± {std_mismatch:.4f}")
     
+    # Save intermediate results after each parameter set
+    df_temp = pd.DataFrame(all_results)
+    df_temp.to_csv(csv_filename, index=False)
+    print(f"  Saved intermediate results to {csv_filename}")
+        
     # Create histogram for this parameter set
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.hist(
