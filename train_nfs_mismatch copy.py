@@ -70,10 +70,11 @@ def build_nfs_model(context_features: int, flow_features: int = 1) -> Flow:
                 hidden_features=8,  # 减少隐藏单元
                 context_features=context_features,
                 num_bins=6,  # 减少样条段数
-                tail_bound=1.0,  # 设置为[0,1]边界
                 min_bin_width=1e-3,
                 min_bin_height=1e-3,
                 min_derivative=1e-3,
+                tails="linear",        # ← extend outside the bound
+                tail_bound=4.0,        # ← big enough for ~99.7 % of N(0,1)
             )
         )
     flow =  Flow(
@@ -98,7 +99,7 @@ def build_nfs_model(context_features: int, flow_features: int = 1) -> Flow:
 #     return Flow(CompositeTransform(transforms), base_dist)
 
 
-def train(model: Flow, train_loader: DataLoader, *, epochs: int = 200, lr: float = 2e-3) -> None:
+def train(model: Flow, train_loader: DataLoader, *, epochs: int = 200, lr: float = 5e-3) -> None:
     """Single‑loop optimiser; we checkpoint the final model only."""
     model.to(device)
     opt = optim.Adam(model.parameters(), lr=lr)
@@ -189,6 +190,7 @@ def evaluate(
             sns.kdeplot(y_emp, label="Empirical", fill=True, alpha=0.5)
             sns.kdeplot(y_gen, label="Generated", fill=True, alpha=0.5)
             plt.title(f"Setup {i+1} Distribution Overlap")
+            plt.xlim([-0.1, 1.1])
             plt.legend()
             
             plt.subplot(1, 3, 2)
@@ -284,7 +286,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--x_csv", type=str, default="data/x_data.csv", help="Path to x CSV file")
     parser.add_argument("--y_csv", type=str, default="data/y_data.csv", help="Path to y CSV file")
-    parser.add_argument("--epochs", type=int, default=10)
+    parser.add_argument("--epochs", type=int, default=50)
     parser.add_argument("--test_ratio", type=float, default=0.2, help="Fraction of data held out for testing")
     parser.add_argument("--samples_per_cond", type=int, default=100, help="Samples per test condition during evaluation")
     parser.add_argument("--eval_subset", type=int, default=10000, help="Random subset of test rows to evaluate (None = all)")
@@ -295,7 +297,8 @@ def main() -> None:
     # set y all positive and set all elements < 0 to 0
     y = torch.clamp(y, min=0.0)
     print(f"Dataset loaded – {len(x)} rows, {x.shape[1]} features ➜ target dim 1")
-
+    print(f"Y data range: min={y.min():.4f}, max={y.max():.4f}")
+    print(f"Y data statistics: mean={y.mean():.4f}, std={y.std():.4f}")
     # 按setup分组划分（假设前3列是mf, mf1, mf2）
     setup_cols = x[:, :3]  # 提取setup列
     unique_setups, indices = torch.unique(setup_cols, dim=0, return_inverse=True)
@@ -321,7 +324,7 @@ def main() -> None:
 
     print(f"Split by setup → train: {len(train_ds)} samples ({len(train_setup_indices)} setups) | test: {len(test_ds)} samples ({len(test_setup_indices)} setups)")
     # ——— DataLoaders ———
-    batch_size = min(256, len(train_ds))
+    batch_size = min(1024, len(train_ds))
 
     train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True)
 
