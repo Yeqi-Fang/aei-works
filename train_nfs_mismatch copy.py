@@ -67,9 +67,9 @@ def build_nfs_model(context_features: int, flow_features: int = 1) -> Flow:
         transforms.append(
             MaskedPiecewiseRationalQuadraticAutoregressiveTransform(
                 features=1,
-                hidden_features=8,  # 减少隐藏单元
+                hidden_features=16, 
                 context_features=context_features,
-                num_bins=6,  # 减少样条段数
+                num_bins=15,  
                 min_bin_width=1e-3,
                 min_bin_height=1e-3,
                 min_derivative=1e-3,
@@ -286,7 +286,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--x_csv", type=str, default="data/x_data.csv", help="Path to x CSV file")
     parser.add_argument("--y_csv", type=str, default="data/y_data.csv", help="Path to y CSV file")
-    parser.add_argument("--epochs", type=int, default=50)
+    parser.add_argument("--epochs", type=int, default=100)
     parser.add_argument("--test_ratio", type=float, default=0.2, help="Fraction of data held out for testing")
     parser.add_argument("--samples_per_cond", type=int, default=100, help="Samples per test condition during evaluation")
     parser.add_argument("--eval_subset", type=int, default=10000, help="Random subset of test rows to evaluate (None = all)")

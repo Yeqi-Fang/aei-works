@@ -8,7 +8,6 @@ from typing import Tuple
 import os
 import numpy as np
 import pandas as pd
-import torch
 import matplotlib.pyplot as plt
 import seaborn as sns
 import joblib
@@ -16,6 +15,9 @@ from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C, WhiteKernel, Matern
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import BayesianRidge
+import warnings
 
 from datetime import datetime
 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -37,22 +39,70 @@ def load_dataset(x_path: Path | str, y_path: Path | str) -> Tuple[np.ndarray, np
             "Truncating to smallest."
         )
     n = min(len(x_df), len(y_df))
-    x_array = x_df.iloc[:n].values.astype(np.float32)
-    y_array = y_df.iloc[:n].values.reshape(-1).astype(np.float32)
+    x_array = x_df.iloc[:n].values.astype(np.float64)
+    y_array = y_df.iloc[:n].values.reshape(-1).astype(np.float64)
     return x_array, y_array
+
+
+def smart_subsample(x_train: np.ndarray, y_train: np.ndarray, max_samples: int = 5000, 
+                   setup_cols: slice = slice(0, 3)) -> Tuple[np.ndarray, np.ndarray]:
+    """
+    Intelligently subsample training data to preserve setup diversity.
+    
+    Args:
+        x_train: Training features
+        y_train: Training targets  
+        max_samples: Maximum number of samples to keep
+        setup_cols: Slice indicating which columns are setup parameters
+    """
+    if len(x_train) <= max_samples:
+        return x_train, y_train
+    
+    print(f"🎯 Subsampling from {len(x_train)} to {max_samples} samples...")
+    
+    # Get setup information
+    setup_features = x_train[:, setup_cols]
+    unique_setups, indices = np.unique(setup_features, axis=0, return_inverse=True)
+    n_setups = len(unique_setups)
+    
+    print(f"   Found {n_setups} unique setups")
+    
+    # Calculate samples per setup
+    samples_per_setup = max_samples // n_setups
+    remainder = max_samples % n_setups
+    
+    selected_indices = []
+    
+    for setup_idx in range(n_setups):
+        setup_mask = indices == setup_idx
+        setup_indices = np.where(setup_mask)[0]
+        
+        # Number of samples for this setup
+        n_samples_this_setup = samples_per_setup + (1 if setup_idx < remainder else 0)
+        n_samples_this_setup = min(n_samples_this_setup, len(setup_indices))
+        
+        # Randomly sample from this setup
+        if n_samples_this_setup < len(setup_indices):
+            selected_from_setup = np.random.choice(setup_indices, n_samples_this_setup, replace=False)
+        else:
+            selected_from_setup = setup_indices
+            
+        selected_indices.extend(selected_from_setup)
+    
+    selected_indices = np.array(selected_indices)
+    print(f"   Selected {len(selected_indices)} samples preserving setup diversity")
+    
+    return x_train[selected_indices], y_train[selected_indices]
 
 
 def build_gpr_model(n_features: int, kernel_type: str = "rbf") -> GaussianProcessRegressor:
     """Factory: Build a Gaussian Process Regressor with specified kernel."""
     
     if kernel_type == "rbf":
-        # RBF kernel with different length scales for different features
         kernel = C(1.0, (1e-3, 1e3)) * RBF(length_scale=[1.0] * n_features, length_scale_bounds=(1e-2, 1e2))
     elif kernel_type == "matern":
-        # Matérn kernel with nu=1.5 (once differentiable)
         kernel = C(1.0, (1e-3, 1e3)) * Matern(length_scale=[1.0] * n_features, length_scale_bounds=(1e-2, 1e2), nu=1.5)
     elif kernel_type == "rbf_white":
-        # RBF kernel with white noise
         kernel = C(1.0, (1e-3, 1e3)) * RBF(length_scale=[1.0] * n_features, length_scale_bounds=(1e-2, 1e2)) + WhiteKernel(noise_level=1e-2)
     else:
         raise ValueError(f"Unknown kernel type: {kernel_type}")
@@ -62,10 +112,10 @@ def build_gpr_model(n_features: int, kernel_type: str = "rbf") -> GaussianProces
     
     gpr = GaussianProcessRegressor(
         kernel=kernel,
-        alpha=1e-6,  # Additional regularization
+        alpha=1e-6,
         optimizer='fmin_l_bfgs_b',
-        n_restarts_optimizer=5,  # Multiple random starts for optimization
-        normalize_y=True,  # Normalize target values
+        n_restarts_optimizer=3,  # Reduced for faster training
+        normalize_y=True,
         copy_X_train=True,
         random_state=42
     )
@@ -73,54 +123,98 @@ def build_gpr_model(n_features: int, kernel_type: str = "rbf") -> GaussianProces
     return gpr
 
 
-def train_gpr(model: GaussianProcessRegressor, x_train: np.ndarray, y_train: np.ndarray, 
-              scaler_x: StandardScaler = None) -> Tuple[GaussianProcessRegressor, StandardScaler]:
-    """Train the Gaussian Process Regressor."""
-    print(f"🚀 Training GP on {len(x_train)} samples with {x_train.shape[1]} features...")
+def build_alternative_model(model_type: str, n_features: int):
+    """Build alternative scalable models."""
+    
+    if model_type == "random_forest":
+        return RandomForestRegressor(
+            n_estimators=100,
+            max_depth=15,
+            min_samples_split=5,
+            min_samples_leaf=2,
+            random_state=42,
+            n_jobs=-1
+        )
+    elif model_type == "bayesian_ridge":
+        return BayesianRidge(
+            alpha_1=1e-6,
+            alpha_2=1e-6,
+            lambda_1=1e-6,
+            lambda_2=1e-6,
+            compute_score=True
+        )
+    else:
+        raise ValueError(f"Unknown model type: {model_type}")
+
+
+def train_model(model, x_train: np.ndarray, y_train: np.ndarray, 
+               model_type: str = "gpr", max_samples: int = 5000) -> Tuple[object, StandardScaler]:
+    """Train the model with appropriate preprocessing."""
+    
+    # Subsample if needed for GP
+    if model_type == "gpr" and len(x_train) > max_samples:
+        x_train, y_train = smart_subsample(x_train, y_train, max_samples)
+    
+    print(f"🚀 Training {model_type.upper()} on {len(x_train)} samples with {x_train.shape[1]} features...")
     
     # Standardize features
-    if scaler_x is None:
-        scaler_x = StandardScaler()
-        x_train_scaled = scaler_x.fit_transform(x_train)
-    else:
-        x_train_scaled = scaler_x.transform(x_train)
+    scaler_x = StandardScaler()
+    x_train_scaled = scaler_x.fit_transform(x_train)
     
-    # Fit the GP
+    # Fit the model
     model.fit(x_train_scaled, y_train)
     
-    print(f"✔️  GP training complete!")
-    print(f"📊 Kernel parameters:")
-    print(f"   {model.kernel_}")
-    print(f"   Log-marginal-likelihood: {model.log_marginal_likelihood():.4f}")
+    print(f"✔️  {model_type.upper()} training complete!")
+    
+    # Model-specific diagnostics
+    if model_type == "gpr":
+        print(f"📊 Kernel parameters:")
+        print(f"   {model.kernel_}")
+        print(f"   Log-marginal-likelihood: {model.log_marginal_likelihood():.4f}")
+    elif model_type == "random_forest":
+        print(f"📊 Random Forest info:")
+        print(f"   Feature importances: {model.feature_importances_}")
+        print(f"   OOB score: {getattr(model, 'oob_score_', 'N/A')}")
+    elif model_type == "bayesian_ridge":
+        print(f"📊 Bayesian Ridge info:")
+        print(f"   Alpha: {model.alpha_:.4f}")
+        print(f"   Lambda: {model.lambda_:.4f}")
     
     # Save the trained model and scaler
-    joblib.dump(model, f"{log_dir}/trained_gpr.pkl")
+    joblib.dump(model, f"{log_dir}/trained_{model_type}.pkl")
     joblib.dump(scaler_x, f"{log_dir}/scaler_x.pkl")
-    print(f"✔️  Model saved to {log_dir}/trained_gpr.pkl")
+    print(f"✔️  Model saved to {log_dir}/trained_{model_type}.pkl")
     
     return model, scaler_x
 
 
-def evaluate_gpr(
-    model: GaussianProcessRegressor,
+def evaluate_model(
+    model,
     scaler_x: StandardScaler,
     x_test: np.ndarray,
     y_test: np.ndarray,
+    model_type: str = "gpr",
     *,
     n_samples: int = 100,
     eval_subset: int | None = None,
     save_path: str = "images/evaluation.pdf",
     error_csv_path: str = "errors/setup_errors.csv"
 ) -> np.ndarray:
-    """Enhanced evaluation with GP predictions and uncertainty quantification."""
+    """Enhanced evaluation with model predictions and uncertainty quantification."""
     
-    print(f"🔍 Evaluating GP model...")
+    print(f"🔍 Evaluating {model_type.upper()} model...")
     
     # Scale test features
     x_test_scaled = scaler_x.transform(x_test)
     
-    # Get predictions with uncertainty
-    y_pred_mean, y_pred_std = model.predict(x_test_scaled, return_std=True)
+    # Get predictions
+    if model_type == "gpr":
+        y_pred_mean, y_pred_std = model.predict(x_test_scaled, return_std=True)
+    elif model_type == "bayesian_ridge":
+        y_pred_mean, y_pred_std = model.predict(x_test_scaled, return_std=True)
+    else:
+        y_pred_mean = model.predict(x_test_scaled)
+        y_pred_std = np.zeros_like(y_pred_mean)  # No uncertainty for deterministic models
     
     # Overall metrics
     mse = mean_squared_error(y_test, y_pred_mean)
@@ -131,9 +225,10 @@ def evaluate_gpr(
     print(f"MSE: {mse:.4f}")
     print(f"MAE: {mae:.4f}")
     print(f"R²: {r2:.4f}")
-    print(f"Mean prediction std: {y_pred_std.mean():.4f}")
+    if model_type in ["gpr", "bayesian_ridge"]:
+        print(f"Mean prediction std: {y_pred_std.mean():.4f}")
     
-    # Analyze by setup (assuming first 3 columns are setup parameters)
+    # Analyze by setup
     test_setup_cols = x_test[:, :3]
     test_unique_setups, test_indices = np.unique(test_setup_cols, axis=0, return_inverse=True)
     
@@ -155,9 +250,21 @@ def evaluate_gpr(
         print(f"\n🎨 Visualizing Setup {i+1}/4 (Setup ID: {setup_idx}) - {len(x_setup)} samples")
         print(f"Setup parameters: {test_unique_setups[setup_idx].tolist()}")
         
-        # Generate samples from GP predictive distribution
-        x_setup_scaled = scaler_x.transform(x_setup)
-        y_samples = model.sample_y(x_setup_scaled, n_samples=n_samples, random_state=42)
+        # Generate samples if possible
+        if model_type == "gpr":
+            x_setup_scaled = scaler_x.transform(x_setup)
+            y_samples = model.sample_y(x_setup_scaled, n_samples=min(n_samples, 50), random_state=42)
+        elif model_type == "bayesian_ridge":
+            # Approximate sampling using normal distribution
+            y_samples = np.random.normal(
+                y_pred_setup[:, np.newaxis], 
+                y_std_setup[:, np.newaxis], 
+                (len(y_pred_setup), min(n_samples, 50))
+            )
+        else:
+            # For deterministic models, just add some noise for visualization
+            noise_std = np.std(y_setup - y_pred_setup)
+            y_samples = y_pred_setup[:, np.newaxis] + np.random.normal(0, noise_std, (len(y_pred_setup), min(n_samples, 50)))
         
         # Create visualization
         plt.figure(figsize=(15, 5))
@@ -165,7 +272,8 @@ def evaluate_gpr(
         # Distribution comparison
         plt.subplot(1, 3, 1)
         sns.kdeplot(y_setup, label="True", fill=True, alpha=0.5)
-        sns.kdeplot(y_samples.flatten(), label="GP Samples", fill=True, alpha=0.5)
+        if model_type in ["gpr", "bayesian_ridge"]:
+            sns.kdeplot(y_samples.flatten(), label=f"{model_type.upper()} Samples", fill=True, alpha=0.5)
         plt.axvline(y_setup.mean(), color='blue', linestyle='--', alpha=0.7, label=f'True Mean: {y_setup.mean():.3f}')
         plt.axvline(y_pred_setup.mean(), color='orange', linestyle='--', alpha=0.7, label=f'Pred Mean: {y_pred_setup.mean():.3f}')
         plt.title(f"Setup {i+1} Distribution Comparison")
@@ -174,14 +282,15 @@ def evaluate_gpr(
         # Prediction vs True scatter plot
         plt.subplot(1, 3, 2)
         plt.scatter(y_setup, y_pred_setup, alpha=0.6, s=20)
-        plt.errorbar(y_setup, y_pred_setup, yerr=y_std_setup, fmt='o', alpha=0.3, capsize=3)
+        if model_type in ["gpr", "bayesian_ridge"]:
+            plt.errorbar(y_setup, y_pred_setup, yerr=y_std_setup, fmt='o', alpha=0.3, capsize=3)
         
         # Perfect prediction line
         min_val, max_val = min(y_setup.min(), y_pred_setup.min()), max(y_setup.max(), y_pred_setup.max())
         plt.plot([min_val, max_val], [min_val, max_val], 'r--', alpha=0.8)
         plt.xlabel("True Values")
         plt.ylabel("Predicted Values")
-        plt.title(f"Setup {i+1} Predictions with Uncertainty")
+        plt.title(f"Setup {i+1} Predictions" + (" with Uncertainty" if model_type in ["gpr", "bayesian_ridge"] else ""))
         
         # Residuals vs Predictions
         plt.subplot(1, 3, 3)
@@ -232,7 +341,7 @@ def evaluate_gpr(
             'mse': setup_mse,
             'mae': setup_mae,
             'r2': setup_r2,
-            'mean_uncertainty': y_std_setup.mean(),
+            'mean_uncertainty': y_std_setup.mean() if model_type in ["gpr", "bayesian_ridge"] else 0.0,
             'n_samples': len(x_setup)
         })
     
@@ -265,8 +374,13 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--x_csv", type=str, default="data/x_data.csv", help="Path to x CSV file")
     parser.add_argument("--y_csv", type=str, default="data/y_data.csv", help="Path to y CSV file")
+    parser.add_argument("--model", type=str, default="gpr", 
+                       choices=["gpr", "random_forest", "bayesian_ridge"],
+                       help="Model type to use")
     parser.add_argument("--kernel", type=str, default="rbf", choices=["rbf", "matern", "rbf_white"], 
-                       help="Kernel type for GP")
+                       help="Kernel type for GP (only used with --model gpr)")
+    parser.add_argument("--max_samples", type=int, default=5000, 
+                       help="Maximum training samples for GP (ignored for other models)")
     parser.add_argument("--test_ratio", type=float, default=0.2, help="Fraction of data held out for testing")
     parser.add_argument("--n_samples", type=int, default=100, help="Samples per test condition during evaluation")
     parser.add_argument("--eval_subset", type=int, default=10000, help="Random subset of test rows to evaluate (None = all)")
@@ -282,7 +396,12 @@ def main() -> None:
     print(f"Y data range: min={y.min():.4f}, max={y.max():.4f}")
     print(f"Y data statistics: mean={y.mean():.4f}, std={y.std():.4f}")
     
-    # Split by setup (assuming first 3 columns are setup parameters)
+    # Memory warning for large datasets
+    if len(x) > 50000 and args.model == "gpr":
+        print(f"⚠️  Large dataset detected ({len(x)} samples). GP will be trained on subsampled data ({args.max_samples} samples max).")
+        print(f"    Consider using --model random_forest or --model bayesian_ridge for full dataset training.")
+    
+    # Split by setup
     setup_cols = x[:, :3]
     unique_setups, indices = np.unique(setup_cols, axis=0, return_inverse=True)
     n_setups = len(unique_setups)
@@ -304,18 +423,24 @@ def main() -> None:
 
     print(f"Split by setup → train: {len(x_train)} samples ({len(train_setup_indices)} setups) | test: {len(x_test)} samples ({len(test_setup_indices)} setups)")
 
-    # Build and train GP model
-    gpr = build_gpr_model(n_features=x.shape[1], kernel_type=args.kernel)
-    gpr, scaler_x = train_gpr(gpr, x_train, y_train)
+    # Build model
+    if args.model == "gpr":
+        model = build_gpr_model(n_features=x.shape[1], kernel_type=args.kernel)
+    else:
+        model = build_alternative_model(args.model, n_features=x.shape[1])
+
+    # Train model
+    model, scaler_x = train_model(model, x_train, y_train, args.model, args.max_samples)
 
     # Evaluate on test set
     print(f"\n🔍 Evaluating on test setups...")
     
-    all_errors = evaluate_gpr(
-        gpr,
+    all_errors = evaluate_model(
+        model,
         scaler_x,
         x_test,
         y_test,
+        args.model,
         n_samples=args.n_samples,
         eval_subset=None if args.eval_subset <= 0 else args.eval_subset,
         save_path=f"{log_dir}/evaluation_overview.pdf",

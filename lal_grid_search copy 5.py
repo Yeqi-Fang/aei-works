@@ -273,8 +273,8 @@ perfect_search_cmd = [
     "--f2dotBand=0",
     f"--df2dot={df2:.15e}",
     f"--fnameout={perfect_output_file}",
-    f"--gammaRefine=1",
-    f"--gamma2Refine=1",
+    f"--gammaRefine=8",
+    f"--gamma2Refine=20",
     
 ] + shared_cmd 
 
