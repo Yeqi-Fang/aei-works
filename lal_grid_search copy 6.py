@@ -10,7 +10,7 @@ from rich.progress import Progress, TimeElapsedColumn, TimeRemainingColumn
 # Create output directory
 N = 200
 print_output = False  # Set to False to suppress output
-label = "LALSemiCoherentF0F1F2_corrected"
+label = "LALSemiCoherentF0F1F2_corrected_fast"
 outdir = os.path.join("LAL_example_data", label)
 os.makedirs(outdir, exist_ok=True)
 
@@ -119,14 +119,15 @@ shared_cmd = [
     f"--refTime={tref:.15f}",
     f"--tStack={tStack:.15g}",
     f"--nStacksMax={nStacks}",
-    "--nCand1=1000",
+    "--nCand1=10",
     "--printCand1",
     "--semiCohToplist",
     f"--minStartTime1={int(tstart)}",
     f"--maxStartTime1={int(tend)}",
     "--recalcToplistStats=TRUE",
-    "--FstatMethod=ResampBest",
-    "--FstatMethodRecalc=DemodBest",
+    "--FstatMethod=DemodBest",
+    "--FstatMethodRecalc=DemodOptC",
+    "--Dterms=8",
     # "--peakThrF=2.6",
     # "--computeBSGL",
     # "--oLGX=0.5,0.5",
