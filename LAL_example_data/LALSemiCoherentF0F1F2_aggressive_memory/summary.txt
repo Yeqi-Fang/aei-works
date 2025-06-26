@@ -1,0 +1,11 @@
+Aggressive Memory-Optimized LAL Search Results
+===============================================
+Total runs: 500
+Successful runs: 500
+Perfect match 2F: 4150279424.000000
+Mean mismatch: 0.126091
+Std mismatch: 0.078558
+SFT generation time: 0.84 seconds
+Search time: 54.29 seconds
+Total time: 56.22 seconds
+Memory workspace: /dev/shm/lal_aggressive_86873_1750949593

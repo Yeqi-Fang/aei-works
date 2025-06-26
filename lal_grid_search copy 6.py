@@ -8,14 +8,14 @@ from rich.progress import Progress, TimeElapsedColumn, TimeRemainingColumn
 
 
 # Create output directory
-N = 200
+N = 500
 print_output = False  # Set to False to suppress output
 label = "LALSemiCoherentF0F1F2_corrected_fast"
 outdir = os.path.join("LAL_example_data", label)
 os.makedirs(outdir, exist_ok=True)
 
 # Properties of the GW data
-sqrtSX = 1
+sqrtSX = 1e-22
 tstart = 1126051217
 duration = 120 * 86400
 tend = tstart + duration
@@ -61,8 +61,8 @@ makefakedata_cmd = [
     f"--sqrtSX={sqrtSX:.15e}",
     f"--startTime={int(tstart)}",
     f"--duration={int(duration)}",
-    f"--fmin={F0_inj - 0.5:.15g}",
-    f"--Band=1.0",
+    f"--fmin={F0_inj - 0.1:.15g}",
+    f"--Band=0.2",
     "--Tsft=1800",
     f"--outSFTdir={sft_dir}",
     f"--outLabel={sft_label}",
@@ -76,13 +76,13 @@ if result.returncode != 0:
     raise RuntimeError("Failed to generate SFTs")
 
 # Step 2: Create segment list file (CRITICAL!)
-segFile = os.path.join(outdir, "segments.dat")
-with open(segFile, 'w') as f:
-    for i in range(nStacks):
-        seg_start = tstart + i * tStack
-        seg_end = seg_start + tStack
-        nsft = int(tStack / 1800)  # Number of SFTs in segment
-        f.write(f"{int(seg_start)} {int(seg_end)} {nsft}\n")
+# segFile = os.path.join(outdir, "segments.dat")
+# with open(segFile, 'w') as f:
+#     for i in range(nStacks):
+#         seg_start = tstart + i * tStack
+#         seg_end = seg_start + tStack
+#         nsft = int(tStack / 1800)  # Number of SFTs in segment
+#         f.write(f"{int(seg_start)} {int(seg_end)} {nsft}\n")
 
 # print(f"Created segment file with {nStacks} segments")
 
@@ -166,12 +166,12 @@ def single_run(i):
     ] + shared_cmd
 
     # Save command for debugging
-    cmd_file = os.path.join(outdir, f"commands/command{i}.sh")
-    with open(cmd_file, 'w') as f:
-        f.write("#!/bin/bash\n")
-        f.write(" \\\n    ".join(hierarchsearch_cmd))
-        f.write("\n")
-    os.chmod(cmd_file, 0o755)
+    # cmd_file = os.path.join(outdir, f"commands/command{i}.sh")
+    # with open(cmd_file, 'w') as f:
+    #     f.write("#!/bin/bash\n")
+    #     f.write(" \\\n    ".join(hierarchsearch_cmd))
+    #     f.write("\n")
+    # os.chmod(cmd_file, 0o755)
 
     # print("Running command (saved to command.sh)...")
     result = subprocess.run(hierarchsearch_cmd, capture_output=True, text=True)

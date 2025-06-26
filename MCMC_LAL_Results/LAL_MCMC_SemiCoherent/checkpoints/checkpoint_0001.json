@@ -1,0 +1,33 @@
+{
+  "config_id": 1,
+  "parameters": {
+    "mf": 0.03,
+    "mf1": 0.35,
+    "mf2": 0.0008,
+    "T_coh": 30,
+    "tStack": 2592000,
+    "nStacks": 4,
+    "gamma1": 3,
+    "gamma2": 17,
+    "gamma1_upper": 8.717797887081348,
+    "gamma2_upper": 47.70744176750625,
+    "config_id": 1
+  },
+  "grid_spacing": {
+    "dF0": 7.368284402402562e-08,
+    "dF1": 3.7605416894200135e-13,
+    "df2": -1.3842402653720022e-18
+  },
+  "search_bands": {
+    "DeltaF0": 1.4736568804805123e-07,
+    "DeltaF1": 1.128162506826004e-12,
+    "DeltaF2": -4.152720796116006e-18
+  },
+  "perfect_2F": 0.0,
+  "max_twoFs": [],
+  "mismatches": [],
+  "n_successful_runs": 0,
+  "mean_mismatch": null,
+  "std_mismatch": null,
+  "timestamp": 1750949576.9821415
+}
