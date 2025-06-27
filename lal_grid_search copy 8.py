@@ -124,7 +124,7 @@ def main():
     phi0_inj = 0.0
     
     # 半相干搜索参数
-    tStack = 15 * 86400
+    tStack = 60 * 86400
     nStacks = int(duration / tStack)
     
     print(f"Starting aggressive memory-optimized search with N={N}")
@@ -175,10 +175,9 @@ def main():
     # ========================================================================
     # Step 2: 设置搜索网格参数
     # ========================================================================
-    
-    mf = 0.15
-    mf1 = 0.3
-    mf2 = 0.003
+    mf = 0.35
+    mf1 = 0.05
+    mf2 = 0.0002
     dF0 = np.sqrt(12 * mf) / (np.pi * tStack)
     dF1 = np.sqrt(180 * mf1) / (np.pi * tStack**2)
     df2 = np.sqrt(25200 * mf2) / (np.pi * tStack**3)
@@ -186,8 +185,8 @@ def main():
     N1 = 2
     N2 = 3
     N3 = 3
-    gamma1 = 8
-    gamma2 = 20
+    gamma1 = 1
+    gamma2 = 5
     
     DeltaF0 = N1 * dF0
     DeltaF1 = N2 * dF1

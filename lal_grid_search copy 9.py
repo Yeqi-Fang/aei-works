@@ -12,7 +12,53 @@ import atexit
 from rich.progress import Progress, TimeElapsedColumn, TimeRemainingColumn
 
 
-
+def sample_parameters(duration):
+    """从参数空间随机采样"""
+    
+    # 参数范围定义
+    mf_range = [0.001, 0.005, 0.01, 0.03, 0.05, 0.08, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.9, 1.0, 1.2, 1.4, 1.6, 1.7, 2.0]
+    mf1_range = [0.001, 0.005, 0.01, 0.03, 0.05, 0.08, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.9, 1.0]
+    mf2_range = [0.0001, 0.0002, 0.0005, 0.0008, 0.001, 0.002, 0.005, 0.008, 0.01, 0.03, 0.05, 0.08, 0.1, 0.2, 0.5, 0.8, 1.0]
+    T_coh_range = [5, 10, 15, 20, 30, 40, 60]
+    
+    # 随机采样基础参数
+    mf = np.random.choice(mf_range)
+    mf1 = np.random.choice(mf1_range)
+    mf2 = np.random.choice(mf2_range)
+    T_coh = np.random.choice(T_coh_range)
+    
+    # 计算衍生参数
+    tStack = T_coh * 86400
+    nStacks = int(duration / tStack)
+    
+    # 确保nStacks至少为1
+    if nStacks < 1:
+        nStacks = 1
+        tStack = duration
+    
+    # 计算gamma的上限
+    gamma1_upper = np.sqrt(max(1, 5 * nStacks ** 2 - 4))
+    gamma2_upper = np.sqrt(max(5, 35 * nStacks ** 4 - 140 * nStacks ** 2 + 108)) / np.sqrt(3)
+    
+    gamma1_upper = min(gamma1_upper, 50)
+    gamma2_upper = min(gamma2_upper, 50)
+    
+    # 随机采样gamma值（在1 to gamma1_upper范围内的单数，整数）
+    gamma1 = np.random.choice(np.arange(1, int(gamma1_upper) + 1, 2))
+    gamma2 = np.random.choice(np.arange(5, int(gamma2_upper) + 1, 2))
+    
+    return {
+        'mf': mf,
+        'mf1': mf1,
+        'mf2': mf2,
+        'T_coh': T_coh,
+        'tStack': tStack,
+        'nStacks': nStacks,
+        'gamma1': gamma1,
+        'gamma2': gamma2,
+        'gamma1_upper': gamma1_upper,
+        'gamma2_upper': gamma2_upper
+    }
 
 
 # ============================================================================
@@ -65,73 +111,11 @@ def cleanup_memory_workspace(workspace_path):
         except Exception as e:
             print(f"Warning: Could not clean up {workspace_path}: {e}")
 
-def get_aggressive_worker_count():
-    """计算激进优化的工作线程数"""
-    cpu_count = os.cpu_count()
-    memory_gb = psutil.virtual_memory().total / (1024**3)
-    
-    # 每个worker预估需要0.5-1GB内存
-    max_workers_by_memory = max(1, int(memory_gb / 1.5))
-    
-    # CPU限制：保留1-2个核心给系统
-    max_workers_by_cpu = max(1, cpu_count - 2)
-    
-    # 激进设置：在内存允许的情况下使用更多线程
-    optimal_workers = min(max_workers_by_memory, max_workers_by_cpu, 8)
-    
-    print(f"Using {optimal_workers} worker threads (CPU: {cpu_count}, Memory: {memory_gb:.1f}GB)")
-    return optimal_workers
 
 # ============================================================================
 # 主程序
 # ============================================================================
-def sample_parameters(duration):
-    """从参数空间随机采样"""
-    
-    # 参数范围定义
-    mf_range = [0.001, 0.005, 0.01, 0.03, 0.05, 0.08, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.9, 1.0, 1.2, 1.4, 1.6, 1.7, 2.0]
-    mf1_range = [0.001, 0.005, 0.01, 0.03, 0.05, 0.08, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.9, 1.0]
-    mf2_range = [0.0001, 0.0002, 0.0005, 0.0008, 0.001, 0.002, 0.005, 0.008, 0.01, 0.03, 0.05, 0.08, 0.1, 0.2, 0.5, 0.8, 1.0]
-    T_coh_range = [5, 10, 15, 20, 30, 40, 60]
-    
-    # 随机采样基础参数
-    mf = np.random.choice(mf_range)
-    mf1 = np.random.choice(mf1_range)
-    mf2 = np.random.choice(mf2_range)
-    T_coh = np.random.choice(T_coh_range)
-    
-    # 计算衍生参数
-    tStack = T_coh * 86400
-    nStacks = int(duration / tStack)
-    
-    # 确保nStacks至少为1
-    if nStacks < 1:
-        nStacks = 1
-        tStack = duration
-    
-    # 计算gamma的上限
-    gamma1_upper = np.sqrt(max(1, 5 * nStacks ** 2 - 4))
-    gamma2_upper = np.sqrt(max(5, 35 * nStacks ** 4 - 140 * nStacks ** 2 + 108)) / np.sqrt(3)
-    
-    gamma1_upper = min(gamma1_upper, 50)
-    gamma2_upper = min(gamma2_upper, 50)
-    
-    # 随机采样gamma值（在1 to gamma1_upper范围内的单数，整数）
-    gamma1 = np.random.choice(np.arange(1, int(gamma1_upper) + 1, 2))
-    gamma2 = np.random.choice(np.arange(5, int(gamma2_upper) + 1, 2))
-    
-    return {
-        'mf': mf,
-        'mf1': mf1,
-        'mf2': mf2,
-        'T_coh': T_coh,
-        'tStack': tStack,
-        'nStacks': nStacks,
-        'gamma1': gamma1,
-        'gamma2': gamma2,
-        'gamma1_upper': gamma1_upper,
-        'gamma2_upper': gamma2_upper
-    }
+
     
     
 # GW数据属性
@@ -154,59 +138,66 @@ psi_inj = 0.0
 phi0_inj = 0.0
 label = "LALSemiCoherentF0F1F2_aggressive_memory"
 
-# 设置内存优化环境
-memory_workspace, memory_sft_dir, memory_dats_dir = setup_aggressive_memory_optimization()
 
-# 注册清理函数
-atexit.register(cleanup_memory_workspace, memory_workspace)
+def generate_sft_data_once():
+   # 设置内存优化环境
+    memory_workspace, memory_sft_dir, memory_dats_dir = setup_aggressive_memory_optimization()
 
-# 最终输出目录（仅存储关键结果）
-final_outdir = os.path.join("LAL_example_data", label)
-os.makedirs(final_outdir, exist_ok=True)
+    # 注册清理函数
+    atexit.register(cleanup_memory_workspace, memory_workspace)
 
-memory_sft_pattern = os.path.join(memory_sft_dir, "*.sft")
+    # 最终输出目录（仅存储关键结果）
+    final_outdir = os.path.join("LAL_example_data", label)
+    os.makedirs(final_outdir, exist_ok=True)
+
+    memory_sft_pattern = os.path.join(memory_sft_dir, "*.sft")
+        
+    print("Generating SFT data in memory...")
+    start_sft_time = time.time()
+
+    injection_params = (
+        f"{{Alpha={Alpha_inj:.15g}; Delta={Delta_inj:.15g}; Freq={F0_inj:.15g}; "
+        f"f1dot={F1_inj:.15e}; f2dot={F2_inj:.15e}; refTime={tref:.15g}; "
+        f"h0={h0:.15e}; cosi={cosi_inj:.15g}; psi={psi_inj:.15g}; phi0={phi0_inj:.15g};}}"
+    )
+
+    makefakedata_cmd = [
+        "lalpulsar_Makefakedata_v5",
+        f"--IFOs={IFO}",
+        f"--sqrtSX={sqrtSX:.15e}",
+        f"--startTime={int(tstart)}",
+        f"--duration={int(duration)}",
+        f"--fmin={F0_inj - 0.2:.15g}",      # 最小化频带
+        f"--Band=0.4",                      # 最小化频带  
+        "--Tsft=1800",
+        f"--outSFTdir={memory_sft_dir}",
+        f"--outLabel=MemOpt",
+        f"--injectionSources={injection_params}",
+        "--randSeed=1234"
+    ]
+
+    result = subprocess.run(makefakedata_cmd, capture_output=True, text=True)
+    if result.returncode != 0:
+        print(f"Error generating SFTs: {result.stderr}")
+        cleanup_memory_workspace(memory_workspace)
+        raise RuntimeError("Failed to generate SFTs")
+
+    sft_time = time.time() - start_sft_time
+    print(f"SFT generation completed in {sft_time:.2f} seconds")
+
+    # 检查生成的SFT文件
+    sft_files = [f for f in os.listdir(memory_sft_dir) if f.endswith('.sft')]
+    print(f"Generated {len(sft_files)} SFT files in memory")
+    return memory_sft_pattern
+
+
     
-print("Generating SFT data in memory...")
-start_sft_time = time.time()
-
-injection_params = (
-    f"{{Alpha={Alpha_inj:.15g}; Delta={Delta_inj:.15g}; Freq={F0_inj:.15g}; "
-    f"f1dot={F1_inj:.15e}; f2dot={F2_inj:.15e}; refTime={tref:.15g}; "
-    f"h0={h0:.15e}; cosi={cosi_inj:.15g}; psi={psi_inj:.15g}; phi0={phi0_inj:.15g};}}"
-)
-
-makefakedata_cmd = [
-    "lalpulsar_Makefakedata_v5",
-    f"--IFOs={IFO}",
-    f"--sqrtSX={sqrtSX:.15e}",
-    f"--startTime={int(tstart)}",
-    f"--duration={int(duration)}",
-    f"--fmin={F0_inj - 0.2:.15g}",      # 最小化频带
-    f"--Band=0.4",                      # 最小化频带  
-    "--Tsft=1800",
-    f"--outSFTdir={memory_sft_dir}",
-    f"--outLabel=MemOpt",
-    f"--injectionSources={injection_params}",
-    "--randSeed=1234"
-]
-
-result = subprocess.run(makefakedata_cmd, capture_output=True, text=True)
-if result.returncode != 0:
-    print(f"Error generating SFTs: {result.stderr}")
-    cleanup_memory_workspace(memory_workspace)
-    raise RuntimeError("Failed to generate SFTs")
-
-sft_time = time.time() - start_sft_time
-print(f"SFT generation completed in {sft_time:.2f} seconds")
-
-# 检查生成的SFT文件
-sft_files = [f for f in os.listdir(memory_sft_dir) if f.endswith('.sft')]
-print(f"Generated {len(sft_files)} SFT files in memory")
-    
 
     
     
-def one_config(config):
+def one_config(config, sqrtSX, tstart, duration, tend, tref, IFO, depth, h0, 
+               F0_inj, F1_inj, F2_inj, Alpha_inj, Delta_inj, cosi_inj, 
+               psi_inj, phi0_inj, memory_sft_pattern):
     # 参数设置
     N = 500
 
@@ -353,7 +344,6 @@ def one_config(config):
     search_start_time = time.time()
     
     max_twoFs = []
-    optimal_workers = get_aggressive_worker_count()
     
     with Progress(
         "[progress.description]{task.description}",
@@ -529,9 +519,21 @@ def one_config(config):
 # ============================================================================
 
 if __name__ == "__main__":
+    memory_workspace, memory_sft_dir, memory_dats_dir = setup_aggressive_memory_optimization()
+
     try:
-        successful_runs = one_config()
+        memory_sft_pattern = generate_sft_data_once()
+        for i in range(2000):
+            config = sample_parameters(duration)
+            successful_runs = one_config(config)
+            if successful_runs == 0:
+                print(f"Run {i+1}: No valid results, skipping further processing")
+                continue
+            
+            print(f"Run {i+1}: {successful_runs} valid results")
+            
         print(f"Program completed successfully with {successful_runs} valid results")
+
     except KeyboardInterrupt:
         print("\nProgram interrupted by user")
     except Exception as e:
