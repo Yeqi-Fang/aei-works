@@ -182,9 +182,9 @@ def main():
     dF1 = np.sqrt(180 * mf1) / (np.pi * tStack**2)
     df2 = np.sqrt(25200 * mf2) / (np.pi * tStack**3)
     
-    N1 = 10
-    N2 = 5
-    N3 = 5
+    N1 = 2
+    N2 = 3
+    N3 = 3
     gamma1 = 11
     gamma2 = 91
     
@@ -207,14 +207,14 @@ def main():
         f"--refTime={tref:.15f}",
         f"--tStack={tStack:.15g}",
         f"--nStacksMax={nStacks}",
-        "--nCand1=10",                       # 最小化候选数量
+        "--nCand1=30",                       # 最小化候选数量
         "--printCand1",
         "--semiCohToplist",
         f"--minStartTime1={int(tstart)}",
         f"--maxStartTime1={int(tend)}",
         "--recalcToplistStats=TRUE",        # 保持不变（重要参数）
         "--FstatMethod=DemodBest",          # 最佳方法
-        "--FstatMethodRecalc=DemodOptC",
+        "--FstatMethodRecalc=DemodBest",
     ]
     
     print(f"Grid spacing: dF0={dF0:.2e}, dF1={dF1:.2e}, df2={df2:.2e}")

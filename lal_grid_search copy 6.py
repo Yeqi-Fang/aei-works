@@ -35,7 +35,7 @@ psi_inj = 0.0
 phi0_inj = 0.0
 
 # Semi-coherent search parameters
-tStack = 15 * 86400  # 15 day coherent segments
+tStack = 20 * 86400  # 15 day coherent segments
 nStacks = int(duration / tStack)  # Number of segments
 
 # Step 1: Generate SFT data
@@ -87,19 +87,19 @@ if result.returncode != 0:
 # print(f"Created segment file with {nStacks} segments")
 
 # Step 3: Set up grid search parameters
-mf = 0.15
-mf1 = 0.3
-mf2 = 0.003
+mf = 0.01
+mf1 = 0.001
+mf2 = 0.08
 dF0 = np.sqrt(12 * mf) / (np.pi * tStack)
 dF1 = np.sqrt(180 * mf1) / (np.pi * tStack**2)
 df2 = np.sqrt(25200 * mf2) / (np.pi * tStack**3)
 
 # Search bands
-N1 = 2
-N2 = 3
-N3 = 3
-gamma1 = 8
-gamma2 = 20
+N1 = 10
+N2 = 5
+N3 = 5
+gamma1 = 11
+gamma2 = 91
 
 
 DeltaF0 = N1 * dF0

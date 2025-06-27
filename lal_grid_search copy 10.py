@@ -13,6 +13,7 @@ import json
 from rich.progress import Progress, TimeElapsedColumn, TimeRemainingColumn
 import matplotlib
 matplotlib.use('Agg')  # 使用非GUI后端
+perfect_2F_cache = {}
 
 
 def get_last_completed_run(output_dir, label):
@@ -38,8 +39,8 @@ def sample_parameters(duration):
     
     # 参数范围定义
     mf_range = np.array([0.001, 0.005, 0.01, 0.03, 0.05, 0.08, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.9, 1.0, 1.2, 1.4, 1.6, 1.7, 2.0])
-    mf1_range = np.array([0.001, 0.005, 0.01, 0.03, 0.05, 0.08, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.9, 1.0, 1.5, 2])
-    mf2_range = np.array([0.0001, 0.0002, 0.0005, 0.0008, 0.001, 0.002, 0.005, 0.008, 0.01, 0.03, 0.05, 0.08, 0.1])
+    mf1_range = np.array([0.001, 0.005, 0.01, 0.03, 0.05, 0.08, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.9, 1.0])
+    mf2_range = np.array([0.0001, 0.0002, 0.0005, 0.0008, 0.001, 0.002, 0.005, 0.008, 0.01, 0.03, 0.05, 0.07, 0.1])
     T_coh_range = np.array([6, 10, 15, 20, 30, 40, 60])
     
     # 随机采样基础参数
@@ -141,18 +142,6 @@ def cleanup_memory_workspace(workspace_path):
             print(f"Warning: Could not clean up {workspace_path}: {e}")
 
 
-def get_aggressive_worker_count():
-    """获取激进的工作线程数"""
-    cpu_count = psutil.cpu_count(logical=True)
-    memory_gb = psutil.virtual_memory().total / (1024**3)
-    
-    # 基于CPU和内存的启发式选择
-    if memory_gb >= 32:
-        return min(cpu_count, 24)
-    elif memory_gb >= 16:
-        return min(cpu_count, 16)
-    else:
-        return min(cpu_count, 8)
 
 
 def generate_sft_data_once(memory_workspace, memory_sft_dir, memory_dats_dir, 
@@ -252,7 +241,7 @@ def one_config(config, sqrtSX, tstart, duration, tend, tref, IFO, depth, h0,
         f"--refTime={tref:.15f}",
         f"--tStack={tStack:.15g}",
         f"--nStacksMax={nStacks}",
-        "--nCand1=10",
+        "--nCand1=30",
         "--printCand1",
         "--semiCohToplist",
         f"--minStartTime1={int(tstart)}",
@@ -371,49 +360,58 @@ def one_config(config, sqrtSX, tstart, duration, tend, tref, IFO, depth, h0,
     print(f"Successfully processed {len(max_twoFs)}/{N} runs")
     
     # 计算完美匹配的2F值
-    print("Computing perfect match 2F value...")
-    perfect_output_file = os.path.join(memory_dats_dir, "perfect_match.dat")
-    
-    perfect_search_cmd = [
-        "lalpulsar_HierarchSearchGCT",
-        f"--Freq={F0_inj:.15g}",
-        "--FreqBand=0",
-        f"--dFreq={dF0:.15e}",
-        f"--f1dot={F1_inj:.15e}",
-        "--f1dotBand=0",
-        f"--df1dot={dF1:.15e}",
-        f"--f2dot={F2_inj:.15e}",
-        "--f2dotBand=0",
-        f"--df2dot={dF2:.15e}",
-        f"--fnameout={perfect_output_file}",
-        f"--gammaRefine={gamma1}",
-        f"--gamma2Refine={gamma2}",
-    ] + shared_cmd
-    
-    result = subprocess.run(perfect_search_cmd, capture_output=True, text=True, timeout=300)
-    
-    if result.returncode != 0:
-        print(f"Error computing perfect match: {result.stderr}")
-        raise RuntimeError("Failed to compute perfect match 2F value")
-    
-    # 解析完美匹配结果
-    perfect_2F = 0.0
-    if os.path.exists(perfect_output_file):
-        with open(perfect_output_file, 'r') as f:
-            lines = f.readlines()
+    # Check cache first
+    T_coh = config['T_coh']
+    if T_coh in perfect_2F_cache:
+        perfect_2F = perfect_2F_cache[T_coh]
+        print(f"Using cached perfect match 2F: {perfect_2F:.6f} for T_coh={T_coh}")
+    else:
+        print("Computing perfect match 2F value...")
+        perfect_output_file = os.path.join(memory_dats_dir, "perfect_match.dat")
         
-        for line in lines:
-            if line.strip() and not line.startswith('%'):
-                parts = line.split()
-                if len(parts) >= 8:
-                    try:
-                        twoFr = float(parts[7])
-                        if twoFr > perfect_2F:
-                            perfect_2F = twoFr
-                    except (ValueError, IndexError):
-                        continue
-    
-    print(f"Perfect match 2F: {perfect_2F:.6f}")
+        perfect_search_cmd = [
+            "lalpulsar_HierarchSearchGCT",
+            f"--Freq={F0_inj:.15g}",
+            "--FreqBand=0",
+            f"--dFreq={dF0:.15e}",
+            f"--f1dot={F1_inj:.15e}",
+            "--f1dotBand=0",
+            f"--df1dot={dF1:.15e}",
+            f"--f2dot={F2_inj:.15e}",
+            "--f2dotBand=0",
+            f"--df2dot={dF2:.15e}",
+            f"--fnameout={perfect_output_file}",
+            f"--gammaRefine={gamma1}",
+            f"--gamma2Refine={gamma2}",
+        ] + shared_cmd
+        
+        result = subprocess.run(perfect_search_cmd, capture_output=True, text=True, timeout=300)
+        
+        if result.returncode != 0:
+            print(f"Error computing perfect match: {result.stderr}")
+            raise RuntimeError("Failed to compute perfect match 2F value")
+        
+        # 解析完美匹配结果
+        perfect_2F = 0.0
+        if os.path.exists(perfect_output_file):
+            with open(perfect_output_file, 'r') as f:
+                lines = f.readlines()
+            
+            for line in lines:
+                if line.strip() and not line.startswith('%'):
+                    parts = line.split()
+                    if len(parts) >= 8:
+                        try:
+                            twoFr = float(parts[7])
+                            if twoFr > perfect_2F:
+                                perfect_2F = twoFr
+                        except (ValueError, IndexError):
+                            continue
+        
+        print(f"Perfect match 2F: {perfect_2F:.6f}")
+        
+        perfect_2F_cache[T_coh] = perfect_2F
+        print(f"Cached perfect match 2F: {perfect_2F:.6f} for T_coh={T_coh}")
     
     # 计算失配分布
     successful_runs = 0
@@ -436,7 +434,7 @@ def one_config(config, sqrtSX, tstart, duration, tend, tref, IFO, depth, h0,
             print(f"  Max:  {np.max(mismatches):.6f}")
             print(f"  Valid samples: {len(mismatches)}/{N}")
             
-            # 生成并保存直方图
+            # # 生成并保存直方图
             # fig, ax = plt.subplots(figsize=(10, 6))
             # ax.hist(
             #     mismatches,
@@ -457,11 +455,11 @@ def one_config(config, sqrtSX, tstart, duration, tend, tref, IFO, depth, h0,
             
             # fig.tight_layout()
             
-            # 保存图片
+            # # 保存图片
             # os.makedirs("images", exist_ok=True)
-            # fig.savefig(f"images/mismatch_distribution_aggressive_{N}_{depth}.pdf")
-            # fig.savefig(f"images/mismatch_distribution_aggressive_{N}_{depth}.png")
-            # print(f"Histogram saved to images/mismatch_distribution_aggressive_{N}_{depth}.pdf")
+            # fig.savefig(f"images/MC/mismatch_distribution_aggressive_{mf}-{mf1}-{mf2}-{T_coh}-{gamma1}-{gamma2}-{N}-{depth}.pdf")
+            # fig.savefig(f"images/MC/mismatch_distribution_aggressive_{mf}-{mf1}-{mf2}-{T_coh}-{gamma1}-{gamma2}-{N}-{depth}.png")
+            # print(f"Histogram saved to images/MC/mismatch_distribution_aggressive_{mf}-{mf1}-{mf2}-{T_coh}-{gamma1}-{gamma2}-{N}-{depth}.pdf")
             
             # plt.close(fig)
             
