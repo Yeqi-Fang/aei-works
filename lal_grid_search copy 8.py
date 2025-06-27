@@ -112,7 +112,7 @@ def main():
     IFO = "H1"
     
     # 注入信号参数
-    depth = 0.02
+    depth = 0.6
     h0 = sqrtSX / depth
     F0_inj = 151.5
     F1_inj = -1e-10
@@ -124,7 +124,7 @@ def main():
     phi0_inj = 0.0
     
     # 半相干搜索参数
-    tStack = 60 * 86400
+    tStack = 20 * 86400
     nStacks = int(duration / tStack)
     
     print(f"Starting aggressive memory-optimized search with N={N}")
@@ -175,18 +175,18 @@ def main():
     # ========================================================================
     # Step 2: 设置搜索网格参数
     # ========================================================================
-    mf = 0.35
-    mf1 = 0.05
-    mf2 = 0.0002
+    mf = 0.01
+    mf1 = 0.001
+    mf2 = 0.08
     dF0 = np.sqrt(12 * mf) / (np.pi * tStack)
     dF1 = np.sqrt(180 * mf1) / (np.pi * tStack**2)
     df2 = np.sqrt(25200 * mf2) / (np.pi * tStack**3)
     
-    N1 = 2
-    N2 = 3
-    N3 = 3
-    gamma1 = 1
-    gamma2 = 5
+    N1 = 10
+    N2 = 5
+    N3 = 5
+    gamma1 = 11
+    gamma2 = 91
     
     DeltaF0 = N1 * dF0
     DeltaF1 = N2 * dF1
