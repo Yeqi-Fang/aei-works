@@ -2,7 +2,7 @@ Aggressive Memory-Optimized LAL Search Results
 ===============================================
 Total runs: 500
 Successful runs: 500
-Perfect match 2F: 1037570368.000000
-Mean mismatch: 0.590664
-Std mismatch: 0.197104
-Search time: 128.84 seconds
+Perfect match 2F: 2075140096.000000
+Mean mismatch: 0.148960
+Std mismatch: 0.103649
+Search time: 51.57 seconds
